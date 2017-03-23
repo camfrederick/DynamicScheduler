@@ -6,7 +6,27 @@ package com.example.dynamicscheduler;
 //import java.util.Observable;
 //import java.util.Observer;
 import java.util.ArrayList;
-public interface Event {
+//public abstract class Event {
+//    String title = "";
+//    int startTime = 0;
+//    int stopTime = 0;
+//    String location = "";
+//    String deadline = "";
+//    int flexStart = 0;
+//    int flexStop = 0;
+//    String days = "";
+//
+////    public Event(String title, int startTime, int stopTime,
+////                String location, String deadline, int flexStart,
+////                int timeEst, String days);
+//    String getTitle();
+//    String getLocation();
+//    int getStartTime();
+//    int getStopTime();
+//
+//}
+
+public class Event{
     String title = "";
     int startTime = 0;
     int stopTime = 0;
@@ -16,72 +36,63 @@ public interface Event {
     int flexStop = 0;
     String days = "";
 
-//    public Event(String title, int startTime, int stopTime,
-//                String location, String deadline, int flexStart,
-//                int timeEst, String days);
-    String getTitle();
-    String getLocation();
-    int getStartTime();
-    int getStopTime();
-
-}
-
-class privateEvent implements Event{
-
-
-    public privateEvent() {
+    public Event(String title, int startTime, int stopTime,
+                 String location) {
+        this.title = title;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.location = location;
     }
 
-    @Override
+
     public String getTitle() {
         return title;
     }
 
-    @Override
+
     public String getLocation() {
         return location;
     }
 
-    @Override
+
     public int getStartTime() {
         return startTime;
     }
 
-    @Override
+
     public int getStopTime() {
         return stopTime;
+    }
+
+    public void changeEvent(String title, int startTime, int stopTime,
+                            String location){
+        this.title = title;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.location = location;
     }
 }
 
 //interface DisplayElement {  public void display();
 //}
 
-class groupEvent implements Observable, Event{
+class groupEvent extends Event implements Observable{
     private ArrayList observers;
 
-    public groupEvent() {
+    public groupEvent(String title, int startTime, int stopTime,
+                      String location) {
+        super(title,startTime,stopTime,location);
+        notifyObservers();
 
     }
 
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public String getLocation() {
-        return location;
-    }
-
-    @Override
-    public int getStartTime() {
-        return startTime;
-    }
-
-    @Override
-    public int getStopTime() {
-        return stopTime;
+    public void changeEvent(String title, int startTime, int stopTime,
+                            String location){
+        this.title = title;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.location = location;
+        notifyObservers();
     }
 
     @Override
