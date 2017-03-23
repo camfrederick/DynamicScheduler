@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Cam on 3/23/2017.
  */
 
-public class Member extends User {
+public class Member extends User implements UserObserver {
 
     ArrayList<Group> groups;
 
@@ -26,6 +26,11 @@ public class Member extends User {
     }
 
     public void createEvent() {
+
+    }
+
+    @Override
+    public void update(int startTime, int stopTime, String title, String location) {
 
     }
 }

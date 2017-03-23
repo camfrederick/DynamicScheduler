@@ -13,6 +13,7 @@ public class Admin extends User {
     public Admin(ArrayList<Group> groupList, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
         this.groups = groupList;
+
     }
 
     public Admin(Group g, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {

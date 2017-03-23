@@ -4,8 +4,7 @@ package com.example.dynamicscheduler;
  * Created by Cam on 3/23/2017.
  */
 
-public abstract class User {
-
+public abstract class User{
     private String name;
     private String homeaddress;
     private String email;
@@ -63,6 +62,7 @@ public abstract class User {
 
     public abstract void manageGroups();
 
-    public abstract void createEvent();
+    public void createEvent(){
+    };
 
 }
