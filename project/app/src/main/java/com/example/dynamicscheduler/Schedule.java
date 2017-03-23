@@ -3,7 +3,7 @@ package com.example.dynamicscheduler;
 import java.util.ArrayList;
 
 /**
- * Created by Cam on 3/23/2017.
+ * Created by Casey on 3/23/2017.
  */
 
 public class Schedule implements ScheduleObserver{
@@ -33,6 +33,10 @@ public class Schedule implements ScheduleObserver{
 
     @Override
     public void update() {
+        drawSchedule();
+    }
 
+    public void drawSchedule(){
+        //draws the schedule on our UI
     }
 }
