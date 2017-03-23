@@ -21,10 +21,6 @@ public abstract class User {
         this.schedule = sched;
     }
 
-    public void createEvent(){
-
-    }
-
     public void optimizeSchedule() {
 
     }
@@ -66,4 +62,7 @@ public abstract class User {
     }
 
     public abstract void manageGroups();
+
+    public abstract void createEvent();
+
 }

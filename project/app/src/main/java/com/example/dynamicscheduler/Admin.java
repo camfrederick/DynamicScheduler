@@ -23,4 +23,8 @@ public class Admin extends User {
     public void manageGroups() {
 
     }
+
+    public void createEvent() {
+
+    }
 }

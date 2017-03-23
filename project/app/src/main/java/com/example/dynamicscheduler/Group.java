@@ -51,7 +51,7 @@ public class Group {
                 members.remove(x);
         }
     }
-    
+
     public void setStartShift(int start) {
         this.startShift = start;
     }

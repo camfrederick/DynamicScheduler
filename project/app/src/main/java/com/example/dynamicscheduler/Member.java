@@ -24,4 +24,8 @@ public class Member extends User {
     public void manageGroups() {
 
     }
+
+    public void createEvent() {
+
+    }
 }
