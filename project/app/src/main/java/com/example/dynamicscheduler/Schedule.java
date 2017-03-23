@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Cam on 3/23/2017.
  */
 
-public class Schedule implements Observer{
+public class Schedule implements ScheduleObserver{
 
     private ArrayList<Event> events;
     private ArrayList<BusyTime> busyTimes;
