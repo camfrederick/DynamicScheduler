@@ -60,6 +60,7 @@ class groupEvent implements Observable, Event{
     private ArrayList observers;
 
     public groupEvent() {
+
     }
 
 
