@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Cam on 3/23/2017.
  */
 
-public class Schedule {
+public class Schedule implements Observer{
 
     private ArrayList<Event> events;
     private ArrayList<BusyTime> busyTimes;
@@ -31,4 +31,8 @@ public class Schedule {
         return busyTimes;
     }
 
+    @Override
+    public void update() {
+
+    }
 }
