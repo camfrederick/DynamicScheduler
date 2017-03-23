@@ -26,7 +26,8 @@ import java.util.ArrayList;
 //
 //}
 
-public class Event{
+public class Event implements Observable {
+    Schedule schedule = null;
     String title = "";
     int startTime = 0;
     int stopTime = 0;
@@ -70,6 +71,22 @@ public class Event{
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        schedule = o;
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        schedule = null;
+
+    }
+
+    @Override
+    public void notifyObservers() {
+        schedule.update(
     }
 }
 
