@@ -60,7 +60,7 @@ public class Event implements ScheduleObservable {
     public int getStartTime() {
         return startTime;
     }
-    
+
     public int getStopTime() {
         return stopTime;
     }
