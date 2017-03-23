@@ -26,8 +26,8 @@ import java.util.ArrayList;
 //
 //}
 
-public class Event implements Observable {
-    Schedule schedule = null;
+public class Event implements ScheduleObservable {
+    ScheduleObserver schedule = null;
     String title = "";
     int startTime = 0;
     int stopTime = 0;
@@ -43,6 +43,7 @@ public class Event implements Observable {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
+        notifySchedule();
     }
 
 
@@ -59,8 +60,7 @@ public class Event implements Observable {
     public int getStartTime() {
         return startTime;
     }
-//rohan do this
-
+    
     public int getStopTime() {
         return stopTime;
     }
@@ -71,30 +71,30 @@ public class Event implements Observable {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
+        notifySchedule();
     }
 
     @Override
-    public void registerObserver(Observer o) {
+    public void registerSchedule(ScheduleObserver o) {
         schedule = o;
     }
 
     @Override
-    public void removeObserver(Observer o) {
+    public void removeSchedule(ScheduleObserver o) {
         schedule = null;
-
     }
 
     @Override
-    public void notifyObservers() {
-        schedule.update(
+    public void notifySchedule() {
+        schedule.update();
     }
 }
 
 //interface DisplayElement {  public void display();
 //}
 
-class groupEvent extends Event implements Observable{
-    private ArrayList observers;
+class groupEvent extends Event implements UserObservable{
+    private ArrayList<UserObserver> observers;
 
     public groupEvent(String title, int startTime, int stopTime,
                       String location) {
@@ -105,20 +105,18 @@ class groupEvent extends Event implements Observable{
 
     public void changeEvent(String title, int startTime, int stopTime,
                             String location){
-        this.title = title;
-        this.startTime = startTime;
-        this.stopTime = stopTime;
-        this.location = location;
+        super.changeEvent(title,startTime,stopTime,location);
         notifyObservers();
     }
 
+
     @Override
-    public void registerObserver(Observer o) {
+    public void registerObserver(UserObserver o) {
         observers.add(o);
     }
 
     @Override
-    public void removeObserver(Observer o) {
+    public void removeObserver(UserObserver o) {
         int i = observers.indexOf(o);
         if (i >= 0) {
             observers.remove(i);
@@ -128,7 +126,7 @@ class groupEvent extends Event implements Observable{
     @Override
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer)observers.get(i);
+            UserObserver observer = (UserObserver)observers.get(i);
             observer.update(startTime, stopTime, title,location);
         }
     }
