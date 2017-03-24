@@ -1,7 +1,5 @@
 package com.example.dynamicscheduler;
 
-import android.os.Parcelable;
-
 /**
  * Created by Casey on 3/23/2017.
  */

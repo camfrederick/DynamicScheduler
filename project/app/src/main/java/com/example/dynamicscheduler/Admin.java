@@ -13,19 +13,20 @@ public class Admin extends User {
     public Admin(ArrayList<Group> groupList, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
         this.groups = groupList;
-
+        behave = new CreateForOthers();
     }
 
     public Admin(Group g, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
         this.groups.add(g);
+        behave = new CreateForOthers();
     }
 
-    public void manageGroups() {
-
+    public void createEvent(){
+        behave.createEvent();
     }
 
-    public void createEvent() {
-
+    public void createBusyTime(){
+        behave.createBusyTime();
     }
 }
