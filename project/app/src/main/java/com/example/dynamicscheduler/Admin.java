@@ -6,7 +6,7 @@ package com.example.dynamicscheduler;
 
 import java.util.ArrayList;
 
-public class Admin extends User {
+public class Admin extends User implements UserObserver {
 
     ArrayList<Group> groups;
 
@@ -27,5 +27,11 @@ public class Admin extends User {
 
     public void createEvent() {
 
+    }
+
+    @Override
+    public void update(int startTime, int stopTime, String title, String location) {
+        //notifies admin that a new member event has been created for them and gives them the option of adding the event to their
+        //schedule
     }
 }
