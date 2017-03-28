@@ -53,15 +53,15 @@
 
     <EditText
         android:id="@+id/editText3"
-        android:background="#FFFFFF"
-        android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="If this is your first time, please create an account."
-        android:inputType="textMultiLine"
         android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="If this is your first time, please create an account."
+        android:inputType="textMultiLine" />
 
 </RelativeLayout>
