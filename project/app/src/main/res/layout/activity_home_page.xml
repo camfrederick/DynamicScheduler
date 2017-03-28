@@ -11,32 +11,57 @@
     tools:context="com.example.dynamicscheduler.HomePage">
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
+        android:id="@+id/emailbox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textEmailAddress"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:singleLine="false" />
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+        android:id="@+id/passwordbox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_below="@+id/editText"
-        android:layout_marginTop="51dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/emailbox"
+        android:layout_marginTop="25dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:text="Sign In" />
+        android:text="Sign In"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Create Account"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:background="#FFFFFF"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="If this is your first time, please create an account."
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
