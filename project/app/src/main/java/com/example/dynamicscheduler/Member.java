@@ -9,24 +9,26 @@ import java.util.ArrayList;
 
 public class Member extends User implements UserObserver {
 
-    ArrayList<Group> groups;
+    private ArrayList<Group> groups;
 
     public Member(ArrayList<Group> groupList, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
         this.groups = groupList;
+        behave = new CantCreateForOthers();
     }
 
     public Member(Group g, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
         this.groups.add(g);
+        behave = new CantCreateForOthers();
     }
 
-    public void manageGroups() {
-
+    public void createEvent(){
+        behave.createEvent();
     }
 
-    public void createEvent() {
-
+    public void createBusyTime(){
+        behave.createBusyTime();
     }
 
     @Override

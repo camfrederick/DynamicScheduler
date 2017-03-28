@@ -1,7 +1,7 @@
 package com.example.dynamicscheduler;
 
 /**
- * Created by Korenton on 3/23/2017.
+ * Created by Casey on 3/23/2017.
  */
 
 public class CreateForSelf implements CreatorBehavior{

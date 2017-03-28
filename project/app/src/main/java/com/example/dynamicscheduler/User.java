@@ -5,6 +5,8 @@ package com.example.dynamicscheduler;
  */
 
 public abstract class User{
+
+    public CreatorBehavior behave;
     private String name;
     private String homeaddress;
     private String email;
@@ -18,6 +20,7 @@ public abstract class User{
         this.email = emailAddress;
         this.telephone = phoneNum;
         this.schedule = sched;
+        behave = new CreateForSelf();
     }
 
     public void optimizeSchedule() {
@@ -60,9 +63,12 @@ public abstract class User{
         this.telephone = p;
     }
 
-    public abstract void manageGroups();
-
     public void createEvent(){
-    };
+        behave.createEvent();
+    }
+
+    public void createBusyTime(){
+        behave.createBusyTime();
+    }
 
 }
