@@ -90,7 +90,7 @@ public class User{
        Event event = new Event( title,  startTime,  stopTime,
          location,  date);
         schedule.addEvent(event);
-        //event.registerSchedule(schedule);
+        event.registerSchedule(schedule);
 
 
     }
