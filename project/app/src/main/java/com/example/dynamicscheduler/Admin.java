@@ -38,7 +38,7 @@ public class Admin extends User implements UserObserver {
     }
 
     @Override
-    public void update(int startTime, int stopTime, String title, String location, String date) {
+    public void update(Event e) {
         //notifies admin that a new member event has been created for them and gives them the option of adding the event to their
         //schedule
     }

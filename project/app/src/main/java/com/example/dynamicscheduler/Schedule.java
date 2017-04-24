@@ -18,6 +18,7 @@ public class Schedule implements ScheduleObserver{
 
     public void addEvent(Event e){
         events.add(e);
+        update();
     }
 
     public void addBusyTime(BusyTime busy) {

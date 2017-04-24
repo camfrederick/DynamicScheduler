@@ -63,15 +63,21 @@ public abstract class User{
         this.telephone = p;
     }
 
+    public void createEventAlgorithmically(){
+
+    }
+
     public void createEvent(String title, int startTime, int stopTime,
                             String location, String date){
-       Event event = behave.createEvent( title,  startTime,  stopTime,
+       Event event = new Event( title,  startTime,  stopTime,
          location,  date);
         schedule.addEvent(event);
+
+
     }
 
     public void createBusyTime(int start, int stop, String repeat, String name){
-       BusyTime busytime = behave.createBusyTime( start,  stop,  repeat,  name);
+       BusyTime busytime = new BusyTime( start,  stop,  repeat,  name);
         schedule.addBusyTime(busytime);
 
     }

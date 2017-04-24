@@ -26,15 +26,21 @@ import java.util.ArrayList;
 
 public class Event implements ScheduleObservable {
     // day/month/year  XX/XX/XXXX
-    String date;
+    int deadlineDay;
+    int deadlineMonth;
+    int deadlineYear;
     int day;
     int month;
     int year;
     ScheduleObserver schedule = null;
+
+    String date;
     String title = "";
     int startTime = 0;
     int stopTime = 0;
     String location = "";
+
+    boolean algorithmicAdd;
     String deadline = "";
     int flexStart = 0;
     int flexStop = 0;
@@ -50,16 +56,36 @@ public class Event implements ScheduleObservable {
     public Event(String title, int startTime, int stopTime,
                  String location, String date) {
 
-        // Calculate number of seconds since midnight
+        algorithmicAdd = false;
         this.date = date;
-        parseDate(date);
+        int[] dateArray = parseDate(date);
+        this.day = dateArray[0];
+        this.month = dateArray[1];
+        this.year = dateArray[2];
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
-        notifySchedule();
+
+
     }
 
+    public Event(boolean alg, String days, String title,int flexStart,
+            int flexStop,String location,String deadline) {
+
+
+        algorithmicAdd = alg;
+        this.deadline = deadline;
+        int[] dateArray = parseDate(date);
+        this.deadlineDay = dateArray[0];
+        this.deadlineMonth = dateArray[1];
+        this.deadlineYear = dateArray[2];
+        this.title = title;
+        this.flexStart = flexStart;
+        this.flexStop = flexStop;
+        this.location = location;
+
+    }
 
     public String getTitle() {
         return title;
@@ -70,6 +96,13 @@ public class Event implements ScheduleObservable {
         return location;
     }
 
+    public void setAlgorithmicAdd(boolean add){
+        algorithmicAdd = add;
+    }
+
+    public boolean getAlgorithmicAdd(){
+        return algorithmicAdd;
+    }
 
     public int getStartTime() {
         return startTime;
@@ -91,7 +124,8 @@ public class Event implements ScheduleObservable {
         notifySchedule();
     }
 
-    public void parseDate(String date){
+    public int[] parseDate(String date){
+        int[] dateArray = new int[3];
         // Normalize the input (trim whitespace and make lower case)4
         date = date.trim().toLowerCase();
 
@@ -106,19 +140,20 @@ public class Event implements ScheduleObservable {
         }
 
         // Interpret everything up to the first colon as the hour
-        day = Integer.valueOf(date.substring(0, firstSlash));
+        dateArray[0] = Integer.valueOf(date.substring(0, firstSlash));
         // Interpret everything between the two colons as the minute
-        month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
+        dateArray[1] = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
         // Interpret the two characters after the second colon as the seconds
-        year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
+        dateArray[2] = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
         this.date = date;
         // Range check the values
 
-        if ((day < MIN_DAY || day > MAX_DAY) ||
-                (month < MIN_MONTH || month > MAX_MONTH) ||
-                (year < MIN_YEAR || year > MAX_YEAR)) {
+        if ((dateArray[0] < MIN_DAY || dateArray[0] > MAX_DAY) ||
+                (dateArray[1] < MIN_MONTH || dateArray[1] > MAX_MONTH) ||
+                (dateArray[2] < MIN_YEAR || dateArray[2] > MAX_YEAR)) {
             throw new IllegalArgumentException("Unacceptable date specified");
         }
+        return dateArray;
     }
 
     @Override
@@ -157,7 +192,6 @@ class groupEvent extends Event implements UserObservable{
         }
         group = g;
         notifyObservers();
-        notifySchedule();
     }
 
     public void changeEvent(String title, int startTime, int stopTime,
@@ -187,7 +221,7 @@ class groupEvent extends Event implements UserObservable{
         }
 
     }
-    
+
     @Override
     public void registerObserver(UserObserver o) {
         observers.add(o);
