@@ -1,5 +1,8 @@
 package com.example.dynamicscheduler;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 /**
  * Created by Cam on 3/23/2017.
  */
@@ -24,7 +27,16 @@ public class User{
     }
 
     public void optimizeSchedule() {
-
+        ArrayList<Event> algorithmicAdds = new ArrayList<Event>();
+        ArrayList<Event> hardAdds = new ArrayList<Event>();
+        for(Event e : schedule.getEvents()){
+            if(e.getAlgorithmicAdd())
+                algorithmicAdds.add(e);
+            else
+                hardAdds.add(e);
+        }
+        String currentDate = "4/24/2017"; //TODO: figure out how to find current date
+        Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
     }
 
     public String getName() {
@@ -63,11 +75,13 @@ public class User{
         this.telephone = p;
     }
 
-    public void createEventAlgorithmically(String days, String title,int duration, int flexStart,
-                                           int flexStop,String location,String deadline){
+    public void createEventAlgorithmically(String days, String title,int duration,
+                                           String location,String deadline,BusyTime bt){
         days = "EveryDay"; // will need to update days later
 
-        Event event = new Event(true,days,title,duration, flexStart,flexStop,location,deadline);
+        Event event = new Event(true,days,title,duration,location,deadline,bt);
+        schedule.addEvent(event);
+        optimizeSchedule();
 
     }
 
@@ -76,7 +90,7 @@ public class User{
        Event event = new Event( title,  startTime,  stopTime,
          location,  date);
         schedule.addEvent(event);
-        event.registerSchedule(schedule);
+        //event.registerSchedule(schedule);
 
 
     }

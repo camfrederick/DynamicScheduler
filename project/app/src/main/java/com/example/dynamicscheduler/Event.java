@@ -21,11 +21,10 @@ public class Event implements ScheduleObservable {
     int stopTime = 0;
     String location = "";
 
-    int duration
+    int duration;
     boolean algorithmicAdd;
     String deadline = "";
-    int flexStart = 0;
-    int flexStop = 0;
+    BusyTime busyTime;
     String days = "";
 
     private static final int MIN_DAY = 0;
@@ -52,8 +51,7 @@ public class Event implements ScheduleObservable {
 
     }
 
-    public Event(boolean alg, String days, String title,int duration, int flexStart,
-            int flexStop,String location,String deadline) {
+    public Event(boolean alg, String days, String title,int duration,String location,String deadline,BusyTime bt) {
 
 
         algorithmicAdd = alg;
@@ -64,8 +62,7 @@ public class Event implements ScheduleObservable {
         this.deadlineDay = dateArray[1];
         this.deadlineYear = dateArray[2];
         this.title = title;
-        this.flexStart = flexStart;
-        this.flexStop = flexStop;
+        this.busyTime = bt;
         this.location = location;
 
     }
