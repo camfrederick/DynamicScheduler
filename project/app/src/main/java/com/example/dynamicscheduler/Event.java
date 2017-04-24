@@ -25,6 +25,9 @@ import java.util.ArrayList;
 //}
 
 public class Event implements ScheduleObservable {
+    String day;
+    String month;
+    String year;
     ScheduleObserver schedule = null;
     String title = "";
     int startTime = 0;
@@ -36,7 +39,8 @@ public class Event implements ScheduleObservable {
     String days = "";
 
     public Event(String title, int startTime, int stopTime,
-                 String location) {
+                 String location, String date) {
+
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -95,8 +99,8 @@ class groupEvent extends Event implements UserObservable{
     private ArrayList<UserObserver> observers;
 
     public groupEvent(String title, int startTime, int stopTime,
-                      String location) {
-        super(title,startTime,stopTime,location);
+                      String location,String date) {
+        super(title,startTime,stopTime,location,date);
         notifyObservers();
 
     }

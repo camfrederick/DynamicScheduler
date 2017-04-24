@@ -63,11 +63,12 @@ public abstract class User{
         this.telephone = p;
     }
 
-    public void createEvent(){
+    public void createEvent(String title, int startTime, int stopTime,
+                            String location, String date){
         behave.createEvent();
     }
 
-    public void createBusyTime(){
+    public void createBusyTime(int start, int stop, String repeat, String name){
         behave.createBusyTime();
     }
 
