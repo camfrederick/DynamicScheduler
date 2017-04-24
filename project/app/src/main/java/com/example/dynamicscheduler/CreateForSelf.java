@@ -7,12 +7,14 @@ package com.example.dynamicscheduler;
 public class CreateForSelf implements CreatorBehavior{
 
     @Override
-    public void createEvent(){
-        //creates event for self
+    public Event createEvent(String title, int startTime, int stopTime, String location, String date){
+        Event e = new Event(title, startTime, stopTime, location, date);
+        return e;
     }
 
     @Override
-    public void createBusyTime(){
-        //creates busytime for self
+    public BusyTime createBusyTime(int start, int stop, String repeat, String name){
+        BusyTime b = new BusyTime(start, stop, repeat, name);
+        return b;
     }
 }

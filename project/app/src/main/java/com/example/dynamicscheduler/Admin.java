@@ -22,16 +22,18 @@ public class Admin extends User implements UserObserver {
         behave = new CreateForOthers();
     }
 
-    public void createEvent(){
-        behave.createEvent();
+    public void createEvent(String title, int startTime, int stopTime, String location, String date){
+        Event event = behave.createEvent(title, startTime, stopTime, location, date);
+        schedule.addEvent(event);
     }
 
-    public void createBusyTime(){
-        behave.createBusyTime();
+    public void createBusyTime(int start, int stop, String repeat, String name){
+        BusyTime busy = behave.createBusyTime(start, stop, repeat, name);
+        schedule.addBusyTime(busy);
     }
 
     @Override
-    public void update(int startTime, int stopTime, String title, String location) {
+    public void update(int startTime, int stopTime, String title, String location, String date) {
         //notifies admin that a new member event has been created for them and gives them the option of adding the event to their
         //schedule
     }
