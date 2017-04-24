@@ -116,7 +116,10 @@ public class Event implements ScheduleObservable {
                             String location,String date){
 
         this.date = date;
-        parseDate(date);
+        int[] dateArray = parseDate(date);
+        this.month = dateArray[0];
+        this.day = dateArray[1];
+        this.year = dateArray[2];
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -169,78 +172,5 @@ public class Event implements ScheduleObservable {
     @Override
     public void notifySchedule() {
         schedule.update();
-    }
-}
-
-//interface DisplayElement {  public void display();
-//}
-
-class groupEvent extends Event implements UserObservable{
-    private ArrayList<UserObserver> observers;
-    private ArrayList<ScheduleObserver> schedules;
-    private Group group;
-
-    public groupEvent(Group g, String title, int startTime, int stopTime,
-                      String location,String date) {
-        super(title,startTime,stopTime,location,date);
-        for(Member member : g.getMemberList()){
-            if(member.equals(group.getAdmin())){
-                continue;
-            }
-            registerObserver(member);
-            registerSchedule(member.getSchedule());
-        }
-        group = g;
-        notifyObservers();
-    }
-
-    public void changeEvent(String title, int startTime, int stopTime,
-                            String location,String date){
-        super.changeEvent(title,startTime,stopTime,location,date);
-        notifyObservers();
-        notifySchedule();
-    }
-
-
-    @Override
-    public void registerSchedule(ScheduleObserver o) {
-        schedules.add(o);
-    }
-
-
-    @Override
-    public void removeSchedule(ScheduleObserver o) {
-        schedules.remove(o);
-    }
-
-
-    @Override
-    public void notifySchedule() {
-        for(ScheduleObserver s : schedules){
-            s.update();
-        }
-
-    }
-
-    @Override
-    public void registerObserver(UserObserver o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void removeObserver(UserObserver o) {
-        int i = observers.indexOf(o);
-        if (i >= 0) {
-            observers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++) {
-            UserObserver observer = (UserObserver)observers.get(i);
-            observer.update(this);
-
-        }
     }
 }

@@ -63,7 +63,11 @@ public class User{
         this.telephone = p;
     }
 
-    public void createEventAlgorithmically(){
+    public void createEventAlgorithmically(String days, String title,int duration, int flexStart,
+                                           int flexStop,String location,String deadline){
+        days = "EveryDay"; // will need to update days later
+
+        Event event = new Event(true,days,title,duration, flexStart,flexStop,location,deadline);
 
     }
 
@@ -72,6 +76,7 @@ public class User{
        Event event = new Event( title,  startTime,  stopTime,
          location,  date);
         schedule.addEvent(event);
+        event.registerSchedule(schedule);
 
 
     }

@@ -9,14 +9,16 @@ import java.util.ArrayList;
 public class Group {
 
     String name;
-    ArrayList<Member> members;
+    ArrayList<Member> members = new ArrayList<Member>();
     Member admin;
     int startShift;
     int stopShift;
 
     public Group(ArrayList<Member> m, Member a, int start, int stop, String name) {
         this.name = name;
-        this.members = m;
+        if(m != null)
+            this.members.addAll(m);
+        this.members.add(a);
         this.admin = a;
         this.startShift = start;
         this.stopShift = stop;

@@ -23,13 +23,18 @@ public class Member extends User implements UserObserver {
         behave = new CantCreateForOthers();
     }
 
+    public Member(String fullName, String address, String emailAddress, String phoneNum){
+        super(fullName, address, emailAddress, phoneNum);
+        behave = new CantCreateForOthers();
+    }
+
     public void createEvent(String title, int startTime, int stopTime, String location, String date){
         Event event = new Event(title, startTime, stopTime, location, date);
         schedule.addEvent(event);
     }
 
     public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date){
-        groupEvent gevent = new groupEvent(group,title, startTime, stopTime, location, date);
+        GroupEvent gevent = new GroupEvent(group,title, startTime, stopTime, location, date);
         schedule.addEvent(gevent);
     }
 
