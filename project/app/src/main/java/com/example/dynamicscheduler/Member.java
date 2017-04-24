@@ -11,14 +11,14 @@ public class Member extends User implements UserObserver {
 
     private ArrayList<Group> groups;
 
-    public Member(ArrayList<Group> groupList, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
-        super(fullName, address, emailAddress, phoneNum, sched);
+    public Member(ArrayList<Group> groupList, String fullName, String address, String emailAddress, String phoneNum) {
+        super(fullName, address, emailAddress, phoneNum);
         this.groups.addAll(groupList);
         behave = new CantCreateForOthers();
     }
 
-    public Member(Group g, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
-        super(fullName, address, emailAddress, phoneNum, sched);
+    public Member(Group g, String fullName, String address, String emailAddress, String phoneNum) {
+        super(fullName, address, emailAddress, phoneNum);
         this.groups.add(g);
         behave = new CantCreateForOthers();
     }
