@@ -30,7 +30,7 @@ public class Member extends User implements UserObserver {
 
     public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date){
         groupEvent gevent = new groupEvent(group,title, startTime, stopTime, location, date);
-        schedule.addEvent(gevent); 
+        schedule.addEvent(gevent);
     }
 
     public ArrayList<Group> getAdminGroups(){

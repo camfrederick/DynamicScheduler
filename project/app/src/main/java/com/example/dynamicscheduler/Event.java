@@ -25,12 +25,12 @@ import java.util.ArrayList;
 //}
 
 public class Event implements ScheduleObservable {
-    // day/month/year  XX/XX/XXXX
-    int deadlineDay;
+    // mont/day/year  XX/XX/XXXX
     int deadlineMonth;
+    int deadlineDay;
     int deadlineYear;
-    int day;
     int month;
+    int day;
     int year;
     ScheduleObserver schedule = null;
 
@@ -59,8 +59,8 @@ public class Event implements ScheduleObservable {
         algorithmicAdd = false;
         this.date = date;
         int[] dateArray = parseDate(date);
-        this.day = dateArray[0];
-        this.month = dateArray[1];
+        this.month = dateArray[0];
+        this.day = dateArray[1];
         this.year = dateArray[2];
         this.title = title;
         this.startTime = startTime;
@@ -77,8 +77,8 @@ public class Event implements ScheduleObservable {
         algorithmicAdd = alg;
         this.deadline = deadline;
         int[] dateArray = parseDate(date);
-        this.deadlineDay = dateArray[0];
-        this.deadlineMonth = dateArray[1];
+        this.deadlineMonth = dateArray[0];
+        this.deadlineDay = dateArray[1];
         this.deadlineYear = dateArray[2];
         this.title = title;
         this.flexStart = flexStart;

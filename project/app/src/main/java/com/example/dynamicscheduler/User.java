@@ -4,22 +4,22 @@ package com.example.dynamicscheduler;
  * Created by Cam on 3/23/2017.
  */
 
-public abstract class User{
+public class User{
 
     public CreatorBehavior behave;
     private String name;
     private String homeaddress;
     private String email;
-    private int telephone;
+    private String telephone;
     protected Schedule schedule;
 
 
-    public User(String fullName, String address, String emailAddress, int phoneNum, Schedule sched){
+    public User(String fullName, String address, String emailAddress, String phoneNum){
         this.name = fullName;
         this.homeaddress = address;
         this.email = emailAddress;
         this.telephone = phoneNum;
-        this.schedule = sched;
+        this.schedule = new Schedule();
         behave = new CreateForSelf();
     }
 
@@ -39,7 +39,7 @@ public abstract class User{
         return this.homeaddress;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.telephone;
     }
 
@@ -59,7 +59,7 @@ public abstract class User{
         this.homeaddress = a;
     }
 
-    public void setPhoneNum(int p) {
+    public void setPhoneNum(String p) {
         this.telephone = p;
     }
 
