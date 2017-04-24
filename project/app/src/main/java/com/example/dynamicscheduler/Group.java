@@ -8,19 +8,21 @@ import java.util.ArrayList;
 
 public class Group {
 
+    String name;
     ArrayList<Member> members;
-    Admin admin;
+    Member admin;
     int startShift;
     int stopShift;
 
-    public Group(ArrayList<Member> m, Admin a, int start, int stop) {
+    public Group(ArrayList<Member> m, Member a, int start, int stop, String name) {
+        this.name = name;
         this.members = m;
         this.admin = a;
         this.startShift = start;
         this.stopShift = stop;
     }
 
-    public Admin getAdmin(){
+    public Member getAdmin(){
         return this.admin;
     }
 
@@ -36,13 +38,14 @@ public class Group {
         return stopShift;
     }
 
-    public void changeAdmin(Admin a) {
+    public void changeAdmin(Member a) {
         this.admin = a;
     }
 
     public void addMembers(ArrayList<Member> newMems) {
         for(int i = 0; i < newMems.size(); i++)
             this.members.add(newMems.get(i));
+
     }
 
     public void removeMembers(Member i) {

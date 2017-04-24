@@ -33,8 +33,6 @@ public class Schedule implements ScheduleObserver{
         events.remove(e);
     }
 
-
-
     public ArrayList<Event> getEvents(){
         return events;
     }
