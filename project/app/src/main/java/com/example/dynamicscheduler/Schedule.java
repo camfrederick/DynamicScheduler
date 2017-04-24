@@ -21,7 +21,12 @@ public class Schedule implements ScheduleObserver{
     }
 
     public void addBusyTime(BusyTime busy) {
-        busyTimes.add(busy);}
+        busyTimes.add(busy);
+    }
+
+    public void removeBusyTime(BusyTime busy){
+        busyTimes.remove(busy);
+    }
 
     public void removeEvent(Event e){
 
