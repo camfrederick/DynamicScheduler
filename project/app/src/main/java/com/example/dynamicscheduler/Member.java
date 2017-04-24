@@ -48,10 +48,12 @@ public class Member extends User implements UserObserver {
     }
 
     @Override
-    public void update(int startTime, int stopTime, String title, String location, String date) {
+    public void update(Event e) {
         //ping user using android notification
-        createEvent(title, startTime, stopTime, location, date);
-        schedule.update();
+        if (schedule.getEvents().contains(e)){
+            schedule.removeEvent(e);
+        }
+        schedule.addEvent(e);
         //notifies user that a new event has been created for them and adds the new event to their schedule
     }
 }
