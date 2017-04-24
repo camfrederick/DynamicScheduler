@@ -23,12 +23,14 @@ public class Member extends User implements UserObserver {
         behave = new CantCreateForOthers();
     }
 
-    public void createEvent(){
-        behave.createEvent();
+    public void createEvent(String title, int startTime, int stopTime, String location, String date){
+        Event event = behave.createEvent(title, startTime, stopTime, location, date);
+        schedule.addEvent(event);
     }
 
-    public void createBusyTime(){
-        behave.createBusyTime();
+    public void createBusyTime(int start, int stop, String repeat, String name){
+        BusyTime busy = behave.createBusyTime(start, stop, repeat, name);
+        schedule.addBusyTime(busy);
     }
 
     @Override
