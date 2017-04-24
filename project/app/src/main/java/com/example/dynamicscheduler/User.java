@@ -65,11 +65,15 @@ public abstract class User{
 
     public void createEvent(String title, int startTime, int stopTime,
                             String location, String date){
-        behave.createEvent();
+       Event event = behave.createEvent( title,  startTime,  stopTime,
+         location,  date);
+        schedule.addEvent(event);
     }
 
     public void createBusyTime(int start, int stop, String repeat, String name){
-        behave.createBusyTime();
+       BusyTime busytime = behave.createBusyTime( start,  stop,  repeat,  name);
+        schedule.addBusyTime(busytime);
+
     }
 
 }

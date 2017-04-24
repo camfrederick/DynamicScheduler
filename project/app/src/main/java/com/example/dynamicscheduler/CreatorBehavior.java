@@ -7,9 +7,9 @@ package com.example.dynamicscheduler;
 public interface CreatorBehavior {
 
     //method header for createEvent, allows for different implementations for different types of users
-    public void createEvent(String title, int startTime, int stopTime, String location, String date);
+    public Event createEvent(String title, int startTime, int stopTime, String location, String date);
 
     //method header for createBusyTime, allows for different implementations for different types of users
-    public void createBusyTime(int start, int stop, String repeat, String name);
+    public Event createBusyTime(int start, int stop, String repeat, String name);
 
 }
