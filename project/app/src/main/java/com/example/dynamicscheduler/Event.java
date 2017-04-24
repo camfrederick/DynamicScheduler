@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class Event implements ScheduleObservable {
     // day/month/year  XX/XX/XXXX
+    String date;
     int day;
     int month;
     int year;
@@ -48,7 +49,7 @@ public class Event implements ScheduleObservable {
 
     public Event(String title, int startTime, int stopTime,
                  String location, String date) {
-        // Normalize the input (trim whitespace and make lower case)
+        // Normalize the input (trim whitespace and make lower case)4
         date = date.trim().toLowerCase();
 
         int firstSlash = date.indexOf('/');
@@ -67,7 +68,7 @@ public class Event implements ScheduleObservable {
         month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
         // Interpret the two characters after the second colon as the seconds
         year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
-
+        this.date = date;
         // Range check the values
 
         if ((day < MIN_DAY || day > MAX_DAY) ||
@@ -138,6 +139,9 @@ class groupEvent extends Event implements UserObservable{
                       String location,String date) {
         super(title,startTime,stopTime,location,date);
         group = g;
+        for(Member member : g.getMemberList()){
+            registerObserver(member);
+        }
         notifyObservers();
     }
 
@@ -165,7 +169,6 @@ class groupEvent extends Event implements UserObservable{
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
             UserObserver observer = (UserObserver)observers.get(i);
-            observer.update(startTime, stopTime, title, location);
-        }
+            observer.update(startTime, stopTime, title,location);observer.update(startTime, stopTime, title,location,date);        }
     }
 }
