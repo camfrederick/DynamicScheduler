@@ -10,6 +10,6 @@ public interface CreatorBehavior {
     public Event createEvent(String title, int startTime, int stopTime, String location, String date);
 
     //method header for createBusyTime, allows for different implementations for different types of users
-    public Event createBusyTime(int start, int stop, String repeat, String name);
+    public BusyTime createBusyTime(int start, int stop, String repeat, String name);
 
 }
