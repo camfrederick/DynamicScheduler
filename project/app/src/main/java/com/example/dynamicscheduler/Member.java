@@ -54,7 +54,6 @@ public class Member extends User implements UserObserver {
             schedule.removeEvent(e);
         }
         schedule.addEvent(e);
-        schedule.update();
         //notifies user that a new event has been created for them and adds the new event to their schedule
     }
 }

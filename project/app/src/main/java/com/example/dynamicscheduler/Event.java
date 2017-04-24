@@ -49,34 +49,10 @@ public class Event implements ScheduleObservable {
 
     public Event(String title, int startTime, int stopTime,
                  String location, String date) {
-        // Normalize the input (trim whitespace and make lower case)4
-        date = date.trim().toLowerCase();
 
-        int firstSlash = date.indexOf('/');
-        if (firstSlash == -1) {
-            throw new NumberFormatException("Unrecognized time format");
-        }
-
-        int secondSlash = date.indexOf('/', firstSlash+1);
-        if (secondSlash == -1) {
-            throw new NumberFormatException("Unrecognized time format");
-        }
-
-        // Interpret everything up to the first colon as the hour
-        day = Integer.valueOf(date.substring(0, firstSlash));
-        // Interpret everything between the two colons as the minute
-        month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
-        // Interpret the two characters after the second colon as the seconds
-        year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
-        this.date = date;
-        // Range check the values
-
-        if ((day < MIN_DAY || day > MAX_DAY) ||
-                (month < MIN_MONTH || month > MAX_MONTH) ||
-                (year < MIN_YEAR || year > MAX_YEAR)) {
-            throw new IllegalArgumentException("Unacceptable date specified");
-        }
         // Calculate number of seconds since midnight
+        this.date = date;
+        parseDate(date);
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -104,12 +80,45 @@ public class Event implements ScheduleObservable {
     }
 
     public void changeEvent(String title, int startTime, int stopTime,
-                            String location){
+                            String location,String date){
+
+        this.date = date;
+        parseDate(date);
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
         notifySchedule();
+    }
+
+    public void parseDate(String date){
+        // Normalize the input (trim whitespace and make lower case)4
+        date = date.trim().toLowerCase();
+
+        int firstSlash = date.indexOf('/');
+        if (firstSlash == -1) {
+            throw new NumberFormatException("Unrecognized time format");
+        }
+
+        int secondSlash = date.indexOf('/', firstSlash+1);
+        if (secondSlash == -1) {
+            throw new NumberFormatException("Unrecognized time format");
+        }
+
+        // Interpret everything up to the first colon as the hour
+        day = Integer.valueOf(date.substring(0, firstSlash));
+        // Interpret everything between the two colons as the minute
+        month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
+        // Interpret the two characters after the second colon as the seconds
+        year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
+        this.date = date;
+        // Range check the values
+
+        if ((day < MIN_DAY || day > MAX_DAY) ||
+                (month < MIN_MONTH || month > MAX_MONTH) ||
+                (year < MIN_YEAR || year > MAX_YEAR)) {
+            throw new IllegalArgumentException("Unacceptable date specified");
+        }
     }
 
     @Override
@@ -133,25 +142,52 @@ public class Event implements ScheduleObservable {
 
 class groupEvent extends Event implements UserObservable{
     private ArrayList<UserObserver> observers;
+    private ArrayList<ScheduleObserver> schedules;
     private Group group;
 
     public groupEvent(Group g, String title, int startTime, int stopTime,
                       String location,String date) {
         super(title,startTime,stopTime,location,date);
-        group = g;
         for(Member member : g.getMemberList()){
+            if(member.equals(group.getAdmin())){
+                continue;
+            }
             registerObserver(member);
+            registerSchedule(member.getSchedule());
         }
+        group = g;
         notifyObservers();
+        notifySchedule();
     }
 
     public void changeEvent(String title, int startTime, int stopTime,
-                            String location){
-        super.changeEvent(title,startTime,stopTime,location);
+                            String location,String date){
+        super.changeEvent(title,startTime,stopTime,location,date);
         notifyObservers();
+        notifySchedule();
     }
 
 
+    @Override
+    public void registerSchedule(ScheduleObserver o) {
+        schedules.add(o);
+    }
+
+
+    @Override
+    public void removeSchedule(ScheduleObserver o) {
+        schedules.remove(o);
+    }
+
+
+    @Override
+    public void notifySchedule() {
+        for(ScheduleObserver s : schedules){
+            s.update();
+        }
+
+    }
+    
     @Override
     public void registerObserver(UserObserver o) {
         observers.add(o);
@@ -170,6 +206,7 @@ class groupEvent extends Event implements UserObservable{
         for (int i = 0; i < observers.size(); i++) {
             UserObserver observer = (UserObserver)observers.get(i);
             observer.update(this);
+
         }
     }
 }
