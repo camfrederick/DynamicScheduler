@@ -148,8 +148,8 @@ public class Event implements ScheduleObservable {
         this.date = date;
         // Range check the values
 
-        if ((dateArray[0] < MIN_DAY || dateArray[0] > MAX_DAY) ||
-                (dateArray[1] < MIN_MONTH || dateArray[1] > MAX_MONTH) ||
+        if ((dateArray[0] < MIN_MONTH || dateArray[0] > MAX_MONTH) ||
+                (dateArray[1] < MIN_DAY || dateArray[1] > MAX_DAY) ||
                 (dateArray[2] < MIN_YEAR || dateArray[2] > MAX_YEAR)) {
             throw new IllegalArgumentException("Unacceptable date specified");
         }
