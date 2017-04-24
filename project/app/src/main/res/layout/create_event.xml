@@ -59,15 +59,15 @@
             android:id="@+id/editText21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Select Date"
-            android:layout_alignStart="@+id/Select Date"
-            android:layout_below="@+id/Select Date"
+            android:layout_alignLeft="@+id/SelectDate"
+            android:layout_alignStart="@+id/SelectDate"
+            android:layout_below="@+id/SelectDate"
             android:ems="10"
             android:hint="MM/DD/YYY"
             android:inputType="date" />
 
         <TextView
-            android:id="@+id/Select Date"
+            android:id="@+id/SelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/editText16"
