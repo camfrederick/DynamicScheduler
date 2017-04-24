@@ -165,7 +165,7 @@ class groupEvent extends Event implements UserObservable{
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
             UserObserver observer = (UserObserver)observers.get(i);
-            observer.update(startTime, stopTime, title,location);
+            observer.update(startTime, stopTime, title, location);
         }
     }
 }
