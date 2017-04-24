@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class Group {
 
     ArrayList<Member> members;
-    Admin admin;
+    Member admin;
     int startShift;
     int stopShift;
 
-    public Group(ArrayList<Member> m, Admin a, int start, int stop) {
+    public Group(ArrayList<Member> m, Member a, int start, int stop) {
         this.members = m;
         this.admin = a;
         this.startShift = start;
         this.stopShift = stop;
     }
 
-    public Admin getAdmin(){
+    public Member getAdmin(){
         return this.admin;
     }
 
@@ -36,7 +36,7 @@ public class Group {
         return stopShift;
     }
 
-    public void changeAdmin(Admin a) {
+    public void changeAdmin(Member a) {
         this.admin = a;
     }
 
