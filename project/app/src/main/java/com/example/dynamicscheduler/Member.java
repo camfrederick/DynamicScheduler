@@ -13,7 +13,7 @@ public class Member extends User implements UserObserver {
 
     public Member(ArrayList<Group> groupList, String fullName, String address, String emailAddress, int phoneNum, Schedule sched) {
         super(fullName, address, emailAddress, phoneNum, sched);
-        this.groups = groupList;
+        this.groups.addAll(groupList);
         behave = new CantCreateForOthers();
     }
 
@@ -24,12 +24,12 @@ public class Member extends User implements UserObserver {
     }
 
     public void createEvent(String title, int startTime, int stopTime, String location, String date){
-        Event event = behave.createEvent(title, startTime, stopTime, location, date);
+        Event event = new Event(title, startTime, stopTime, location, date);
         schedule.addEvent(event);
     }
 
     public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date){
-
+        groupEvent gevent = new groupEvent(group,title, startTime, stopTime, location, date);
     }
 
     public ArrayList<Group> getAdminGroups(){
@@ -54,6 +54,7 @@ public class Member extends User implements UserObserver {
             schedule.removeEvent(e);
         }
         schedule.addEvent(e);
+        schedule.update();
         //notifies user that a new event has been created for them and adds the new event to their schedule
     }
 }
