@@ -132,12 +132,13 @@ public class Event implements ScheduleObservable {
 
 class groupEvent extends Event implements UserObservable{
     private ArrayList<UserObserver> observers;
+    private Group group;
 
-    public groupEvent(String title, int startTime, int stopTime,
+    public groupEvent(Group g, String title, int startTime, int stopTime,
                       String location,String date) {
         super(title,startTime,stopTime,location,date);
+        group = g;
         notifyObservers();
-
     }
 
     public void changeEvent(String title, int startTime, int stopTime,
