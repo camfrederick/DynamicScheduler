@@ -7,12 +7,14 @@ package com.example.dynamicscheduler;
 public class CantCreateForOthers implements CreatorBehavior{
 
     @Override
-    public void createEvent(){
-        //creates group related event for self
+    public Event createEvent(String title, int startTime, int stopTime, String location, String date){
+        return null;
+        //creates event for self
     }
 
     @Override
-    public void createBusyTime(){
-        //creates group related busytime for self
+    public Event createBusyTime(int start, int stop, String repeat, String name){
+        return null;
+        //creates busytime for self
     }
 }
