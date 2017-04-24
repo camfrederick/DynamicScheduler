@@ -65,4 +65,60 @@ public class ExampleUnitTest {
         assertEquals(user3.getSchedule().getEvents().get(0).getStopTime(),  1500);
         assertEquals(user2.getSchedule().getEvents().get(0).day, 26);
     }
+
+    @Test
+    public void createBusyTimeTest(){
+        User user = new User("tester","123madeup","jryanofarrell@gmail.com","5128978944");
+
+        user.createBusyTime(1400,1800,"EveryDay","HomeWork");
+        user.createBusyTime(1000,1100,"EveryDay","School");
+        user.createBusyTime(1900,2100,"EveryDay","FreeTime");
+
+        ArrayList<BusyTime> busylist = user.getSchedule().getBusyTimes();
+        assertEquals(busylist.get(0).getStarttime(),1400);
+        assertEquals(busylist.get(1).getTitle(),"School");
+        assertEquals(busylist.get(1).getStarttime(),1000);
+        assertEquals(busylist.get(2).getDays(),"EveryDay");
+        assertEquals(busylist.get(2).getStoptime(),2100);
+    }
+
+    @Test
+    public void createAlgorithmicScheduleTest(){
+        User user = new User("tester","123madeup","jryanofarrell@gmail.com","5128978944");
+
+        user.createBusyTime(1400,1800,"EveryDay","HomeWork");
+        user.createBusyTime(1900,2100,"EveryDay","FreeTime");
+
+        ArrayList<BusyTime> busylist = user.getSchedule().getBusyTimes();
+
+        BusyTime hwBusyTime = busylist.get(0);
+        BusyTime freetimeBusyTime = busylist.get(1);
+
+        user.createEventAlgorithmically("EveryDay","HW1", 300, "home", "4/29/2017", hwBusyTime);
+        user.createEvent("meeting",1400,1500,"home","4/24/2017");
+        user.createEventAlgorithmically("EveryDay","HW2", 200, "home", "4/29/2017", hwBusyTime);
+        user.createEvent("meeting",1400,1600,"home","4/25/2017");
+
+        user.createEventAlgorithmically("EveryDay","Movie", 200, "home", "4/29/2017", freetimeBusyTime);
+        user.createEvent("meeting",1900,2000,"home","4/24/2017");
+
+
+        assertEquals(user.getSchedule().getEvents().get(0).getTitle(), "HW1");
+        assertEquals(user.getSchedule().getEvents().get(0).day, 24);
+        assertEquals(user.getSchedule().getEvents().get(0).getStartTime(), 1500);
+        assertEquals(user.getSchedule().getEvents().get(0).getStopTime(),  1800);
+        assertEquals(user.getSchedule().getEvents().get(2).day, 25);
+        assertEquals(user.getSchedule().getEvents().get(3).getStartTime(), 1400);
+        assertEquals(user.getSchedule().getEvents().get(3).getStopTime(), 1600);
+
+        assertEquals(user.getSchedule().getEvents().get(4).getStartTime(), 1900);
+        assertEquals(user.getSchedule().getEvents().get(4).getStopTime(), 2100);
+        assertEquals(user.getSchedule().getEvents().get(4).day, 25);
+
+        assertEquals(user.getSchedule().getEvents().get(5).getStartTime(), 1900);
+        assertEquals(user.getSchedule().getEvents().get(5).getStopTime(), 2000);
+        assertEquals(user.getSchedule().getEvents().get(5).day, 24);
+
+
+    }
 }

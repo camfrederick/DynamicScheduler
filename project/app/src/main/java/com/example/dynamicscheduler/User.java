@@ -37,8 +37,66 @@ public class User{
         }
         String currentDate = "4/24/2017"; //TODO: figure out how to find current date
         Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
+        for(Event e: algorithmicAdds){
+            if(table.containsKey(e.getBusyTime())){
+                ArrayList<Event> btEvents = table.get(e.getBusyTime());
+                btEvents.add(e);
+                table.put(e.getBusyTime(),btEvents);
+            }
+            else{
+                ArrayList<Event> btEvents = new ArrayList<Event>();
+                btEvents.add(e);
+                table.put(e.getBusyTime(),btEvents);
+            }
+
+        }
+        for(BusyTime bt : table.keySet()){
+            for(Event e: table.get(bt)){
+                int starttime = bt.getStarttime();
+                int endtime = starttime + e.duration;
+                String date = currentDate;
+                boolean foundtimeflag = true;
+                boolean resetsearchflag = false;
+                while(foundtimeflag){
+                    for(Event hard : hardAdds){
+                        if(timeConflict(hard,starttime,endtime,date)){
+                            starttime = hard.getStopTime();
+                            endtime = starttime + e.duration;
+                            resetsearchflag = true;
+                            break;
+                        }
+
+                    }
+                    if(!resetsearchflag) {
+                        foundtimeflag = false;
+                    }
+                    resetsearchflag = false;
+                    if(endtime > bt.getStoptime()){
+                        int[] dateArray = Event.parseDate(date);
+                        int day = dateArray[1] + 1; // TODO: figure out how to do this with google calendar
+                        date = Integer.toString(dateArray[0]) + "/" + Integer.toString(day) + "/" + Integer.toString(dateArray[2]);
+                        starttime = bt.getStarttime();
+                        endtime = starttime + e.duration;
+                    }
+                }
+                hardAdds.add(e);
+                e.changeEvent(e.getTitle(),starttime,endtime,e.getLocation(),date);
+            }
+        }
+
     }
 
+    public boolean timeConflict(Event event, int starttime, int endtime,String date){
+        if(event.getDate().equals(date)){
+            if(event.getStartTime() <= starttime && event.getStopTime()> starttime){
+                return true;
+            }
+            if(event.getStartTime() < endtime && event.getStopTime()>= endtime){
+                return true;
+            }
+        }
+        return false;
+    }
     public String getName() {
         return this.name;
     }
@@ -81,6 +139,7 @@ public class User{
 
         Event event = new Event(true,days,title,duration,location,deadline,bt);
         schedule.addEvent(event);
+        event.registerSchedule(schedule);
         optimizeSchedule();
 
     }
@@ -91,6 +150,7 @@ public class User{
          location,  date);
         schedule.addEvent(event);
         event.registerSchedule(schedule);
+        optimizeSchedule();
 
 
     }

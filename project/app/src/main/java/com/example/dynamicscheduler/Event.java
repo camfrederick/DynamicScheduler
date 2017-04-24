@@ -57,7 +57,7 @@ public class Event implements ScheduleObservable {
         algorithmicAdd = alg;
         this.deadline = deadline;
         this.duration = duration;
-        int[] dateArray = parseDate(date);
+        int[] dateArray = parseDate(deadline);
         this.deadlineMonth = dateArray[0];
         this.deadlineDay = dateArray[1];
         this.deadlineYear = dateArray[2];
@@ -92,6 +92,12 @@ public class Event implements ScheduleObservable {
         return stopTime;
     }
 
+    public BusyTime getBusyTime(){
+        return busyTime;
+    }
+    public String getDate(){
+        return date;
+    }
     public void changeEvent(String title, int startTime, int stopTime,
                             String location,String date){
 
@@ -107,7 +113,7 @@ public class Event implements ScheduleObservable {
         notifySchedule();
     }
 
-    public int[] parseDate(String date){
+    public static int[] parseDate(String date){
         int[] dateArray = new int[3];
         // Normalize the input (trim whitespace and make lower case)4
         date = date.trim().toLowerCase();
@@ -128,7 +134,7 @@ public class Event implements ScheduleObservable {
         dateArray[1] = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
         // Interpret the two characters after the second colon as the seconds
         dateArray[2] = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
-        this.date = date;
+        //this.date = date;
         // Range check the values
 
         if ((dateArray[0] < MIN_MONTH || dateArray[0] > MAX_MONTH) ||
@@ -152,5 +158,17 @@ public class Event implements ScheduleObservable {
     @Override
     public void notifySchedule() {
         schedule.update();
+    }
+
+    public void setStartTime(int startTime){
+        this.startTime = startTime;
+    }
+
+    public void setDate(String date){
+        this.date = date;
+    }
+
+    public void setStopTime(int stopTime){
+        this.stopTime = stopTime;
     }
 }
