@@ -11,7 +11,7 @@ public abstract class User{
     private String homeaddress;
     private String email;
     private int telephone;
-    private Schedule schedule;
+    protected Schedule schedule;
 
 
     public User(String fullName, String address, String emailAddress, int phoneNum, Schedule sched){
