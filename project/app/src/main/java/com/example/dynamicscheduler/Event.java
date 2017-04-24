@@ -3,26 +3,7 @@ package com.example.dynamicscheduler;
 /**
  * Created by Cam on 3/23/2017.
  */
-import java.util.ArrayList;
-//public abstract class Event {
-//    String title = "";
-//    int startTime = 0;
-//    int stopTime = 0;
-//    String location = "";
-//    String deadline = "";
-//    int flexStart = 0;
-//    int flexStop = 0;
-//    String days = "";
-//
-////    public Event(String title, int startTime, int stopTime,
-////                String location, String deadline, int flexStart,
-////                int timeEst, String days);
-//    String getTitle();
-//    String getLocation();
-//    int getStartTime();
-//    int getStopTime();
-//
-//}
+
 
 public class Event implements ScheduleObservable {
     // mont/day/year  XX/XX/XXXX
@@ -40,6 +21,7 @@ public class Event implements ScheduleObservable {
     int stopTime = 0;
     String location = "";
 
+    int duration
     boolean algorithmicAdd;
     String deadline = "";
     int flexStart = 0;
@@ -70,12 +52,13 @@ public class Event implements ScheduleObservable {
 
     }
 
-    public Event(boolean alg, String days, String title,int flexStart,
+    public Event(boolean alg, String days, String title,int duration, int flexStart,
             int flexStop,String location,String deadline) {
 
 
         algorithmicAdd = alg;
         this.deadline = deadline;
+        this.duration = duration;
         int[] dateArray = parseDate(date);
         this.deadlineMonth = dateArray[0];
         this.deadlineDay = dateArray[1];
