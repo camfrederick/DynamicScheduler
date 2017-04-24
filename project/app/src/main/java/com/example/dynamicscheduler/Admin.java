@@ -22,6 +22,11 @@ public class Admin extends User implements UserObserver {
         behave = new CreateForOthers();
     }
 
+    public void addGroup(Group g){
+        groups.add(g);
+
+    }
+
     public void createEvent(String title, int startTime, int stopTime, String location, String date){
         Event event = behave.createEvent(title, startTime, stopTime, location, date);
         schedule.addEvent(event);
