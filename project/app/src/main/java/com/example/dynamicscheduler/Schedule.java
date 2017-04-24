@@ -20,9 +20,11 @@ public class Schedule implements ScheduleObserver{
         events.add(e);
     }
 
-    public void addBusyTime(BusyTime busy) { busyTimes.add(busy);}
+    public void addBusyTime(BusyTime busy) {
+        busyTimes.add(busy);}
 
     public void removeEvent(Event e){
+
         events.remove(e);
     }
 
@@ -36,6 +38,7 @@ public class Schedule implements ScheduleObserver{
 
     @Override
     public void update() {
+
         drawSchedule();
     }
 

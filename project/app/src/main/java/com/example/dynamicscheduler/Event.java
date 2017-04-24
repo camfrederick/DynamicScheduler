@@ -25,9 +25,10 @@ import java.util.ArrayList;
 //}
 
 public class Event implements ScheduleObservable {
-    String day;
-    String month;
-    String year;
+    // day/month/year  XX/XX/XXXX
+    int day;
+    int month;
+    int year;
     ScheduleObserver schedule = null;
     String title = "";
     int startTime = 0;
@@ -38,9 +39,43 @@ public class Event implements ScheduleObservable {
     int flexStop = 0;
     String days = "";
 
+    private static final int MIN_DAY = 0;
+    private static final int MAX_DAY = 31;
+    private static final int MIN_MONTH = 0;
+    private static final int MAX_MONTH = 12;
+    private static final int MIN_YEAR = 0000;
+    private static final int MAX_YEAR = 9999;
+
     public Event(String title, int startTime, int stopTime,
                  String location, String date) {
+        // Normalize the input (trim whitespace and make lower case)
+        date = date.trim().toLowerCase();
 
+        int firstSlash = date.indexOf('/');
+        if (firstSlash == -1) {
+            throw new NumberFormatException("Unrecognized time format");
+        }
+
+        int secondSlash = date.indexOf('/', firstSlash+1);
+        if (secondSlash == -1) {
+            throw new NumberFormatException("Unrecognized time format");
+        }
+
+        // Interpret everything up to the first colon as the hour
+        day = Integer.valueOf(date.substring(0, firstSlash));
+        // Interpret everything between the two colons as the minute
+        month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
+        // Interpret the two characters after the second colon as the seconds
+        year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
+
+        // Range check the values
+
+        if ((day < MIN_DAY || day > MAX_DAY) ||
+                (month < MIN_MONTH || month > MAX_MONTH) ||
+                (year < MIN_YEAR || year > MAX_YEAR)) {
+            throw new IllegalArgumentException("Unacceptable date specified");
+        }
+        // Calculate number of seconds since midnight
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
