@@ -28,6 +28,20 @@ public class Member extends User implements UserObserver {
         schedule.addEvent(event);
     }
 
+    public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date){
+
+    }
+
+    public ArrayList<Group> getAdminGroups(){
+        ArrayList<Group> grouplist = new ArrayList<Group>();
+        for (Group g : groups){
+            if(g.getAdmin() == this){
+                grouplist.add(g);
+            }
+        }
+        return grouplist;
+    }
+
     public void createBusyTime(int start, int stop, String repeat, String name){
         BusyTime busy = behave.createBusyTime(start, stop, repeat, name);
         schedule.addBusyTime(busy);
