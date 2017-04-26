@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "339683456708",
+    "firebase_url": "https://dynamic-scheduler-8b832.firebaseio.com",
+    "project_id": "dynamic-scheduler-8b832",
+    "storage_bucket": "dynamic-scheduler-8b832.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339683456708:android:e4a6197972fc57bf",
+        "android_client_info": {
+          "package_name": "com.example.dynamicscheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339683456708-3ceojh1sn963vsr2hrk5voob6mr8e51c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dynamicscheduler",
+            "certificate_hash": "595385b17e5a2a3fd664c44718b328f28c135709"
+          }
+        },
+        {
+          "client_id": "339683456708-iagbtokbbtd4n0ngiigimoeqqubb8v69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcfGio_sANpMwPGSua3bvNChfHVoTMUEM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339683456708-iagbtokbbtd4n0ngiigimoeqqubb8v69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
