@@ -5,5 +5,5 @@ package com.example.dynamicscheduler;
  */
 
 public interface UserObserver {
-    public void update(int startTime, int stopTime, String title, String location,String date);
+    public void update(Event e);
 }

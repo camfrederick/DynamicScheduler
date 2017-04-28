@@ -15,6 +15,17 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+=======
+          "client_id": "339683456708-3ceojh1sn963vsr2hrk5voob6mr8e51c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dynamicscheduler",
+            "certificate_hash": "595385b17e5a2a3fd664c44718b328f28c135709"
+          }
+        },
+        {
+>>>>>>> 1f876be483202e73c15c14220c2910d021a6e7f7
           "client_id": "339683456708-iagbtokbbtd4n0ngiigimoeqqubb8v69.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +40,18 @@
           "status": 1
         },
         "appinvite_service": {
+<<<<<<< HEAD
           "status": 1,
           "other_platform_oauth_client": []
+=======
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339683456708-iagbtokbbtd4n0ngiigimoeqqubb8v69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+>>>>>>> 1f876be483202e73c15c14220c2910d021a6e7f7
         },
         "ads_service": {
           "status": 2

@@ -3,40 +3,28 @@ package com.example.dynamicscheduler;
 /**
  * Created by Cam on 3/23/2017.
  */
-import java.util.ArrayList;
-//public abstract class Event {
-//    String title = "";
-//    int startTime = 0;
-//    int stopTime = 0;
-//    String location = "";
-//    String deadline = "";
-//    int flexStart = 0;
-//    int flexStop = 0;
-//    String days = "";
-//
-////    public Event(String title, int startTime, int stopTime,
-////                String location, String deadline, int flexStart,
-////                int timeEst, String days);
-//    String getTitle();
-//    String getLocation();
-//    int getStartTime();
-//    int getStopTime();
-//
-//}
+
 
 public class Event implements ScheduleObservable {
-    // day/month/year  XX/XX/XXXX
-    int day;
+    // mont/day/year  XX/XX/XXXX
+    int deadlineMonth;
+    int deadlineDay;
+    int deadlineYear;
     int month;
+    int day;
     int year;
     ScheduleObserver schedule = null;
+
+    String date;
     String title = "";
     int startTime = 0;
     int stopTime = 0;
     String location = "";
+
+    int duration;
+    boolean algorithmicAdd;
     String deadline = "";
-    int flexStart = 0;
-    int flexStop = 0;
+    BusyTime busyTime;
     String days = "";
 
     private static final int MIN_DAY = 0;
@@ -48,7 +36,86 @@ public class Event implements ScheduleObservable {
 
     public Event(String title, int startTime, int stopTime,
                  String location, String date) {
-        // Normalize the input (trim whitespace and make lower case)
+
+        algorithmicAdd = false;
+        this.date = date;
+        int[] dateArray = parseDate(date);
+        this.month = dateArray[0];
+        this.day = dateArray[1];
+        this.year = dateArray[2];
+        this.title = title;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.location = location;
+
+
+    }
+
+    public Event(boolean alg, String days, String title,int duration,String location,String deadline,BusyTime bt) {
+
+
+        algorithmicAdd = alg;
+        this.deadline = deadline;
+        this.duration = duration;
+        int[] dateArray = parseDate(deadline);
+        this.deadlineMonth = dateArray[0];
+        this.deadlineDay = dateArray[1];
+        this.deadlineYear = dateArray[2];
+        this.title = title;
+        this.busyTime = bt;
+        this.location = location;
+
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setAlgorithmicAdd(boolean add){
+        algorithmicAdd = add;
+    }
+
+    public boolean getAlgorithmicAdd(){
+        return algorithmicAdd;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public int getStopTime() {
+        return stopTime;
+    }
+
+    public BusyTime getBusyTime(){
+        return busyTime;
+    }
+    public String getDate(){
+        return date;
+    }
+    public void changeEvent(String title, int startTime, int stopTime,
+                            String location,String date){
+
+        this.date = date;
+        int[] dateArray = parseDate(date);
+        this.month = dateArray[0];
+        this.day = dateArray[1];
+        this.year = dateArray[2];
+        this.title = title;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.location = location;
+        notifySchedule();
+    }
+
+    public static int[] parseDate(String date){
+        int[] dateArray = new int[3];
+        // Normalize the input (trim whitespace and make lower case)4
         date = date.trim().toLowerCase();
 
         int firstSlash = date.indexOf('/');
@@ -62,53 +129,20 @@ public class Event implements ScheduleObservable {
         }
 
         // Interpret everything up to the first colon as the hour
-        day = Integer.valueOf(date.substring(0, firstSlash));
+        dateArray[0] = Integer.valueOf(date.substring(0, firstSlash));
         // Interpret everything between the two colons as the minute
-        month = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
+        dateArray[1] = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
         // Interpret the two characters after the second colon as the seconds
-        year = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
-
+        dateArray[2] = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
+        //this.date = date;
         // Range check the values
 
-        if ((day < MIN_DAY || day > MAX_DAY) ||
-                (month < MIN_MONTH || month > MAX_MONTH) ||
-                (year < MIN_YEAR || year > MAX_YEAR)) {
+        if ((dateArray[0] < MIN_MONTH || dateArray[0] > MAX_MONTH) ||
+                (dateArray[1] < MIN_DAY || dateArray[1] > MAX_DAY) ||
+                (dateArray[2] < MIN_YEAR || dateArray[2] > MAX_YEAR)) {
             throw new IllegalArgumentException("Unacceptable date specified");
         }
-        // Calculate number of seconds since midnight
-        this.title = title;
-        this.startTime = startTime;
-        this.stopTime = stopTime;
-        this.location = location;
-        notifySchedule();
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public String getLocation() {
-        return location;
-    }
-
-
-    public int getStartTime() {
-        return startTime;
-    }
-
-    public int getStopTime() {
-        return stopTime;
-    }
-
-    public void changeEvent(String title, int startTime, int stopTime,
-                            String location){
-        this.title = title;
-        this.startTime = startTime;
-        this.stopTime = stopTime;
-        this.location = location;
-        notifySchedule();
+        return dateArray;
     }
 
     @Override
@@ -125,47 +159,16 @@ public class Event implements ScheduleObservable {
     public void notifySchedule() {
         schedule.update();
     }
-}
 
-//interface DisplayElement {  public void display();
-//}
-
-class groupEvent extends Event implements UserObservable{
-    private ArrayList<UserObserver> observers;
-    private Group group;
-
-    public groupEvent(Group g, String title, int startTime, int stopTime,
-                      String location,String date) {
-        super(title,startTime,stopTime,location,date);
-        group = g;
-        notifyObservers();
+    public void setStartTime(int startTime){
+        this.startTime = startTime;
     }
 
-    public void changeEvent(String title, int startTime, int stopTime,
-                            String location){
-        super.changeEvent(title,startTime,stopTime,location);
-        notifyObservers();
+    public void setDate(String date){
+        this.date = date;
     }
 
-
-    @Override
-    public void registerObserver(UserObserver o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void removeObserver(UserObserver o) {
-        int i = observers.indexOf(o);
-        if (i >= 0) {
-            observers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++) {
-            UserObserver observer = (UserObserver)observers.get(i);
-            observer.update(startTime, stopTime, title,location);
-        }
+    public void setStopTime(int stopTime){
+        this.stopTime = stopTime;
     }
 }
