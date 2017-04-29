@@ -94,10 +94,10 @@ public class User{
         Calendar c =  Calendar.getInstance();
         c.set(dateArray[2],dateArray[0],dateArray[1]);
         c.add(Calendar.DATE,days);
-        int year = Calendar.YEAR;
-        int month = Calendar.MONTH;
-        int day = Calendar.DAY_OF_MONTH;
-        String date = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(dateArray[2]);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String date = "0"+ Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
         System.out.println(date);
         return date;
 
