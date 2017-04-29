@@ -107,6 +107,9 @@ public class ExampleUnitTest {
         assertEquals(user.getSchedule().getEvents().get(0).day, 29);
         assertEquals(user.getSchedule().getEvents().get(0).getStartTime(), 1500);
         assertEquals(user.getSchedule().getEvents().get(0).getStopTime(),  1800);
+        assertEquals(user.getSchedule().getEvents().get(2).getTitle(), "HW2");
+        assertEquals(user.getSchedule().getEvents().get(2).getStartTime(), 1600);
+        assertEquals(user.getSchedule().getEvents().get(2).getStopTime(),  1800);
         assertEquals(user.getSchedule().getEvents().get(2).day, 30);
         assertEquals(user.getSchedule().getEvents().get(3).getStartTime(), 1400);
         assertEquals(user.getSchedule().getEvents().get(3).getStopTime(), 1600);
