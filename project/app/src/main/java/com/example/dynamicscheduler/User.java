@@ -1,5 +1,7 @@
 package com.example.dynamicscheduler;
 
+import com.google.api.client.util.DateTime;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -35,6 +37,8 @@ public class User{
             else
                 hardAdds.add(e);
         }
+        DateTime now = new DateTime(System.currentTimeMillis());
+        System.out.println(now);
         String currentDate = "4/24/2017"; //TODO: figure out how to find current date
         Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
         for(Event e: algorithmicAdds){
