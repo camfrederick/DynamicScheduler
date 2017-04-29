@@ -55,10 +55,10 @@ public class User{
 
         }
         DateTime now = new DateTime(System.currentTimeMillis());
+        String complexdate = now.toString();
+        String currentDate = complexdate.substring(5,7) + "/" + complexdate.substring(8,10) + "/" + complexdate.substring(0,4);
         for(BusyTime bt : table.keySet()){
             for(Event e: table.get(bt)){
-                String complexdate = now.toString();
-                String currentDate = complexdate.substring(5,7) + "/" + complexdate.substring(8,10) + "/" + complexdate.substring(0,4);
                 int starttime = bt.getStarttime();
                 int endtime = starttime + e.duration;
                 String date = currentDate;
@@ -79,11 +79,7 @@ public class User{
                     }
                     resetsearchflag = false;
                     if(endtime > bt.getStoptime()){
-                        int[] dateArray = Event.parseDate(date);
-                        int day = dateArray[1] + 1; // TODO: figure out how to do this with google calendar
-                        date = Integer.toString(dateArray[0]) + "/" + Integer.toString(day) + "/" + Integer.toString(dateArray[2]);
-                        starttime = bt.getStarttime();
-                        endtime = starttime + e.duration;
+                        currentDate = addDays(currentDate,1);
                     }
                 }
                 hardAdds.add(e);
@@ -98,8 +94,12 @@ public class User{
         Calendar c =  Calendar.getInstance();
         c.set(dateArray[2],dateArray[0],dateArray[1]);
         c.add(Calendar.DATE,days);
-        System.out.print(c.getTime().toString());
-        return c.getTime().toString();
+        int year = Calendar.YEAR;
+        int month = Calendar.MONTH;
+        int day = Calendar.DAY_OF_MONTH;
+        String date = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(dateArray[2]);
+        System.out.println(date);
+        return date;
 
     }
     public boolean timeConflict(Event event, int starttime, int endtime,String date){
