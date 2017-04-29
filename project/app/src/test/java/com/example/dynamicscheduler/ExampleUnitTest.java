@@ -94,30 +94,30 @@ public class ExampleUnitTest {
         BusyTime hwBusyTime = busylist.get(0);
         BusyTime freetimeBusyTime = busylist.get(1);
 
-        user.createEventAlgorithmically("EveryDay","HW1", 300, "home", "4/29/2017", hwBusyTime);
-        user.createEvent("meeting",1400,1500,"home","4/24/2017");
-        user.createEventAlgorithmically("EveryDay","HW2", 200, "home", "4/29/2017", hwBusyTime);
-        user.createEvent("meeting",1400,1600,"home","4/25/2017");
+        user.createEventAlgorithmically("EveryDay","HW1", 300, "home", "04/31/2017", hwBusyTime);
+        user.createEvent("meeting",1400,1500,"home","04/29/2017");
+        user.createEventAlgorithmically("EveryDay","HW2", 200, "home", "04/31/2017", hwBusyTime);
+        user.createEvent("meeting",1400,1600,"home","04/30/2017");
 
-        user.createEventAlgorithmically("EveryDay","Movie", 200, "home", "4/29/2017", freetimeBusyTime);
-        user.createEvent("meeting",1900,2000,"home","4/24/2017");
+        user.createEventAlgorithmically("EveryDay","Movie", 200, "home", "04/31/2017", freetimeBusyTime);
+        user.createEvent("meeting",1900,2000,"home","04/29/2017");
 
 
         assertEquals(user.getSchedule().getEvents().get(0).getTitle(), "HW1");
-        assertEquals(user.getSchedule().getEvents().get(0).day, 24);
+        assertEquals(user.getSchedule().getEvents().get(0).day, 29);
         assertEquals(user.getSchedule().getEvents().get(0).getStartTime(), 1500);
         assertEquals(user.getSchedule().getEvents().get(0).getStopTime(),  1800);
-        assertEquals(user.getSchedule().getEvents().get(2).day, 25);
+        assertEquals(user.getSchedule().getEvents().get(2).day, 30);
         assertEquals(user.getSchedule().getEvents().get(3).getStartTime(), 1400);
         assertEquals(user.getSchedule().getEvents().get(3).getStopTime(), 1600);
 
         assertEquals(user.getSchedule().getEvents().get(4).getStartTime(), 1900);
         assertEquals(user.getSchedule().getEvents().get(4).getStopTime(), 2100);
-        assertEquals(user.getSchedule().getEvents().get(4).day, 25);
+        assertEquals(user.getSchedule().getEvents().get(4).day, 30);
 
         assertEquals(user.getSchedule().getEvents().get(5).getStartTime(), 1900);
         assertEquals(user.getSchedule().getEvents().get(5).getStopTime(), 2000);
-        assertEquals(user.getSchedule().getEvents().get(5).day, 24);
+        assertEquals(user.getSchedule().getEvents().get(5).day, 29);
 
 
     }

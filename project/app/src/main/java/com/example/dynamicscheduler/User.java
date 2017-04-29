@@ -38,8 +38,9 @@ public class User{
                 hardAdds.add(e);
         }
         DateTime now = new DateTime(System.currentTimeMillis());
-        System.out.println(now);
-        String currentDate = "4/24/2017"; //TODO: figure out how to find current date
+        String complexdate = now.toString();
+        String currentDate = complexdate.substring(5,7) + "/" + complexdate.substring(8,10) + "/" + complexdate.substring(0,4);
+        System.out.println(currentDate);//TODO: figure out how to find current date
         Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
         for(Event e: algorithmicAdds){
             if(table.containsKey(e.getBusyTime())){
