@@ -1,5 +1,7 @@
 package com.example.dynamicscheduler;
 
+import java.util.Date;
+import java.util.Calendar;
 import com.google.api.client.util.DateTime;
 
 import java.util.ArrayList;
@@ -37,10 +39,7 @@ public class User{
             else
                 hardAdds.add(e);
         }
-        DateTime now = new DateTime(System.currentTimeMillis());
-        String complexdate = now.toString();
-        String currentDate = complexdate.substring(5,7) + "/" + complexdate.substring(8,10) + "/" + complexdate.substring(0,4);
-        System.out.println(currentDate);//TODO: figure out how to find current date
+        // System.out.println(currentDate);
         Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
         for(Event e: algorithmicAdds){
             if(table.containsKey(e.getBusyTime())){
@@ -55,8 +54,11 @@ public class User{
             }
 
         }
+        DateTime now = new DateTime(System.currentTimeMillis());
         for(BusyTime bt : table.keySet()){
             for(Event e: table.get(bt)){
+                String complexdate = now.toString();
+                String currentDate = complexdate.substring(5,7) + "/" + complexdate.substring(8,10) + "/" + complexdate.substring(0,4);
                 int starttime = bt.getStarttime();
                 int endtime = starttime + e.duration;
                 String date = currentDate;
@@ -91,6 +93,15 @@ public class User{
 
     }
 
+    public String addDays(String currentDate, int days){
+        int[] dateArray = Event.parseDate(currentDate);
+        Calendar c =  Calendar.getInstance();
+        c.set(dateArray[2],dateArray[0],dateArray[1]);
+        c.add(Calendar.DATE,days);
+        System.out.print(c.getTime().toString());
+        return c.getTime().toString();
+
+    }
     public boolean timeConflict(Event event, int starttime, int endtime,String date){
         if(event.getDate().equals(date)){
             if(event.getStartTime() <= starttime && event.getStopTime()> starttime){
