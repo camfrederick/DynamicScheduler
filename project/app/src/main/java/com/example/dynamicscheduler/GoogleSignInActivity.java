@@ -131,6 +131,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         showProgressDialog();
         // [END_EXCLUDE]
 
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
