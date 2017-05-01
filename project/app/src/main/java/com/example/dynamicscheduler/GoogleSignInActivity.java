@@ -34,12 +34,16 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Demonstrate Firebase Authentication using a Google ID Token.
@@ -53,11 +57,15 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference dataRef;
     // [END declare_auth]
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+
+    Map<String, Object> users = new HashMap<String, Object>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +97,12 @@ public class GoogleSignInActivity extends BaseActivity implements
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        dataRef = database.getReference("child node");
+        dataRef.push();
+
+        //dataRef.setValue("new message sent");
         // [END initialize_auth]
     }
 
@@ -131,6 +145,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         showProgressDialog();
         // [END_EXCLUDE]
 
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -140,6 +155,9 @@ public class GoogleSignInActivity extends BaseActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            users.put(user.getUid(), new UserAdapter(user.getEmail(), user.getUid()));
+                            dataRef = database.getReference("users");
+                            dataRef.updateChildren(users);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

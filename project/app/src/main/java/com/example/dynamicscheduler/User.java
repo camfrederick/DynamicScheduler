@@ -1,5 +1,9 @@
 package com.example.dynamicscheduler;
 
+import java.util.Date;
+import java.util.Calendar;
+import com.google.api.client.util.DateTime;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -10,12 +14,18 @@ import java.util.Hashtable;
 public class User{
 
     public CreatorBehavior behave;
+    private String userID;
     private String name;
     private String homeaddress;
     private String email;
     private String telephone;
     protected Schedule schedule;
 
+
+    public User(String userID, String email){
+        this.userID = userID;
+        this.email = email;
+    }
 
     public User(String fullName, String address, String emailAddress, String phoneNum){
         this.name = fullName;
@@ -35,7 +45,7 @@ public class User{
             else
                 hardAdds.add(e);
         }
-        String currentDate = "4/24/2017"; //TODO: figure out how to find current date
+        // System.out.println(currentDate);
         Hashtable<BusyTime,ArrayList<Event>> table = new Hashtable<BusyTime,ArrayList<Event>>();
         for(Event e: algorithmicAdds){
             if(table.containsKey(e.getBusyTime())){
@@ -50,6 +60,11 @@ public class User{
             }
 
         }
+        DateTime now = new DateTime(System.currentTimeMillis());
+
+        String complexdate = now.toString();
+        String currentDate = complexdate.substring(0,complexdate.indexOf("T"));
+
         for(BusyTime bt : table.keySet()){
             for(Event e: table.get(bt)){
                 int starttime = bt.getStarttime();
@@ -72,9 +87,7 @@ public class User{
                     }
                     resetsearchflag = false;
                     if(endtime > bt.getStoptime()){
-                        int[] dateArray = Event.parseDate(date);
-                        int day = dateArray[1] + 1; // TODO: figure out how to do this with google calendar
-                        date = Integer.toString(dateArray[0]) + "/" + Integer.toString(day) + "/" + Integer.toString(dateArray[2]);
+                        date = addDays(date,1);
                         starttime = bt.getStarttime();
                         endtime = starttime + e.duration;
                     }
@@ -86,6 +99,26 @@ public class User{
 
     }
 
+    public String addDays(String currentDate, int days){
+        int[] dateArray = Event.parseDate(currentDate);
+        Calendar c =  Calendar.getInstance();
+        c.set(dateArray[0],dateArray[1]-1,dateArray[2]);
+        c.add(Calendar.DATE,days);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) +1;
+        String month_string = Integer.toString(month);
+        if(month_string.length() == 1){
+            month_string = "0" + month_string;
+        }
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String day_string = Integer.toString(day);
+        if(day_string.length() == 1){
+            day_string = "0" + day_string;
+        }
+        String date = Integer.toString(year) + "-" + month_string + "-" + day_string;
+        return date;
+
+    }
     public boolean timeConflict(Event event, int starttime, int endtime,String date){
         if(event.getDate().equals(date)){
             if(event.getStartTime() <= starttime && event.getStopTime()> starttime){
@@ -97,6 +130,37 @@ public class User{
         }
         return false;
     }
+
+//    public String parseComplexDate(String complexDate){
+//        int year,month,day;
+//        // Normalize the input (trim whitespace and make lower case)4
+//        complexDate = complexDate.trim().toLowerCase();
+//        complexDate = complexDate.substring(0,complexDate.indexOf('t'));
+//
+//        int firstSlash = complexDate.indexOf('-');
+//        if (firstSlash == -1) {
+//            throw new NumberFormatException("Unrecognized time format");
+//        }
+//
+//        int secondSlash = complexDate.indexOf('-', firstSlash+1);
+//        if (secondSlash == -1) {
+//            throw new NumberFormatException("Unrecognized time format");
+//        }
+//
+//        // Interpret everything up to the first colon as the hour
+//        year = Integer.valueOf(complexDate.substring(0, firstSlash));
+//        // Interpret everything between the two colons as the minute
+//        month = Integer.valueOf(complexDate.substring(firstSlash+1, secondSlash));
+//        day = Integer.valueOf(complexDate.substring(secondSlash+1, complexDate.length()));
+//        //this.date = date;
+//        // Range check the values
+//
+//        String month_string = Integer.toString(month);
+//        if(month_string.length() == 1){
+//            month_string = "0" + month_string;
+//        }
+//        return month_string + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+//    }
     public String getName() {
         return this.name;
     }
@@ -105,13 +169,15 @@ public class User{
         return this.email;
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return this.homeaddress;
     }
 
     public String getPhoneNumber() {
         return this.telephone;
     }
+
+    public String getUserID() {return this.userID;}
 
     public Schedule getSchedule() {
         return this.schedule;
@@ -125,7 +191,7 @@ public class User{
         this.email = e;
     }
 
-    public void setAdress(String a) {
+    public void setAddress(String a) {
         this.homeaddress = a;
     }
 
