@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Add Automated Event"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/ce_setname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_toEndOf="@+id/textView5"
+            android:layout_toRightOf="@+id/textView5"
+            android:ems="10"
+            android:hint="Event Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ce_setdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setname"
+            android:layout_alignStart="@+id/ce_setname"
+            android:layout_below="@+id/ce_setname"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="Description"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ce_setlocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setdescription"
+            android:layout_alignStart="@+id/ce_setdescription"
+            android:layout_below="@+id/ce_setdescription"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:hint="Location"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/SelectBusyTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setlocation"
+            android:layout_alignStart="@+id/ce_setlocation"
+            android:layout_below="@+id/ce_setlocation"
+            android:layout_marginTop="5dp"
+            android:text="Select BusyTime"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <Spinner
+            android:id="@+id/busytime_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setlocation"
+            android:layout_alignStart="@+id/ce_setlocation"
+            android:layout_below="@+id/SelectBusyTime"
+            android:layout_marginTop="10dp"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/busytimes" />
+
+        <Button
+            android:id="@+id/ce_setdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/SelectDeadline"
+            android:layout_alignStart="@+id/SelectDeadline"
+            android:layout_below="@+id/SelectDeadline"
+            android:ems="10"
+            android:hint="YYYY-MM-DD"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/SelectDeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setlocation"
+            android:layout_alignStart="@+id/ce_setlocation"
+            android:layout_below="@+id/ce_setlocation"
+            android:layout_marginTop="80dp"
+            android:text="Select Deadline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textClock4"
+            android:layout_alignTop="@+id/textView6"
+            android:text="         " />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ce_setdate"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="26dp"
+            android:layout_toEndOf="@+id/SelectDeadline"
+            android:layout_toRightOf="@+id/SelectDeadline"
+            android:text="Stop"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignLeft="@+id/ce_setdate"
+            android:layout_alignStart="@+id/ce_setdate"
+            android:text="Start"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <Button
+            android:id="@+id/ce_insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Create Event"
+            android:layout_below="@+id/ce_starttime"
+            android:layout_toRightOf="@+id/ce_starttime"
+            android:layout_toEndOf="@+id/ce_starttime" />
+
+        <Button
+            android:id="@+id/ce_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView9"
+            android:layout_alignStart="@+id/textView9"
+            android:layout_below="@+id/textView9"
+            android:text="00:00" />
+
+        <Button
+            android:id="@+id/ce_stoptime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView7"
+            android:layout_alignStart="@+id/textView7"
+            android:layout_below="@+id/textView7"
+            android:text="00:00" />
+
+    </RelativeLayout>
+</LinearLayout>
+
