@@ -9,7 +9,7 @@ public class UserAdapter extends User {
     public String uID;
 
     public UserAdapter(String email, String uID){
-        super(email, uID);
+        super(uID, email);
         this.email = super.getEmail();
         this.uID = super.getUserID();
     }

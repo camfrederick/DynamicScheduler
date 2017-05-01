@@ -156,7 +156,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            users.put(user.getUid(), new UserAdapter(user.getEmail(), user.getUid()));
+                            users.put(user.getUid(), new User(user.getUid(), user.getEmail()));
                             dataRef = database.getReference("users");
                             dataRef.updateChildren(users);
                             updateUI(user);
@@ -255,7 +255,12 @@ public class GoogleSignInActivity extends BaseActivity implements
         } else if (i == R.id.disconnect_button) {
             revokeAccess();
         } else if (i == R.id.g_calendar_test) {
-            calendarActivity();
+            try{
+                calendarActivity();
+            }catch(Exception e){
+                System.out.print(" ");
+            }
+
         }
     }
 }

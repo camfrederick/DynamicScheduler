@@ -32,7 +32,10 @@ public class ManageGroups extends AppCompatActivity {
         dataRef = db.getReference("users");
         dataRef = dataRef.child(user.getUid()).child("groups");
 
+
         Query myGroups = dataRef.orderByValue();
+
+
 
         //myGroups.
     }
