@@ -63,7 +63,7 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
-    private TextView mDetailTextView;
+//    private TextView mDetailTextView;
 
     Map<String, Object> users = new HashMap<String, Object>();
 
@@ -74,7 +74,7 @@ public class GoogleSignInActivity extends BaseActivity implements
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
-        mDetailTextView = (TextView) findViewById(R.id.detail);
+//        mDetailTextView = (TextView) findViewById(R.id.detail);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -101,6 +101,7 @@ public class GoogleSignInActivity extends BaseActivity implements
 
         dataRef = database.getReference("child node");
         dataRef.push();
+
 
         //dataRef.setValue("new message sent");
         // [END initialize_auth]
@@ -219,16 +220,17 @@ public class GoogleSignInActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
+//            calendarActivity();
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-
-
+//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//
+//
+//
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+//            mDetailTextView.setText(null);
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
