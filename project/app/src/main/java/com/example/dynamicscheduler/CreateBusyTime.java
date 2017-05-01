@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.app.DialogFragment;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -53,7 +54,13 @@ public class CreateBusyTime extends AppCompatActivity {
     private Button busy_time_stopdate;
     private Button busy_time_starttime;
     private Button busy_time_stoptime;
-    private Button busy_time_days;
+    private ToggleButton monday;
+    private ToggleButton tuesday;
+    private ToggleButton wednesday;
+    private ToggleButton thursday;
+    private ToggleButton friday;
+    private ToggleButton saturday;
+    private ToggleButton sunday;
 
     private TextView timepressed;
     private String starttime;
@@ -69,7 +76,14 @@ public class CreateBusyTime extends AppCompatActivity {
         busy_time_name = (EditText)findViewById(R.id.cbt_setname);
 
         create_busy_time = (Button)findViewById(R.id.cbt_insert);
-        busy_time_days = (Button)findViewById(R.id.cbt_setdays);
+        monday = (ToggleButton)findViewById(R.id.monday);
+//        tuesday = (ToggleButton)findViewById(R.id.tuesday);
+//        wednesday = (ToggleButton)findViewById(R.id.wednesday);
+//        thursday = (ToggleButton)findViewById(R.id.thursday);
+//        friday = (ToggleButton)findViewById(R.id.friday);
+//        saturday = (ToggleButton)findViewById(R.id.saturday);
+//        sunday = (ToggleButton)findViewById(R.id.sunday);
+
         busy_time_starttime = (Button)findViewById(R.id.cbt_starttime);
         busy_time_stoptime = (Button)findViewById(R.id.cbt_stoptime);
         busy_time_startdate = (Button)findViewById(R.id.cbt_setstart);
@@ -107,16 +121,16 @@ public class CreateBusyTime extends AppCompatActivity {
             }
         });
 
-        busy_time_days.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timepressed.setText("3");
-                //TODO: figure out recurring event picture;
-//                DialogFragment newFragment = new DatePickerFragment();
-//                newFragment.show(getFragmentManager(), "DatePicker");
-                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-            }
-        });
+//        busy_time_days.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                timepressed.setText("3");
+//                //TODO: figure out recurring event picture;
+////                DialogFragment newFragment = new DatePickerFragment();
+////                newFragment.show(getFragmentManager(), "DatePicker");
+//                //endtime = ((TimePickerFragment)newFragment).getTimeString();
+//            }
+//        });
 
         busy_time_startdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,30 +213,30 @@ public class CreateBusyTime extends AppCompatActivity {
          * @return List of Strings describing returned events.
          * @throws IOException
          */
-        private void pushToGoogleCal() throws IOException{
-
-            starttime = busy_time_starttime.getText().toString();
-            endtime = busy_time_stoptime.getText().toString();
-            com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
-                    .setSummary(busy_time_name.getText().toString());
-
-            String testDate = busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00";
-            DateTime startDateTime = new DateTime(busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00");
-            EventDateTime start = new EventDateTime()
-                    .setDateTime(startDateTime);
-            event.setStart(start);
-
-            if(!endtime.equals("Button")){
-                DateTime endDateTime = new DateTime(busy_time_days.getText().toString() + "T" + endtime + ":00" + "-06:00");
-                EventDateTime end = new EventDateTime()
-                        .setDateTime(endDateTime);
-                event.setEnd(end);
-            }
-            String calendarId = "primary";
-
-            event = mService.events().insert(calendarId, event).execute();
-            System.out.printf("BusyTime created: %s\n", event.getHtmlLink());
-        }
+//        private void pushToGoogleCal() throws IOException{
+//
+//            starttime = busy_time_starttime.getText().toString();
+//            endtime = busy_time_stoptime.getText().toString();
+//            com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
+//                    .setSummary(busy_time_name.getText().toString());
+//
+//            String testDate = busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00";
+//            DateTime startDateTime = new DateTime(busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00");
+//            EventDateTime start = new EventDateTime()
+//                    .setDateTime(startDateTime);
+//            event.setStart(start);
+//
+//            if(!endtime.equals("Button")){
+//                DateTime endDateTime = new DateTime(busy_time_days.getText().toString() + "T" + endtime + ":00" + "-06:00");
+//                EventDateTime end = new EventDateTime()
+//                        .setDateTime(endDateTime);
+//                event.setEnd(end);
+//            }
+//            String calendarId = "primary";
+//
+//            event = mService.events().insert(calendarId, event).execute();
+//            System.out.printf("BusyTime created: %s\n", event.getHtmlLink());
+//        }
 
         @Override
         protected void onCancelled() {
@@ -233,7 +247,7 @@ public class CreateBusyTime extends AppCompatActivity {
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            GoogleCalendarTest.REQUEST_AUTHORIZATION);
+                            NavigationPage.REQUEST_AUTHORIZATION);
                 } else {
 
                 }

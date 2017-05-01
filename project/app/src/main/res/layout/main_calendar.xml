@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="96dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:text="Hello" >
 
         <Button
             android:id="@+id/update_GCAPI"

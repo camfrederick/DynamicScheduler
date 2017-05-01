@@ -16,6 +16,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/textView5"
+            android:layout_toRightOf="@+id/textView5"
             android:text="Add Busy Time"
             android:textSize="30sp" />
 
@@ -79,29 +80,16 @@
             android:text="Select End Date"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <Button
-            android:id="@+id/cbt_setdays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="YYYY-MM-DD"
-            android:inputType="date"
-            android:layout_below="@+id/SelectDate"
-            android:layout_alignLeft="@+id/cbt_setstart"
-            android:layout_alignStart="@+id/cbt_setstart" />
-
         <TextView
             android:id="@+id/SelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/cbt_setdays"
-            android:layout_alignStart="@+id/cbt_setdays"
-            android:layout_below="@+id/cbt_setstart"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="22dp"
             android:text="Select Days"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_below="@+id/cbt_setstart"
+            android:layout_alignLeft="@+id/SelectStartDate"
+            android:layout_alignStart="@+id/SelectStartDate" />
 
         <TextView
             android:id="@+id/textView5"
@@ -117,14 +105,14 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cbt_stoptime"
             android:layout_alignStart="@+id/cbt_stoptime"
-            android:layout_below="@+id/cbt_setdays"
+            android:layout_below="@+id/monday"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="37dp"
-            android:text="Stop"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_toLeftOf="@+id/SelectEndDate"
             android:layout_toStartOf="@+id/SelectEndDate"
-            android:layout_toLeftOf="@+id/SelectEndDate" />
+            android:text="Stop"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/textView9"
@@ -165,6 +153,77 @@
             android:layout_below="@+id/textView7"
             android:layout_centerHorizontal="true"
             android:text="00:00" />
+
+        <ToggleButton
+            android:id="@+id/monday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="M"
+            android:textOn="M"
+            android:layout_below="@+id/SelectDate"
+            android:layout_alignLeft="@+id/cbt_setstart"
+            android:layout_alignStart="@+id/cbt_setstart" />
+
+        <ToggleButton
+            android:id="@+id/tuesday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="T"
+            android:textOn="T"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toRightOf="@+id/monday"
+            android:layout_toEndOf="@+id/monday" />
+
+        <ToggleButton
+            android:id="@+id/wednesday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="W"
+            android:textOn="W"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toRightOf="@+id/tuesday"
+            android:layout_toEndOf="@+id/tuesday" />
+
+        <ToggleButton
+            android:id="@+id/thursday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="TH"
+            android:textOn="TH"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toRightOf="@+id/wednesday"
+            android:layout_toEndOf="@+id/wednesday" />
+
+        <ToggleButton
+            android:id="@+id/sunday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="SU"
+            android:textOn="SU"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toRightOf="@+id/saturday"
+            android:layout_toEndOf="@+id/saturday"
+             />
+
+        <ToggleButton
+            android:id="@+id/friday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toEndOf="@+id/thursday"
+            android:layout_toRightOf="@+id/thursday"
+            android:textOff="F"
+            android:textOn="F" />
+
+        <ToggleButton
+            android:id="@+id/saturday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textOff="SA"
+            android:textOn="SA"
+            android:layout_below="@+id/SelectDate"
+            android:layout_toRightOf="@+id/friday"
+            android:layout_toEndOf="@+id/friday" />
 
     </RelativeLayout>
 

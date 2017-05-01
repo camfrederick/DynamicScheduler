@@ -12,10 +12,12 @@
         <CalendarView
             android:id="@+id/calendarView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="130dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="55dp" />
+            android:layout_marginBottom="55dp"
+            />
 
         <TabHost
             android:id="@+id/tabHost2"
@@ -49,7 +51,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/Month"
+                        android:id="@+id/Week"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -57,7 +59,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/Year"
+                        android:id="@+id/Month"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -66,19 +68,6 @@
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/calendarView3"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/calendarView3"
-            android:layout_marginBottom="12dp"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:rippleColor="@android:color/background_light"
-            app:srcCompat="@android:drawable/stat_notify_more" />
 
         <EditText
             android:id="@+id/editText"
@@ -91,6 +80,66 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Your Calendar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/calendarView3"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/calendarView3"
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/new_busy_time"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_alignEnd="@+id/tabHost2"
+            android:layout_alignRight="@+id/tabHost2"
+            android:text="Busy Times"
+            android:textSize="10sp"
+            android:layout_alignTop="@+id/manage_groups" />
+
+        <Button
+            android:id="@+id/manage_groups"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="Manage Groups"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/new_create_event"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignLeft="@+id/calendarView3"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_alignStart="@+id/tabHost2"
+            android:text="New Event"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Sign Out"
+            android:textColor="@color/colorPrimary"
+            android:background="#FAFAFA" />
+
 
     </RelativeLayout>
 </LinearLayout>
