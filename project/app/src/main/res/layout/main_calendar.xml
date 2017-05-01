@@ -1,56 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/event_listing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="Upcoming Events" />
 
-    <LinearLayout
-        android:layout_width="96dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:text="Hello" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/update_GCAPI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Call API" />
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:text="View Calendar" />
 
         <Button
             android:id="@+id/manage_groups"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/new_create_event"
+            android:layout_marginLeft="7dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="12sp"
+            android:textAllCaps="false"
             android:text="Manage Groups" />
 
         <Button
             android:id="@+id/new_create_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignLeft="@+id/calendarView3"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textAllCaps="false"
             android:text="Create Event" />
 
         <Button
-            android:id="@+id/new_busy_time"
-            android:layout_width="match_parent"
+            android:id="@+id/sign_out_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Create Busy Time" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#FAFAFA"
+            android:text="Sign Out"
+            android:textColor="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="match_parent"
+            android:id="@+id/new_busy_time"
+
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toLeftOf="@+id/update_GCAPI"
+            android:layout_marginRight="7dp"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:text="Create Busy Time" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sign Out" />
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp"
+            android:textStyle="bold"
+            android:text="Upcoming Events"
+            android:textSize="20sp"/>
+
+
+    </RelativeLayout>
 
 </LinearLayout>
