@@ -58,6 +58,7 @@ public class GoogleCalendarTest extends Activity
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCreateEventButton;
+    private Button mViewGroups;
     private Button mCallApiButton;
     ProgressDialog mProgress;
 
@@ -95,6 +96,15 @@ public class GoogleCalendarTest extends Activity
         mOutputText = (TextView)findViewById(R.id.event_listing);
         mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
+        mViewGroups = (Button)findViewById(R.id.manage_groups);
+
+        mViewGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ManageGroups.class);
+            }
+        });
+
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

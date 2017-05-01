@@ -14,12 +14,18 @@ import java.util.Hashtable;
 public class User{
 
     public CreatorBehavior behave;
+    private String userID;
     private String name;
     private String homeaddress;
     private String email;
     private String telephone;
     protected Schedule schedule;
 
+
+    public User(String userID, String email){
+        this.userID = userID;
+        this.email = email;
+    }
 
     public User(String fullName, String address, String emailAddress, String phoneNum){
         this.name = fullName;
@@ -159,13 +165,15 @@ public class User{
         return this.email;
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return this.homeaddress;
     }
 
     public String getPhoneNumber() {
         return this.telephone;
     }
+
+    public String getUserID() {return this.userID;}
 
     public Schedule getSchedule() {
         return this.schedule;
@@ -179,7 +187,7 @@ public class User{
         this.email = e;
     }
 
-    public void setAdress(String a) {
+    public void setAddress(String a) {
         this.homeaddress = a;
     }
 

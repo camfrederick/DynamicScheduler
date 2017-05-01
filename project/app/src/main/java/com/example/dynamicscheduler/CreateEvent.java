@@ -76,7 +76,7 @@ public class CreateEvent extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 new MakeInsertTask(mCredential).execute();
-
+                finish();
             }
         });
 
