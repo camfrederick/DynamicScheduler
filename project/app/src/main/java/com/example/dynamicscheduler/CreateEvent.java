@@ -43,13 +43,14 @@ import java.util.List;
 public class CreateEvent extends AppCompatActivity {
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
     private EditText event_location;
-    private EditText event_date;
+   //private EditText event_date;
     private EditText event_name;
     private EditText event_desc;
 
     private Button create_event;
     private Button event_starttime;
     private Button event_stoptime;
+    private Button event_date;
 
     private TextView timepressed;
     private String starttime;
@@ -62,11 +63,12 @@ public class CreateEvent extends AppCompatActivity {
         setContentView(R.layout.create_event);
 
         event_location = (EditText)findViewById(R.id.ce_setlocation);
-        event_date = (EditText)findViewById(R.id.ce_setdate);
+//        event_date = (EditText)findViewById(R.id.ce_setdate);
         event_name = (EditText)findViewById(R.id.ce_setname);
         event_desc = (EditText)findViewById(R.id.ce_setdescription);
 
         create_event = (Button)findViewById(R.id.ce_insert);
+        event_date = (Button)findViewById(R.id.ce_setdate);
         event_starttime = (Button)findViewById(R.id.ce_starttime);
         event_stoptime = (Button)findViewById(R.id.ce_stoptime);
 
@@ -96,6 +98,16 @@ public class CreateEvent extends AppCompatActivity {
                 timepressed.setText("2");
                 DialogFragment newFragment = new TimePickerFragment();
                 newFragment.show(getFragmentManager(), "TimePicker");
+                //endtime = ((TimePickerFragment)newFragment).getTimeString();
+            }
+        });
+
+        event_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timepressed.setText("3");
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "DatePicker");
                 //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
