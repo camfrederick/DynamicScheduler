@@ -63,6 +63,7 @@ public class GoogleCalendarTest extends Activity
     private Button mCreateEventButton;
     private Button mViewGroups;
     private Button mCallApiButton;
+    private Button mCreateBusyTimeButton;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -101,6 +102,7 @@ public class GoogleCalendarTest extends Activity
         mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
         mCallApiButton.setText("test1 calendar output");
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
+        mCreateBusyTimeButton = (Button)findViewById(R.id.new_busy_time);
 
         mViewGroups = (Button)findViewById(R.id.manage_groups);
 
@@ -113,6 +115,7 @@ public class GoogleCalendarTest extends Activity
 
 
         mCreateEventButton.setText("Create Event");
+
 
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +138,14 @@ public class GoogleCalendarTest extends Activity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CreateEvent.class);
+                startActivity(intent);
+            }
+        });
+
+        mCreateBusyTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CreateBusyTime.class);
                 startActivity(intent);
             }
         });
