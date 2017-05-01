@@ -1,6 +1,7 @@
 package com.example.dynamicscheduler;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.RelativeDateTimeFormatter;
 import android.icu.text.SimpleDateFormat;
@@ -52,6 +53,7 @@ public class CreateEvent extends AppCompatActivity {
     private Button event_starttime;
     private Button event_stoptime;
     private Button event_date;
+    private Button automated_event;
 
     private TextView timepressed;
     private String starttime;
@@ -72,6 +74,8 @@ public class CreateEvent extends AppCompatActivity {
         event_date = (Button)findViewById(R.id.ce_setdate);
         event_starttime = (Button)findViewById(R.id.ce_starttime);
         event_stoptime = (Button)findViewById(R.id.ce_stoptime);
+        automated_event = (Button)findViewById(R.id.automatedevent);
+
 
         timepressed = (TextView)findViewById(R.id.time_button);
 
@@ -112,6 +116,16 @@ public class CreateEvent extends AppCompatActivity {
                 //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
+
+        automated_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CreateAutomatedEvent.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
