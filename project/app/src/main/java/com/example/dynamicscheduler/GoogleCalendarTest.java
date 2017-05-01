@@ -5,6 +5,9 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -63,6 +66,8 @@ public class GoogleCalendarTest extends Activity
     private Button mCreateEventButton;
     private Button mViewGroups;
     private Button mCallApiButton;
+    private Button mCreateBusyTimeButton;
+    private Button signOut;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -101,6 +106,8 @@ public class GoogleCalendarTest extends Activity
         mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
         mCallApiButton.setText("test1 calendar output");
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
+        mCreateBusyTimeButton = (Button)findViewById(R.id.new_busy_time);
+        signOut = (Button)findViewById(R.id.sign_out_button);
 
         mViewGroups = (Button)findViewById(R.id.manage_groups);
 
@@ -113,6 +120,7 @@ public class GoogleCalendarTest extends Activity
 
 
         mCreateEventButton.setText("Create Event");
+
 
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +143,22 @@ public class GoogleCalendarTest extends Activity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CreateEvent.class);
+                startActivity(intent);
+            }
+        });
+
+        mCreateBusyTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CreateBusyTime.class);
+                startActivity(intent);
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GoogleSignInActivity.class);
                 startActivity(intent);
             }
         });

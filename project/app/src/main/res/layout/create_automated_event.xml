@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="Add Event"
+            android:text="Add Automated Event"
             android:textSize="30sp" />
 
         <EditText
@@ -57,25 +57,48 @@
             android:hint="Location"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/SelectBusyTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setlocation"
+            android:layout_alignStart="@+id/ce_setlocation"
+            android:layout_below="@+id/ce_setlocation"
+            android:layout_marginTop="5dp"
+            android:text="Select BusyTime"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <Spinner
+            android:id="@+id/busytime_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ce_setlocation"
+            android:layout_alignStart="@+id/ce_setlocation"
+            android:layout_below="@+id/SelectBusyTime"
+            android:layout_marginTop="10dp"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/busytimes" />
+
         <Button
             android:id="@+id/ce_setdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/SelectDate"
-            android:layout_alignStart="@+id/SelectDate"
-            android:layout_below="@+id/SelectDate"
+            android:layout_alignLeft="@+id/SelectDeadline"
+            android:layout_alignStart="@+id/SelectDeadline"
+            android:layout_below="@+id/SelectDeadline"
             android:ems="10"
             android:hint="YYYY-MM-DD"
             android:inputType="date" />
 
         <TextView
-            android:id="@+id/SelectDate"
+            android:id="@+id/SelectDeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ce_setlocation"
             android:layout_alignStart="@+id/ce_setlocation"
-            android:layout_centerVertical="true"
-            android:text="Select Date"
+            android:layout_below="@+id/ce_setlocation"
+            android:layout_marginTop="80dp"
+            android:text="Select Deadline"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
@@ -94,8 +117,8 @@
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="26dp"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/SelectDeadline"
+            android:layout_toRightOf="@+id/SelectDeadline"
             android:text="Stop"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -116,27 +139,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="Create Event"
-            android:layout_alignLeft="@+id/SelectDate"
-            android:layout_alignStart="@+id/SelectDate"
             android:layout_below="@+id/ce_starttime"
             android:layout_toRightOf="@+id/ce_starttime"
             android:layout_toEndOf="@+id/ce_starttime" />
-
-        <Button
-            android:id="@+id/automatedevent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ce_stoptime"
-            android:layout_alignLeft="@+id/textView7"
-            android:layout_alignStart="@+id/textView7"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_toEndOf="@+id/ce_insert"
-            android:layout_toRightOf="@+id/ce_insert"
-            android:text="Automated Event"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="#0000ff"
-            android:textColorLink="#0000ff" />
 
         <Button
             android:id="@+id/ce_starttime"
@@ -158,3 +163,4 @@
 
     </RelativeLayout>
 </LinearLayout>
+

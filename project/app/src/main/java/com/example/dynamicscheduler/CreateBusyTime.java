@@ -42,18 +42,18 @@ import java.util.Date;
 import java.util.List;
 
 
-public class CreateEvent extends AppCompatActivity {
+public class CreateBusyTime extends AppCompatActivity {
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
-    private EditText event_location;
-   //private EditText event_date;
-    private EditText event_name;
-    private EditText event_desc;
+//    private EditText event_location;
+    //private EditText event_date;
+    private EditText busy_time_name;
 
-    private Button create_event;
-    private Button event_starttime;
-    private Button event_stoptime;
-    private Button event_date;
-    private Button automated_event;
+    private Button create_busy_time;
+    private Button busy_time_startdate;
+    private Button busy_time_stopdate;
+    private Button busy_time_starttime;
+    private Button busy_time_stoptime;
+    private Button busy_time_days;
 
     private TextView timepressed;
     private String starttime;
@@ -63,23 +63,23 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_event);
+        setContentView(R.layout.create_busy_time);
 
-        event_location = (EditText)findViewById(R.id.ce_setlocation);
 //        event_date = (EditText)findViewById(R.id.ce_setdate);
-        event_name = (EditText)findViewById(R.id.ce_setname);
-        event_desc = (EditText)findViewById(R.id.ce_setdescription);
+        busy_time_name = (EditText)findViewById(R.id.cbt_setname);
 
-        create_event = (Button)findViewById(R.id.ce_insert);
-        event_date = (Button)findViewById(R.id.ce_setdate);
-        event_starttime = (Button)findViewById(R.id.ce_starttime);
-        event_stoptime = (Button)findViewById(R.id.ce_stoptime);
-        automated_event = (Button)findViewById(R.id.automatedevent);
+        create_busy_time = (Button)findViewById(R.id.cbt_insert);
+        busy_time_days = (Button)findViewById(R.id.cbt_setdays);
+        busy_time_starttime = (Button)findViewById(R.id.cbt_starttime);
+        busy_time_stoptime = (Button)findViewById(R.id.cbt_stoptime);
+        busy_time_startdate = (Button)findViewById(R.id.cbt_setstart);
+        busy_time_stopdate = (Button)findViewById(R.id.cbt_setend);
+
 
 
         timepressed = (TextView)findViewById(R.id.time_button);
 
-        create_event.setOnClickListener(new View.OnClickListener() {
+        create_busy_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 new MakeInsertTask(mCredential).execute();
@@ -87,7 +87,7 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
-        event_starttime.setOnClickListener(new View.OnClickListener() {
+        busy_time_starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timepressed.setText("1");
@@ -97,7 +97,7 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
-        event_stoptime.setOnClickListener(new View.OnClickListener() {
+        busy_time_stoptime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timepressed.setText("2");
@@ -107,21 +107,34 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
-        event_date.setOnClickListener(new View.OnClickListener() {
+        busy_time_days.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timepressed.setText("3");
+                //TODO: figure out recurring event picture;
+//                DialogFragment newFragment = new DatePickerFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+                //endtime = ((TimePickerFragment)newFragment).getTimeString();
+            }
+        });
+
+        busy_time_startdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timepressed.setText("4");
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "DatePicker");
                 //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
 
-        automated_event.setOnClickListener(new View.OnClickListener() {
+        busy_time_stopdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CreateAutomatedEvent.class);
-                startActivity(intent);
+                timepressed.setText("5");
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "DatePicker");
+                //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
 
@@ -170,7 +183,7 @@ public class CreateEvent extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             //android.os.Debug.waitForDebugger();
             try {
-                pushToGoogleCal();
+//                pushToGoogleCal();
                 return null;
             } catch (Exception e) {
 
@@ -188,21 +201,19 @@ public class CreateEvent extends AppCompatActivity {
          */
         private void pushToGoogleCal() throws IOException{
 
-            starttime = event_starttime.getText().toString();
-            endtime = event_stoptime.getText().toString();
+            starttime = busy_time_starttime.getText().toString();
+            endtime = busy_time_stoptime.getText().toString();
             com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
-                    .setSummary(event_name.getText().toString())
-                    .setLocation(event_location.getText().toString())
-                    .setDescription(event_desc.getText().toString());
+                    .setSummary(busy_time_name.getText().toString());
 
-            String testDate = event_date.getText().toString() + "T" + starttime + ":00" + "-06:00";
-            DateTime startDateTime = new DateTime(event_date.getText().toString() + "T" + starttime + ":00" + "-06:00");
+            String testDate = busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00";
+            DateTime startDateTime = new DateTime(busy_time_days.getText().toString() + "T" + starttime + ":00" + "-06:00");
             EventDateTime start = new EventDateTime()
                     .setDateTime(startDateTime);
             event.setStart(start);
 
             if(!endtime.equals("Button")){
-                DateTime endDateTime = new DateTime(event_date.getText().toString() + "T" + endtime + ":00" + "-06:00");
+                DateTime endDateTime = new DateTime(busy_time_days.getText().toString() + "T" + endtime + ":00" + "-06:00");
                 EventDateTime end = new EventDateTime()
                         .setDateTime(endDateTime);
                 event.setEnd(end);
@@ -210,7 +221,7 @@ public class CreateEvent extends AppCompatActivity {
             String calendarId = "primary";
 
             event = mService.events().insert(calendarId, event).execute();
-            System.out.printf("Event created: %s\n", event.getHtmlLink());
+            System.out.printf("BusyTime created: %s\n", event.getHtmlLink());
         }
 
         @Override

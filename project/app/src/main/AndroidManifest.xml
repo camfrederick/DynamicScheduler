@@ -21,6 +21,10 @@
         </activity>
         <activity android:name=".GoogleCalendarTest" />
         <activity
+            android:name=".CreateAutomatedEvent"
+            android:label="CreateAutomatedEvent"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".CreateEvent"
             android:label="@string/title_activity_create_event"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -28,6 +32,11 @@
             android:name=".ManageGroups"
             android:label="@string/title_activity_manage_groups"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CreateBusyTime"
+            android:label="CreateBusyTime"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

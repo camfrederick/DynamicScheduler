@@ -1,4 +1,11 @@
 <resources>
+
+    <string-array name="busytimes">
+        <item>Homework</item>
+        <item>Leisure</item>
+        <item>Work</item>
+    </string-array>
+
     <string name="app_name">DynamicScheduler</string>
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
