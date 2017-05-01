@@ -104,7 +104,7 @@ public class GoogleCalendarTest extends Activity
         mOutputText = (TextView)findViewById(R.id.event_listing);
         //mOutputText.setText("test1 calendar output");
         mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
-        mCallApiButton.setText("test1 calendar output");
+        mCallApiButton.setText("View Calendar");
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
         mCreateBusyTimeButton = (Button)findViewById(R.id.new_busy_time);
         signOut = (Button)findViewById(R.id.sign_out_button);
