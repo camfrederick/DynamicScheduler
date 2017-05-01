@@ -2,7 +2,14 @@ package com.example.dynamicscheduler;
 
 import java.util.Date;
 import java.util.Calendar;
+
+import com.google.api.client.util.Data;
 import com.google.api.client.util.DateTime;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -19,8 +26,15 @@ public class User{
     private String homeaddress;
     private String email;
     private String telephone;
+    private ArrayList<String> group_IDs;
+    private ArrayList<Group> groups;
     protected Schedule schedule;
 
+    FirebaseDatabase database;
+
+    public User(){
+
+    }
 
     public User(String userID, String email){
         this.userID = userID;
@@ -34,6 +48,23 @@ public class User{
         this.telephone = phoneNum;
         this.schedule = new Schedule();
         behave = new CreateForSelf();
+    }
+
+
+
+    public void updateGroupNames(DataSnapshot parent){
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+
+        group_IDs = new ArrayList<String>();
+        groups = new ArrayList<Group>();
+
+        for(DataSnapshot child : parent.child("group_IDs").getChildren()){
+            //String potato = db.getReference("groups").child(child.getValue(String.class));
+            group_IDs.add(child.getValue(String.class));
+        }
+
+
     }
 
     public void optimizeSchedule() {

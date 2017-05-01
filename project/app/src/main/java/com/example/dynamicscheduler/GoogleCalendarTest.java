@@ -25,6 +25,12 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import android.Manifest;
 import android.accounts.Account;
@@ -62,6 +68,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class GoogleCalendarTest extends Activity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
+    FirebaseUser user;
+    FirebaseDatabase database;
+
+    User client_user;
+
     private TextView mOutputText;
     private Button mCreateEventButton;
     private Button mViewGroups;
@@ -86,20 +97,7 @@ public class GoogleCalendarTest extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        LinearLayout activityLayout = new LinearLayout(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        activityLayout.setLayoutParams(lp);
-//        activityLayout.setOrientation(LinearLayout.VERTICAL);
-//        activityLayout.setPadding(16, 16, 16, 16);
-//
-//        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        mCallApiButton = new Button(this);
-//        mCallApiButton.setText(BUTTON_TEXT);
+
         setContentView(R.layout.main_calendar);
         mOutputText = (TextView)findViewById(R.id.event_listing);
         //mOutputText.setText("test1 calendar output");
@@ -125,10 +123,6 @@ public class GoogleCalendarTest extends Activity
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mCallApiButton.setEnabled(false);
-//                mOutputText.setText("");
-//                getResultsFromApi();
-//                mCallApiButton.setEnabled(true);
                 long startMillis = System.currentTimeMillis();
 
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
@@ -163,17 +157,6 @@ public class GoogleCalendarTest extends Activity
             }
         });
 
-//        activityLayout.addView(mCallApiButton);
-//
-//        mOutputText = new TextView(this);
-//        mOutputText.setLayoutParams(tlp);
-//        mOutputText.setPadding(16, 16, 16, 16);
-//        mOutputText.setVerticalScrollBarEnabled(true);
-//        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-//        mOutputText.setText(
-//                "Click the \'" + BUTTON_TEXT +"\' button to test the API.");
-//        activityLayout.addView(mOutputText);
-//
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
 
@@ -184,11 +167,42 @@ public class GoogleCalendarTest extends Activity
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
 
-        Account[] mC_Accts = mCredential.getAllAccounts();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         mCredential.setSelectedAccountName(user.getEmail());
+
+        database = FirebaseDatabase.getInstance();
+
+        database.getReference("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
+                    client_user = dataSnapshot.getValue(User.class);
+                    client_user.updateGroupNames(dataSnapshot);
+                    System.out.print(" ");
+                }catch(Exception e){
+                    System.out.print(" ");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        database.getReference("groups").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }

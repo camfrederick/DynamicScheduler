@@ -4,6 +4,8 @@ package com.example.dynamicscheduler;
  * Created by Cam on 3/23/2017.
  */
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
 public class Group {
@@ -22,6 +24,10 @@ public class Group {
         this.admin = a;
         this.startShift = start;
         this.stopShift = stop;
+    }
+
+    public void updateMemberDatabase(DataSnapshot dataSnapshot){
+
     }
 
     public Member getAdmin(){
