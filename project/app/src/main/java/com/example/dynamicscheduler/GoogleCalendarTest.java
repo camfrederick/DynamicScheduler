@@ -29,13 +29,16 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -94,8 +97,11 @@ public class GoogleCalendarTest extends Activity
 //        mCallApiButton.setText(BUTTON_TEXT);
         setContentView(R.layout.main_calendar);
         mOutputText = (TextView)findViewById(R.id.event_listing);
+        //mOutputText.setText("test1 calendar output");
         mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
+        mCallApiButton.setText("test1 calendar output");
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
+
         mViewGroups = (Button)findViewById(R.id.manage_groups);
 
         mViewGroups.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +111,23 @@ public class GoogleCalendarTest extends Activity
             }
         });
 
+
+        mCreateEventButton.setText("Create Event");
+
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
-                mOutputText.setText("");
-                getResultsFromApi();
-                mCallApiButton.setEnabled(true);
+//                mCallApiButton.setEnabled(false);
+//                mOutputText.setText("");
+//                getResultsFromApi();
+//                mCallApiButton.setEnabled(true);
+                long startMillis = System.currentTimeMillis();
+
+                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+                builder.appendPath("time");
+                ContentUris.appendId(builder, startMillis);
+                Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+                startActivity(intent);
             }
         });
 
