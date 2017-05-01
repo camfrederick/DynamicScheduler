@@ -66,6 +66,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         return tpd;
     }
 
+
+
+
     //onTimeSet() callback method
     public void onTimeSet(TimePicker view, int hourOfDay, int minute){
         //Do something with the user chosen time
@@ -102,7 +105,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         }
         timeString = currentHour + ":" + currentMin;
         TextView status = (TextView)getActivity().findViewById(R.id.time_button);
-        Button button1 = (Button)getActivity().findViewById(R.id.ce_starttime);
+        Button button1 = (Button)getActivity().findViewById(R.id.ce_lengthtime);
         Button button2 = (Button)getActivity().findViewById(R.id.ce_stoptime);
         if(status.getText().toString().equals("1")){
             button1.setText(timeString);
