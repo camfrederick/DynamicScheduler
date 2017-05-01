@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -132,6 +133,8 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     private class MakeInsertTask extends AsyncTask<Void, Void, Void> {
+
+
         private com.google.api.services.calendar.Calendar mService = null;
         private Exception mLastError = null;
 
@@ -142,6 +145,7 @@ public class CreateEvent extends AppCompatActivity {
                     transport, jsonFactory, credential)
                     .setApplicationName("Google Calendar API Android Quickstart")
                     .build();
+
         }
 
         /**
@@ -150,11 +154,13 @@ public class CreateEvent extends AppCompatActivity {
          */
         @Override
         protected Void doInBackground(Void... params) {
-            android.os.Debug.waitForDebugger();
+            //android.os.Debug.waitForDebugger();
             try {
                 pushToGoogleCal();
                 return null;
             } catch (Exception e) {
+
+                System.out.println("");
                 mLastError = e;
                 cancel(true);
                 return null;
@@ -167,10 +173,9 @@ public class CreateEvent extends AppCompatActivity {
          * @throws IOException
          */
         private void pushToGoogleCal() throws IOException{
+
             starttime = event_starttime.getText().toString();
             endtime = event_stoptime.getText().toString();
-
-
             com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
                     .setSummary(event_name.getText().toString())
                     .setLocation(event_location.getText().toString())
@@ -188,7 +193,6 @@ public class CreateEvent extends AppCompatActivity {
                         .setDateTime(endDateTime);
                 event.setEnd(end);
             }
-
             String calendarId = "primary";
 
             event = mService.events().insert(calendarId, event).execute();
