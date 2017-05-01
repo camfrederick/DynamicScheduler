@@ -63,7 +63,7 @@ public class User{
         DateTime now = new DateTime(System.currentTimeMillis());
 
         String complexdate = now.toString();
-        String currentDate = parseComplexDate(complexdate);
+        String currentDate = complexdate.substring(0,complexdate.indexOf("T"));
 
         for(BusyTime bt : table.keySet()){
             for(Event e: table.get(bt)){
@@ -102,7 +102,7 @@ public class User{
     public String addDays(String currentDate, int days){
         int[] dateArray = Event.parseDate(currentDate);
         Calendar c =  Calendar.getInstance();
-        c.set(dateArray[2],dateArray[0]-1,dateArray[1]);
+        c.set(dateArray[0],dateArray[1]-1,dateArray[2]);
         c.add(Calendar.DATE,days);
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) +1;
@@ -111,7 +111,11 @@ public class User{
             month_string = "0" + month_string;
         }
         int day = c.get(Calendar.DAY_OF_MONTH);
-        String date = month_string + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+        String day_string = Integer.toString(day);
+        if(day_string.length() == 1){
+            day_string = "0" + day_string;
+        }
+        String date = Integer.toString(year) + "-" + month_string + "-" + day_string;
         return date;
 
     }
@@ -127,36 +131,36 @@ public class User{
         return false;
     }
 
-    public String parseComplexDate(String complexDate){
-        int year,month,day;
-        // Normalize the input (trim whitespace and make lower case)4
-        complexDate = complexDate.trim().toLowerCase();
-        complexDate = complexDate.substring(0,complexDate.indexOf('t'));
-
-        int firstSlash = complexDate.indexOf('-');
-        if (firstSlash == -1) {
-            throw new NumberFormatException("Unrecognized time format");
-        }
-
-        int secondSlash = complexDate.indexOf('-', firstSlash+1);
-        if (secondSlash == -1) {
-            throw new NumberFormatException("Unrecognized time format");
-        }
-
-        // Interpret everything up to the first colon as the hour
-        year = Integer.valueOf(complexDate.substring(0, firstSlash));
-        // Interpret everything between the two colons as the minute
-        month = Integer.valueOf(complexDate.substring(firstSlash+1, secondSlash));
-        day = Integer.valueOf(complexDate.substring(secondSlash+1, complexDate.length()));
-        //this.date = date;
-        // Range check the values
-
-        String month_string = Integer.toString(month);
-        if(month_string.length() == 1){
-            month_string = "0" + month_string;
-        }
-        return month_string + "/" + Integer.toString(day) + "/" + Integer.toString(year);
-    }
+//    public String parseComplexDate(String complexDate){
+//        int year,month,day;
+//        // Normalize the input (trim whitespace and make lower case)4
+//        complexDate = complexDate.trim().toLowerCase();
+//        complexDate = complexDate.substring(0,complexDate.indexOf('t'));
+//
+//        int firstSlash = complexDate.indexOf('-');
+//        if (firstSlash == -1) {
+//            throw new NumberFormatException("Unrecognized time format");
+//        }
+//
+//        int secondSlash = complexDate.indexOf('-', firstSlash+1);
+//        if (secondSlash == -1) {
+//            throw new NumberFormatException("Unrecognized time format");
+//        }
+//
+//        // Interpret everything up to the first colon as the hour
+//        year = Integer.valueOf(complexDate.substring(0, firstSlash));
+//        // Interpret everything between the two colons as the minute
+//        month = Integer.valueOf(complexDate.substring(firstSlash+1, secondSlash));
+//        day = Integer.valueOf(complexDate.substring(secondSlash+1, complexDate.length()));
+//        //this.date = date;
+//        // Range check the values
+//
+//        String month_string = Integer.toString(month);
+//        if(month_string.length() == 1){
+//            month_string = "0" + month_string;
+//        }
+//        return month_string + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+//    }
     public String getName() {
         return this.name;
     }

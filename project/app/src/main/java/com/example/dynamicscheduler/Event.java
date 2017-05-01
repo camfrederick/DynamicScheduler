@@ -6,7 +6,7 @@ package com.example.dynamicscheduler;
 
 
 public class Event implements ScheduleObservable {
-    // mont/day/year  XX/XX/XXXX
+    // YYYY-MM-DD
     int deadlineMonth;
     int deadlineDay;
     int deadlineYear;
@@ -40,9 +40,9 @@ public class Event implements ScheduleObservable {
         algorithmicAdd = false;
         this.date = date;
         int[] dateArray = parseDate(date);
-        this.month = dateArray[0];
-        this.day = dateArray[1];
-        this.year = dateArray[2];
+        this.year = dateArray[0];
+        this.month = dateArray[1];
+        this.day = dateArray[2];
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -58,9 +58,9 @@ public class Event implements ScheduleObservable {
         this.deadline = deadline;
         this.duration = duration;
         int[] dateArray = parseDate(deadline);
-        this.deadlineMonth = dateArray[0];
-        this.deadlineDay = dateArray[1];
-        this.deadlineYear = dateArray[2];
+        this.deadlineYear = dateArray[0];
+        this.deadlineMonth = dateArray[1];
+        this.deadlineDay = dateArray[2];
         this.title = title;
         this.busyTime = bt;
         this.location = location;
@@ -103,9 +103,9 @@ public class Event implements ScheduleObservable {
 
         this.date = date;
         int[] dateArray = parseDate(date);
-        this.month = dateArray[0];
-        this.day = dateArray[1];
-        this.year = dateArray[2];
+        this.year = dateArray[0];
+        this.month = dateArray[1];
+        this.day = dateArray[2];
         this.title = title;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -118,12 +118,12 @@ public class Event implements ScheduleObservable {
         // Normalize the input (trim whitespace and make lower case)4
         date = date.trim().toLowerCase();
 
-        int firstSlash = date.indexOf('/');
+        int firstSlash = date.indexOf('-');
         if (firstSlash == -1) {
             throw new NumberFormatException("Unrecognized time format");
         }
 
-        int secondSlash = date.indexOf('/', firstSlash+1);
+        int secondSlash = date.indexOf('-', firstSlash+1);
         if (secondSlash == -1) {
             throw new NumberFormatException("Unrecognized time format");
         }
@@ -133,7 +133,7 @@ public class Event implements ScheduleObservable {
         // Interpret everything between the two colons as the minute
         dateArray[1] = Integer.valueOf(date.substring(firstSlash+1, secondSlash));
         // Interpret the two characters after the second colon as the seconds
-        dateArray[2] = Integer.valueOf(date.substring(secondSlash+1, secondSlash+5));
+        dateArray[2] = Integer.valueOf(date.substring(secondSlash+1, secondSlash+3));
         //this.date = date;
         // Range check the values
 
