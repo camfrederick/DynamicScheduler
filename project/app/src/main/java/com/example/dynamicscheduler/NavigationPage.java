@@ -45,11 +45,15 @@ import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,13 +63,13 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class GoogleCalendarTest extends Activity
+public class NavigationPage extends Activity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
+    private TabHost tabHost;
     private Button mCreateEventButton;
     private Button mViewGroups;
-    private Button mCallApiButton;
     private Button mCreateBusyTimeButton;
     private Button signOut;
     ProgressDialog mProgress;
@@ -100,18 +104,34 @@ public class GoogleCalendarTest extends Activity
 //
 //        mCallApiButton = new Button(this);
 //        mCallApiButton.setText(BUTTON_TEXT);
-        setContentView(R.layout.main_calendar);
+        setContentView(R.layout.calendar);
         mOutputText = (TextView)findViewById(R.id.event_listing);
         //mOutputText.setText("test1 calendar output");
-        mCallApiButton = (Button)findViewById(R.id.update_GCAPI);
-        mCallApiButton.setText("View Calendar");
+        tabHost = (TabHost)findViewById(R.id.tabHost2);
         mCreateEventButton = (Button)findViewById(R.id.new_create_event);
         mCreateBusyTimeButton = (Button)findViewById(R.id.new_busy_time);
         signOut = (Button)findViewById(R.id.sign_out_button);
 
         mViewGroups = (Button)findViewById(R.id.manage_groups);
 
-        mViewGroups.setOnClickListener(new View.OnClickListener() {
+        tabHost.setup();
+
+        TabHost.TabSpec spec = tabHost.newTabSpec("Day");
+        spec.setContent(R.id.Day);
+        spec.setIndicator("Day");
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Week");
+        spec.setContent(R.id.Week);
+        spec.setIndicator("Week");
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Month");
+        spec.setContent(R.id.Month);
+        spec.setIndicator("Month");
+        tabHost.addTab(spec);
+
+        mViewGroups.setOnClickListener(new View.OnClickListener()   {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ManageGroups.class);
@@ -120,24 +140,6 @@ public class GoogleCalendarTest extends Activity
 
 
         mCreateEventButton.setText("Create Event");
-
-
-        mCallApiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mCallApiButton.setEnabled(false);
-//                mOutputText.setText("");
-//                getResultsFromApi();
-//                mCallApiButton.setEnabled(true);
-                long startMillis = System.currentTimeMillis();
-
-                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-                builder.appendPath("time");
-                ContentUris.appendId(builder, startMillis);
-                Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-                startActivity(intent);
-            }
-        });
 
         mCreateEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +196,28 @@ public class GoogleCalendarTest extends Activity
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * Attempt to call the API, after verifying that all the preconditions are
@@ -388,7 +412,7 @@ public class GoogleCalendarTest extends Activity
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                GoogleCalendarTest.this,
+                NavigationPage.this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();

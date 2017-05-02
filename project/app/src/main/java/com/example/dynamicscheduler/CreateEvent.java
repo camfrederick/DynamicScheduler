@@ -209,7 +209,7 @@ public class CreateEvent extends AppCompatActivity {
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            GoogleCalendarTest.REQUEST_AUTHORIZATION);
+                            NavigationPage.REQUEST_AUTHORIZATION);
                 } else {
 
                 }
