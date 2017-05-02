@@ -103,12 +103,12 @@ public class CreateBusyTime extends AppCompatActivity {
                 int start = parseTime(busy_time_starttime.getText().toString());
                 int stop = parseTime(busy_time_stoptime.getText().toString());
                 String repeat = "";
-                for(ToggleButton tb : daysofweek){
-                    if(tb.isActivated()){
+                for(ToggleButton tb : daysofweek) {
+                    if (tb.isChecked()) {
                         repeat += tb.getText().toString();
                     }
                 }
-                System.out.println(repeat);
+                Log.d("test",repeat);
                 BusyTime tempbt = new BusyTime(start, stop, repeat, busy_time_name.getText().toString());
                 //new MakeInsertTask(mCredential).execute();
                // finish();
