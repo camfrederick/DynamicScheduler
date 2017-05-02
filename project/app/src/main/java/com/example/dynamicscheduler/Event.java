@@ -1,5 +1,7 @@
 package com.example.dynamicscheduler;
 
+import android.util.Log;
+
 /**
  * Created by Cam on 3/23/2017.
  */

@@ -83,12 +83,12 @@ public class CreateAutomatedEvent extends AppCompatActivity {
 
         num_pick_hours = (NumberPicker)findViewById(R.id.np_hours);
         num_pick_hours.setMinValue(0);
-        num_pick_hours.setMaxValue(24);
+        num_pick_hours.setMaxValue(23);
         num_pick_hours.setWrapSelectorWheel(true);
 
         num_pick_minutes = (NumberPicker)findViewById(R.id.np_minutes);
         num_pick_minutes.setMinValue(0);
-        num_pick_minutes.setMaxValue(60);
+        num_pick_minutes.setMaxValue(59);
         num_pick_minutes.setWrapSelectorWheel(true);
 
         event_location = (EditText)findViewById(R.id.ce_setlocation);
@@ -108,7 +108,8 @@ public class CreateAutomatedEvent extends AppCompatActivity {
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String deadline_string = event_deadline.toString();
+                Log.d("d","here");
+                String deadline_string = event_deadline.getText().toString();
                 int time_length = num_pick_hours.getValue()*100 + num_pick_minutes.getValue();
                 if(time_length == 0){
                     //TODO: throw an error for no duration
@@ -117,7 +118,7 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                     deadline_string = "9999-12-30"; //no deadline input set maximum date
                 }
 
-                User us = new User("1234","exampleemail@example.com"); //TODO make user be pulled
+                User us = new User("jasdfk","lsdkjfa","dslkjf","lkdsjaf"); //TODO make user be pulled
                 BusyTime bt =  null;
                 for(BusyTime b: busyTime_list){
                     if(busyTimes.getSelectedItem().toString().equals(b.getTitle())){
@@ -125,9 +126,21 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                         break;
                     }
                 }
-                us.createEventAlgorithmically("EveryDay",event_name.toString(),time_length,event_location.toString(),
-                        deadline_string,bt);
+                us.createEventAlgorithmically("EveryDay",event_name.getText().toString(),time_length,
+                        event_location.getText().toString(),deadline_string,bt);
+                for(com.example.dynamicscheduler.Event e : us.getSchedule().getEvents()){
+                    Log.d("d",e.getTitle());
 
+                }
+
+            }
+        });
+        event_deadline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "DatePicker");
+                //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
 

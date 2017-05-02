@@ -77,6 +77,11 @@ public class User{
                         if(timeConflict(hard,starttime,endtime,date)){
                             starttime = hard.getStopTime();
                             endtime = starttime + e.duration;
+                            int endtime_hours = endtime/100;
+                            int endtime_minutes = endtime - endtime_hours*100;
+                            endtime_hours += endtime_minutes/60;
+                            endtime_minutes = endtime_minutes%60;
+                            endtime = endtime_hours*100 + endtime_minutes;
                             resetsearchflag = true;
                             break;
                         }
