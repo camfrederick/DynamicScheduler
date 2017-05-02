@@ -94,8 +94,10 @@ public class CreateBusyTime extends AppCompatActivity {
         create_busy_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                new MakeInsertTask(mCredential).execute();
-                finish();
+                
+               BusyTime tempbt = new BusyTime()
+                //new MakeInsertTask(mCredential).execute();
+               // finish();
             }
         });
 
