@@ -76,12 +76,12 @@ public class CreateBusyTime extends AppCompatActivity {
 
         create_busy_time = (Button)findViewById(R.id.cbt_insert);
         monday = (ToggleButton)findViewById(R.id.monday);
-//        tuesday = (ToggleButton)findViewById(R.id.tuesday);
-//        wednesday = (ToggleButton)findViewById(R.id.wednesday);
-//        thursday = (ToggleButton)findViewById(R.id.thursday);
-//        friday = (ToggleButton)findViewById(R.id.friday);
-//        saturday = (ToggleButton)findViewById(R.id.saturday);
-//        sunday = (ToggleButton)findViewById(R.id.sunday);
+        tuesday = (ToggleButton)findViewById(R.id.tuesday);
+        wednesday = (ToggleButton)findViewById(R.id.wednesday);
+        thursday = (ToggleButton)findViewById(R.id.thursday);
+        friday = (ToggleButton)findViewById(R.id.friday);
+        saturday = (ToggleButton)findViewById(R.id.saturday);
+        sunday = (ToggleButton)findViewById(R.id.sunday);
 
         busy_time_starttime = (Button)findViewById(R.id.ce_lengthtime);
         busy_time_stoptime = (Button)findViewById(R.id.ce_stoptime);
@@ -94,8 +94,11 @@ public class CreateBusyTime extends AppCompatActivity {
         create_busy_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                
-               BusyTime tempbt = new BusyTime()
+                int start = parseTime(busy_time_starttime.getText().toString());
+                int stop = parseTime(busy_time_stoptime.getText().toString());
+                if(monday.is)
+                String repeat = "";
+                BusyTime tempbt = new BusyTime(start, stop, repeat, busy_time_name.getText().toString());
                 //new MakeInsertTask(mCredential).execute();
                // finish();
             }
@@ -145,6 +148,12 @@ public class CreateBusyTime extends AppCompatActivity {
 
     }
 
+    public int parseTime(String time){
+        String hourString = time.substring(0,time.indexOf(":"));
+        String minuteString = time.substring(time.indexOf(":") +1 ,time.indexOf(":") +3);
+        return Integer.parseInt(hourString) * 100 + Integer.parseInt(minuteString);
+
+    }
     private void pushToFirebase(){
 
     }
