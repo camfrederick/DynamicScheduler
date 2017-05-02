@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.app.DialogFragment;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -51,8 +52,10 @@ public class CreateAutomatedEvent extends AppCompatActivity {
     private EditText event_desc;
 
     private Button create_event;
-    private Button event_length;
+    //private Button event_length;
     private Button event_deadline;
+    private NumberPicker num_pick_hours;
+    private NumberPicker num_pick_minutes;
 
     private Spinner busyTimes;
 
@@ -78,13 +81,23 @@ public class CreateAutomatedEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_automated_event);
 
+        num_pick_hours = (NumberPicker)findViewById(R.id.np_hours);
+        num_pick_hours.setMinValue(0);
+        num_pick_hours.setMaxValue(24);
+        num_pick_hours.setWrapSelectorWheel(true);
+
+        num_pick_minutes = (NumberPicker)findViewById(R.id.np_minutes);
+        num_pick_minutes.setMinValue(0);
+        num_pick_minutes.setMaxValue(60);
+        num_pick_minutes.setWrapSelectorWheel(true);
+
         event_location = (EditText)findViewById(R.id.ce_setlocation);
 //        event_date = (EditText)findViewById(R.id.ce_setdate);
         event_name = (EditText)findViewById(R.id.ce_setname);
         event_desc = (EditText)findViewById(R.id.ce_setdescription);
 
         create_event = (Button)findViewById(R.id.ce_insert);
-        event_length = (Button)findViewById(R.id.ce_lengthtime);
+        //event_length = (Button)findViewById(R.id.ce_lengthtime);
         event_deadline = (Button)findViewById(R.id.ce_setdate);
 
         busyTimes = (Spinner)findViewById(R.id.ce_busytime_spinner);
@@ -95,17 +108,14 @@ public class CreateAutomatedEvent extends AppCompatActivity {
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String length_string = event_length.toString();
                 String deadline_string = event_deadline.toString();
-
-                if(length_string == "00:00"){
-                    //TODO throw some sort of error for not putting a length of time
+                int time_length = num_pick_hours.getValue()*100 + num_pick_minutes.getValue();
+                if(time_length == 0){
+                    //TODO: throw an error for no duration
                 }
                 if(deadline_string == "YYYY-MM-DD"){
                     deadline_string = "9999-12-30"; //no deadline input set maximum date
                 }
-                length_string = length_string.substring(0,2) + length_string.substring(3,5); //01:34 -> 0134
-                int time_length = Integer.parseInt(length_string);
 
                 User us = new User("1234","exampleemail@example.com"); //TODO make user be pulled
                 BusyTime bt =  null;
@@ -120,19 +130,6 @@ public class CreateAutomatedEvent extends AppCompatActivity {
 
             }
         });
-
-        event_length.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timepressed.setText("1");
-                DialogFragment newFragment = new TimePickerFragment(
-                );
-                newFragment.show(getFragmentManager(), "TimePicker");
-                //starttime = ((TimePickerFragment)newFragment).getTimeString();
-            }
-        });
-
-
 
     }
 
