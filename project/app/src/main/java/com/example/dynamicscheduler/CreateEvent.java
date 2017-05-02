@@ -97,7 +97,6 @@ public class CreateEvent extends AppCompatActivity {
         event_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timepressed.setText("3");
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "DatePicker");
                 //endtime = ((TimePickerFragment)newFragment).getTimeString();

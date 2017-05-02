@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +34,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/cbt_setstart"
+            android:id="@+id/ce_setdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cbt_setname"
@@ -46,8 +48,8 @@
             android:id="@+id/SelectStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/cbt_setstart"
-            android:layout_alignStart="@+id/cbt_setstart"
+            android:layout_alignLeft="@+id/ce_setdate"
+            android:layout_alignStart="@+id/ce_setdate"
             android:layout_below="@+id/cbt_setname"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
@@ -55,30 +57,6 @@
             android:text="Select Start Date"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <Button
-            android:id="@+id/cbt_setend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/cbt_setstart"
-            android:layout_alignBottom="@+id/cbt_setstart"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
-            android:ems="10"
-            android:hint="YYYY-MM-DD"
-            android:inputType="date" />
-
-        <TextView
-            android:id="@+id/SelectEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/SelectStartDate"
-            android:layout_alignBottom="@+id/SelectStartDate"
-            android:layout_alignLeft="@+id/cbt_setend"
-            android:layout_alignStart="@+id/cbt_setend"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Select End Date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/SelectDate"
@@ -87,7 +65,7 @@
             android:layout_marginTop="22dp"
             android:text="Select Days"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_below="@+id/cbt_setstart"
+            android:layout_below="@+id/ce_setdate"
             android:layout_alignLeft="@+id/SelectStartDate"
             android:layout_alignStart="@+id/SelectStartDate" />
 
@@ -103,14 +81,14 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/cbt_stoptime"
-            android:layout_alignStart="@+id/cbt_stoptime"
+            android:layout_alignLeft="@+id/ce_stoptime"
+            android:layout_alignStart="@+id/ce_stoptime"
             android:layout_below="@+id/monday"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="37dp"
-            android:layout_toLeftOf="@+id/SelectEndDate"
-            android:layout_toStartOf="@+id/SelectEndDate"
+            android:layout_toLeftOf="@+id/SelectStartDate"
+            android:layout_toStartOf="@+id/SelectStartDate"
             android:text="Stop"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -118,9 +96,9 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/cbt_stoptime"
-            android:layout_alignLeft="@+id/cbt_starttime"
-            android:layout_alignStart="@+id/cbt_starttime"
+            android:layout_above="@+id/ce_stoptime"
+            android:layout_alignLeft="@+id/ce_lengthtime"
+            android:layout_alignStart="@+id/ce_lengthtime"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:text="Start"
@@ -130,24 +108,35 @@
             android:id="@+id/cbt_insert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/cbt_starttime"
+            android:layout_alignLeft="@+id/ce_lengthtime"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/cbt_starttime"
+            android:layout_alignStart="@+id/ce_lengthtime"
             android:layout_marginBottom="45dp"
             android:text="Create Busy Time" />
 
         <Button
-            android:id="@+id/cbt_starttime"
+            android:id="@+id/ce_lengthtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_alignLeft="@+id/cbt_setstart"
-            android:layout_alignStart="@+id/cbt_setstart"
+            android:layout_alignLeft="@+id/ce_setdate"
+            android:layout_alignStart="@+id/ce_setdate"
             android:layout_below="@+id/textView9"
             android:text="00:00" />
 
+        <TextView
+            android:id="@+id/textViewStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ce_stoptime"
+            android:layout_alignLeft="@+id/ce_stoptime"
+            android:layout_alignStart="@+id/ce_stoptime"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Stop"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
         <Button
-            android:id="@+id/cbt_stoptime"
+            android:id="@+id/ce_stoptime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView7"
@@ -161,8 +150,8 @@
             android:textOff="M"
             android:textOn="M"
             android:layout_below="@+id/SelectDate"
-            android:layout_alignLeft="@+id/cbt_setstart"
-            android:layout_alignStart="@+id/cbt_setstart" />
+            android:layout_alignLeft="@+id/ce_setdate"
+            android:layout_alignStart="@+id/ce_setdate" />
 
         <ToggleButton
             android:id="@+id/tuesday"
