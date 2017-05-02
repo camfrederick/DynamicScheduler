@@ -115,7 +115,6 @@ public class User{
                             resetsearchflag = true;
                             break;
                         }
-
                     }
                     if(!resetsearchflag) {
                         foundtimeflag = false;
@@ -131,7 +130,6 @@ public class User{
                 e.changeEvent(e.getTitle(),starttime,endtime,e.getLocation(),date);
             }
         }
-
     }
 
     public String addDays(String currentDate, int days){

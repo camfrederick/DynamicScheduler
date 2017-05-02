@@ -108,7 +108,6 @@ public class CreateBusyTime extends AppCompatActivity {
                         repeat += tb.getText().toString();
                     }
                 }
-                Log.d("test",repeat);
                 BusyTime tempbt = new BusyTime(start, stop, repeat, busy_time_name.getText().toString());
                 //new MakeInsertTask(mCredential).execute();
                // finish();
