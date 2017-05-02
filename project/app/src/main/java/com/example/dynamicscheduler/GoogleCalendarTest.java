@@ -1,6 +1,6 @@
 package com.example.dynamicscheduler;
 
-
+import android.graphics.Paint;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
@@ -112,6 +112,7 @@ public class GoogleCalendarTest extends Activity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ManageGroups.class);
+                startActivity(intent);
             }
         });
 
@@ -168,6 +169,11 @@ public class GoogleCalendarTest extends Activity
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         mCredential.setSelectedAccountName(user.getEmail());
+
+        mCallApiButton.setEnabled(false);
+        mOutputText.setText("");
+        getResultsFromApi();
+        mCallApiButton.setEnabled(true);
 
         database = FirebaseDatabase.getInstance();
 
@@ -454,7 +460,7 @@ public class GoogleCalendarTest extends Activity
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
-                    .setMaxResults(10)
+                    .setMaxResults(8)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
@@ -468,8 +474,53 @@ public class GoogleCalendarTest extends Activity
                     // the start date.
                     start = event.getStart().getDate();
                 }
+                String s = start.toString();
+                String year = s.substring(0, 4);
+                String month = s.substring(5,7);
+                String day = s.substring(8,10);
+
+                switch(month) {
+                    case "01":
+                        month = "January";break;
+                    case "02":
+                        month = "February";break;
+                    case "03":
+                        month = "March";break;
+                    case "04":
+                        month = "April";break;
+                    case "05":
+                        month = "May";break;
+                    case "06":
+                        month = "June";break;
+                    case "07":
+                        month = "July";break;
+                    case "08":
+                        month = "August";break;
+                    case "09":
+                        month = "September";break;
+                    case "10":
+                        month = "October";break;
+                    case "11":
+                        month = "November";break;
+                    case "12":
+                        month = "December";break;
+                }
+                String eventDay = month + " " + day + ", " + year;
+                if(!eventStrings.contains(eventDay))
+                    eventStrings.add(String.format("%s %s, %s", month, day, year));
+
+                s = s.substring(11, 16);
+                int hour = Integer.parseInt(s.substring(0,2));
+                if(hour > 12) {
+                    hour = hour % 12;
+                    s = hour + s.substring(2) + " pm";
+                }
+                else
+                    s = hour + s.substring(2) + " am";
+
+
                 eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                        String.format("%s: %s", event.getSummary(), s));
             }
             return eventStrings;
         }
@@ -487,8 +538,8 @@ public class GoogleCalendarTest extends Activity
             if (output == null || output.size() == 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                //output.add(0, "Data retrieved using the Google Calendar API:");
+                mOutputText.setText(TextUtils.join("\n\n", output));
             }
         }
 
