@@ -118,9 +118,9 @@
             android:text="Create Event"
             android:layout_alignLeft="@+id/SelectDate"
             android:layout_alignStart="@+id/SelectDate"
-            android:layout_below="@+id/ce_starttime"
-            android:layout_toRightOf="@+id/ce_starttime"
-            android:layout_toEndOf="@+id/ce_starttime" />
+            android:layout_below="@+id/ce_lengthtime"
+            android:layout_toRightOf="@+id/ce_lengthtime"
+            android:layout_toEndOf="@+id/ce_lengthtime" />
 
         <Button
             android:id="@+id/automatedevent"
@@ -139,7 +139,7 @@
             android:textColorLink="#0000ff" />
 
         <Button
-            android:id="@+id/ce_starttime"
+            android:id="@+id/ce_lengthtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView9"
