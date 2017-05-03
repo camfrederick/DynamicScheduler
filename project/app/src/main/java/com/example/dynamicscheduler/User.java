@@ -47,7 +47,6 @@ public class User{
         this.email = emailAddress;
         this.telephone = phoneNum;
         this.schedule = new Schedule();
-        behave = new CreateForSelf();
     }
 
 
