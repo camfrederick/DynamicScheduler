@@ -158,6 +158,7 @@ public class CreateEvent extends AppCompatActivity {
 
 
     }
+
     public int parseTime(String time){
         String hourString = time.substring(0,time.indexOf(":"));
         String minuteString = time.substring(time.indexOf(":") +1 ,time.indexOf(":") +3);
