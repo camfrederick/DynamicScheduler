@@ -121,7 +121,7 @@ public class User{
                     }
                     resetsearchflag = false;
                     if(endtime > bt.getStoptime()){
-                        date = addDays(date,1);
+                        date = addDays(date,1,bt);
                         starttime = bt.getStarttime();
                         endtime = starttime + e.duration;
                     }
@@ -132,11 +132,50 @@ public class User{
         }
     }
 
-    public String addDays(String currentDate, int days){
+    public String addDays(String currentDate, int days, BusyTime tempbt){
         int[] dateArray = Event.parseDate(currentDate);
         Calendar c =  Calendar.getInstance();
         c.set(dateArray[0],dateArray[1]-1,dateArray[2]);
         c.add(Calendar.DATE,days);
+        int weekday = c.get(Calendar.DAY_OF_WEEK);
+        String validdays = tempbt.getDays();
+        switch(weekday){
+            case Calendar.MONDAY:
+                if(!validdays.contains("M")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.TUESDAY:
+                if(!validdays.contains("T") || validdays.charAt(validdays.indexOf('T')+1) == 'h'){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.WEDNESDAY:
+                if(!validdays.contains("W")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.THURSDAY:
+                if(!validdays.contains("Th")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.FRIDAY:
+                if(!validdays.contains("F")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.SATURDAY:
+                if(!validdays.contains("Sa")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+            case Calendar.SUNDAY:
+                if(!validdays.contains("Su")){
+                    days++;
+                    addDays(currentDate, days, tempbt);
+                }
+        }
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) +1;
         String month_string = Integer.toString(month);
