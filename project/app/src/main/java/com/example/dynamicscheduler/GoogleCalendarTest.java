@@ -67,11 +67,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class GoogleCalendarTest extends Activity
         implements EasyPermissions.PermissionCallbacks {
-    GoogleAccountCredential mCredential;
+    static GoogleAccountCredential mCredential;
     FirebaseUser user;
     FirebaseDatabase database;
-
-    User client_user;
+    static User client_user;
 
     private TextView mOutputText;
     private Button mCreateEventButton;
@@ -124,7 +123,6 @@ public class GoogleCalendarTest extends Activity
             @Override
             public void onClick(View v) {
                 long startMillis = System.currentTimeMillis();
-
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
                 builder.appendPath("time");
                 ContentUris.appendId(builder, startMillis);
@@ -207,7 +205,13 @@ public class GoogleCalendarTest extends Activity
 
     }
 
+    public static User getUser(){
+        return client_user;
+    }
 
+    public static GoogleAccountCredential getmCredential(){
+        return mCredential;
+    }
 
     /**
      * Attempt to call the API, after verifying that all the preconditions are

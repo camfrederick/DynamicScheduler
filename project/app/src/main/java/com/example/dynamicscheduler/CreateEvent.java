@@ -30,6 +30,7 @@ import java.util.Arrays;
 
 
 public class CreateEvent extends AppCompatActivity {
+    private User client_user = GoogleCalendarTest.getUser();
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
     private EditText event_location;
    //private EditText event_date;
@@ -69,7 +70,37 @@ public class CreateEvent extends AppCompatActivity {
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                new MakeInsertTask(mCredential).execute();
+
+                //        starttime = event_starttime.getText().toString();
+                //        endtime = event_stoptime.getText().toString();
+                //        com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
+                //                .setSummary(event_name.getText().toString())
+                //                .setLocation(event_location.getText().toString())
+                //                .setDescription(event_desc.getText().toString());
+                //
+                //        String testDate = event_date.getText().toString() + "T" + starttime + ":00" + "-06:00";
+                //        DateTime startDateTime = new DateTime(event_date.getText().toString() + "T" + starttime + ":00" + "-06:00");
+                //        EventDateTime start = new EventDateTime()
+                //                .setDateTime(startDateTime);
+                //        event.setStart(start);
+                //
+                //        if(!endtime.equals("Button")){
+                //            DateTime endDateTime = new DateTime(event_date.getText().toString() + "T" + endtime + ":00" + "-06:00");
+                //            EventDateTime end = new EventDateTime()
+                //                    .setDateTime(endDateTime);
+                //            event.setEnd(end);
+                //        }
+                //        String calendarId = "primary";
+                //
+                //        event = mService.events().insert(calendarId, event).execute();
+                //        System.out.printf("Event created: %s\n", event.getHtmlLink());
+
+                int starttime = parseTime(event_starttime.getText().toString());
+                int stoptime = parseTime(event_stoptime.getText().toString());
+
+                client_user.createEvent(event_name.getText().toString(),starttime,stoptime,event_location.getText().toString()
+                ,event_date.getText().toString(),event_desc.getText().toString());
+                //new MakeInsertTask(mCredential).execute();
                 finish();
             }
         });
@@ -128,10 +159,16 @@ public class CreateEvent extends AppCompatActivity {
 
 
     }
+    public int parseTime(String time){
+        String hourString = time.substring(0,time.indexOf(":"));
+        String minuteString = time.substring(time.indexOf(":") +1 ,time.indexOf(":") +3);
+        return Integer.parseInt(hourString) * 100 + Integer.parseInt(minuteString);
 
+    }
     private void pushToFirebase(){
 
     }
+
 
     private class MakeInsertTask extends AsyncTask<Void, Void, Void> {
 
@@ -151,6 +188,7 @@ public class CreateEvent extends AppCompatActivity {
 
         /**
          * Background task to call Google Calendar API.
+         *
          * @param params no parameters needed for this task.
          */
         @Override
@@ -170,34 +208,35 @@ public class CreateEvent extends AppCompatActivity {
 
         /**
          * Fetch a list of the next 10 events from the primary calendar.
+         *
          * @return List of Strings describing returned events.
          * @throws IOException
          */
-        private void pushToGoogleCal() throws IOException{
+        private void pushToGoogleCal() throws IOException {
 
-            starttime = event_starttime.getText().toString();
-            endtime = event_stoptime.getText().toString();
-            com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
-                    .setSummary(event_name.getText().toString())
-                    .setLocation(event_location.getText().toString())
-                    .setDescription(event_desc.getText().toString());
-
-            String testDate = event_date.getText().toString() + "T" + starttime + ":00" + "-06:00";
-            DateTime startDateTime = new DateTime(event_date.getText().toString() + "T" + starttime + ":00" + "-06:00");
-            EventDateTime start = new EventDateTime()
-                    .setDateTime(startDateTime);
-            event.setStart(start);
-
-            if(!endtime.equals("Button")){
-                DateTime endDateTime = new DateTime(event_date.getText().toString() + "T" + endtime + ":00" + "-06:00");
-                EventDateTime end = new EventDateTime()
-                        .setDateTime(endDateTime);
-                event.setEnd(end);
-            }
-            String calendarId = "primary";
-
-            event = mService.events().insert(calendarId, event).execute();
-            System.out.printf("Event created: %s\n", event.getHtmlLink());
+//        starttime = event_starttime.getText().toString();
+//        endtime = event_stoptime.getText().toString();
+//        com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
+//                .setSummary(event_name.getText().toString())
+//                .setLocation(event_location.getText().toString())
+//                .setDescription(event_desc.getText().toString());
+//
+//        String testDate = event_date.getText().toString() + "T" + starttime + ":00" + "-06:00";
+//        DateTime startDateTime = new DateTime(event_date.getText().toString() + "T" + starttime + ":00" + "-06:00");
+//        EventDateTime start = new EventDateTime()
+//                .setDateTime(startDateTime);
+//        event.setStart(start);
+//
+//        if(!endtime.equals("Button")){
+//            DateTime endDateTime = new DateTime(event_date.getText().toString() + "T" + endtime + ":00" + "-06:00");
+//            EventDateTime end = new EventDateTime()
+//                    .setDateTime(endDateTime);
+//            event.setEnd(end);
+//        }
+//        String calendarId = "primary";
+//
+//        event = mService.events().insert(calendarId, event).execute();
+//        System.out.printf("Event created: %s\n", event.getHtmlLink());
         }
 
         @Override
@@ -217,8 +256,6 @@ public class CreateEvent extends AppCompatActivity {
 
             }
         }
+
     }
-
-
-
 }

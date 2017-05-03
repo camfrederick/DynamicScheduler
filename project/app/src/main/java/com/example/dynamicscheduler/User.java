@@ -236,10 +236,10 @@ public class User{
     }
 
     public void createEventAlgorithmically(String days, String title,int duration,
-                                           String location,String deadline,BusyTime bt){
+                                           String location,String deadline,BusyTime bt,String desc){
         days = "EveryDay"; // will need to update days later
 
-        Event event = new Event(true,days,title,duration,location,deadline,bt);
+        Event event = new Event(true,days,title,duration,location,deadline,bt,desc);
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();
@@ -247,9 +247,9 @@ public class User{
     }
 
     public void createEvent(String title, int startTime, int stopTime,
-                            String location, String date){
+                            String location, String date, String desc){
        Event event = new Event( title,  startTime,  stopTime,
-         location,  date);
+         location,  date, desc);
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();
