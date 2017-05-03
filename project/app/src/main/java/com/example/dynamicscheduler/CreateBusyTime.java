@@ -51,7 +51,6 @@ public class CreateBusyTime extends AppCompatActivity {
 
     private Button create_busy_time;
     private Button busy_time_startdate;
-    private Button busy_time_stopdate;
     private Button busy_time_starttime;
     private Button busy_time_stoptime;
     private ToggleButton monday;
@@ -84,10 +83,9 @@ public class CreateBusyTime extends AppCompatActivity {
 //        saturday = (ToggleButton)findViewById(R.id.saturday);
 //        sunday = (ToggleButton)findViewById(R.id.sunday);
 
-        busy_time_starttime = (Button)findViewById(R.id.cbt_starttime);
-        busy_time_stoptime = (Button)findViewById(R.id.cbt_stoptime);
-        busy_time_startdate = (Button)findViewById(R.id.cbt_setstart);
-        busy_time_stopdate = (Button)findViewById(R.id.cbt_setend);
+        busy_time_starttime = (Button)findViewById(R.id.ce_lengthtime);
+        busy_time_stoptime = (Button)findViewById(R.id.ce_stoptime);
+        busy_time_startdate = (Button)findViewById(R.id.ce_setdate);
 
 
 
@@ -96,8 +94,10 @@ public class CreateBusyTime extends AppCompatActivity {
         create_busy_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                new MakeInsertTask(mCredential).execute();
-                finish();
+                
+               BusyTime tempbt = new BusyTime()
+                //new MakeInsertTask(mCredential).execute();
+               // finish();
             }
         });
 
@@ -121,39 +121,15 @@ public class CreateBusyTime extends AppCompatActivity {
             }
         });
 
-//        busy_time_days.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                timepressed.setText("3");
-//                //TODO: figure out recurring event picture;
-////                DialogFragment newFragment = new DatePickerFragment();
-////                newFragment.show(getFragmentManager(), "DatePicker");
-//                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-//            }
-//        });
-
         busy_time_startdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timepressed.setText("4");
+                timepressed.setText("3");
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "DatePicker");
                 //endtime = ((TimePickerFragment)newFragment).getTimeString();
             }
         });
-
-        busy_time_stopdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timepressed.setText("5");
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
-                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-            }
-        });
-
-
-
 
 
         mCredential = GoogleAccountCredential.usingOAuth2(

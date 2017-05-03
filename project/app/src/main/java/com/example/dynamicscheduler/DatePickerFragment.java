@@ -40,7 +40,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         /*.........Set a custom title for picker........*/
         TextView tvTitle = new TextView(getActivity());
-        tvTitle.setText("TimePickerDialog Title");
+        tvTitle.setText("DatePickerDialog Title");
         tvTitle.setBackgroundColor(Color.parseColor("#EEE8AA"));
         tvTitle.setPadding(5, 3, 5, 3);
         tvTitle.setGravity(Gravity.CENTER_HORIZONTAL);
