@@ -107,7 +107,8 @@ public class Event implements ScheduleObservable {
 
     public void changeEvent(String title, int startTime, int stopTime,
                             String location,String date){
-
+        Schedule sc = (Schedule) schedule;
+        sc.removeEvent(this);
         this.date = date;
         int[] dateArray = parseDate(date);
         this.year = dateArray[0];
@@ -117,7 +118,7 @@ public class Event implements ScheduleObservable {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.location = location;
-        notifySchedule();
+        sc.addEvent(this); 
     }
 
 

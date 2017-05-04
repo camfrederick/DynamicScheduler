@@ -92,7 +92,7 @@ public class Schedule implements ScheduleObserver{
     }
 
     public void removeEvent(Event e){
-
+        new MakeInsertTask(GoogleCalendarTest.getmCredential(),e,MakeInsertTask.removeEvent).execute();
         events.remove(e);
     }
 
