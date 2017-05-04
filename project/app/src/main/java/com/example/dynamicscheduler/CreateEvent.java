@@ -158,7 +158,6 @@ public class CreateEvent extends AppCompatActivity {
                             event_date.getText().toString(), event_desc.getText().toString());
                     finish();
                 }
-
                 //new MakeInsertTask(mCredential).execute();
 //                else {
 //                    finish();

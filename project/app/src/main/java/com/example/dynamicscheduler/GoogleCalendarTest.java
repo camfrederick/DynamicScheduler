@@ -211,9 +211,8 @@ public class GoogleCalendarTest extends Activity
     }
 
     @Override
-    protected void onResume() {
-
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         this.onCreate(null);
     }
 
