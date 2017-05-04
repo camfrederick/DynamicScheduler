@@ -48,7 +48,6 @@ public class User{
         this.email = emailAddress;
         this.telephone = phoneNum;
         this.schedule = new Schedule();
-        behave = new CreateForSelf();
     }
 
     public ArrayList<String> getGroup_IDs(){
@@ -121,14 +120,13 @@ public class User{
                             resetsearchflag = true;
                             break;
                         }
-
                     }
                     if(!resetsearchflag) {
                         foundtimeflag = false;
                     }
                     resetsearchflag = false;
                     if(endtime > bt.getStoptime()){
-                        date = addDays(date,1);
+                        date = addDays(date,1,bt);
                         starttime = bt.getStarttime();
                         endtime = starttime + e.duration;
                     }
@@ -137,14 +135,69 @@ public class User{
                 e.changeEvent(e.getTitle(),starttime,endtime,e.getLocation(),date);
             }
         }
-
     }
 
-    public String addDays(String currentDate, int days){
+    public String addDays(String currentDate, int days, BusyTime tempbt){
         int[] dateArray = Event.parseDate(currentDate);
         Calendar c =  Calendar.getInstance();
         c.set(dateArray[0],dateArray[1]-1,dateArray[2]);
         c.add(Calendar.DATE,days);
+        boolean foundvalidday = false;
+        while(!foundvalidday){
+            int weekday = c.get(Calendar.DAY_OF_WEEK);
+            String validdays = tempbt.getDays();
+            switch(weekday){
+                case Calendar.MONDAY:
+                    if(!validdays.contains("M")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.TUESDAY:
+                    if(!validdays.contains("T") || validdays.charAt(validdays.indexOf('T')+1) == 'h'){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.WEDNESDAY:
+                    if(!validdays.contains("W")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.THURSDAY:
+                    if(!validdays.contains("Th")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.FRIDAY:
+                    if(!validdays.contains("F")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.SATURDAY:
+                    if(!validdays.contains("Sa")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+                case Calendar.SUNDAY:
+                    if(!validdays.contains("Su")){
+                        c.add(Calendar.DATE,1);
+                    }
+                    else{
+                        foundvalidday = true;
+                    }
+            }
+        }
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) +1;
         String month_string = Integer.toString(month);
@@ -241,10 +294,10 @@ public class User{
     }
 
     public void createEventAlgorithmically(String days, String title,int duration,
-                                           String location,String deadline,BusyTime bt){
+                                           String location,String deadline,BusyTime bt,String desc){
         days = "EveryDay"; // will need to update days later
 
-        Event event = new Event(true,days,title,duration,location,deadline,bt);
+        Event event = new Event(true,days,title,duration,location,deadline,bt,desc);
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();
@@ -252,9 +305,9 @@ public class User{
     }
 
     public void createEvent(String title, int startTime, int stopTime,
-                            String location, String date){
+                            String location, String date, String desc){
        Event event = new Event( title,  startTime,  stopTime,
-         location,  date);
+         location,  date, desc);
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();

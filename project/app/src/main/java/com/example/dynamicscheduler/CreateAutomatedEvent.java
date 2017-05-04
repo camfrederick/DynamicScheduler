@@ -127,7 +127,7 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                     }
                 }
                 us.createEventAlgorithmically("EveryDay",event_name.getText().toString(),time_length,
-                        event_location.getText().toString(),deadline_string,bt);
+                        event_location.getText().toString(),deadline_string,bt,event_desc.getText().toString());
                 for(com.example.dynamicscheduler.Event e : us.getSchedule().getEvents()){
                     Log.d("d",e.getTitle());
 

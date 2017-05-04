@@ -14,27 +14,24 @@ public class Member extends User implements UserObserver {
     public Member(ArrayList<Group> groupList, String fullName, String address, String emailAddress, String phoneNum) {
         super(fullName, address, emailAddress, phoneNum);
         this.groups.addAll(groupList);
-        behave = new CantCreateForOthers();
     }
 
     public Member(Group g, String fullName, String address, String emailAddress, String phoneNum) {
         super(fullName, address, emailAddress, phoneNum);
         this.groups.add(g);
-        behave = new CantCreateForOthers();
     }
 
     public Member(String fullName, String address, String emailAddress, String phoneNum){
         super(fullName, address, emailAddress, phoneNum);
-        behave = new CantCreateForOthers();
     }
 
-    public void createEvent(String title, int startTime, int stopTime, String location, String date){
-        Event event = new Event(title, startTime, stopTime, location, date);
+    public void createEvent(String title, int startTime, int stopTime, String location, String date,String desc){
+        Event event = new Event(title, startTime, stopTime, location, date,desc);
         schedule.addEvent(event);
     }
 
-    public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date){
-        GroupEvent gevent = new GroupEvent(group,title, startTime, stopTime, location, date);
+    public void createGroupEvent(Group group, String title, int startTime, int stopTime, String location, String date,String desc){
+        GroupEvent gevent = new GroupEvent(group,title, startTime, stopTime, location, date, desc);
         schedule.addEvent(gevent);
     }
 

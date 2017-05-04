@@ -94,9 +94,9 @@
             android:id="@+id/SelectDeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/ce_setlocation"
             android:layout_below="@+id/ce_setlocation"
             android:layout_marginTop="15dp"
+            android:layout_marginLeft="180dp"
             android:text="Select Deadline"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

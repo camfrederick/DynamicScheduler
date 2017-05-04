@@ -51,9 +51,9 @@ public class CreateBusyTime extends AppCompatActivity {
 
     private Button create_busy_time;
     private Button busy_time_startdate;
-    private Button busy_time_stopdate;
     private Button busy_time_starttime;
     private Button busy_time_stoptime;
+    private ArrayList<ToggleButton> daysofweek;
     private ToggleButton monday;
     private ToggleButton tuesday;
     private ToggleButton wednesday;
@@ -71,23 +71,27 @@ public class CreateBusyTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_busy_time);
-
-//        event_date = (EditText)findViewById(R.id.ce_setdate);
         busy_time_name = (EditText)findViewById(R.id.cbt_setname);
-
+        daysofweek = new ArrayList<ToggleButton>();
         create_busy_time = (Button)findViewById(R.id.cbt_insert);
         monday = (ToggleButton)findViewById(R.id.monday);
-//        tuesday = (ToggleButton)findViewById(R.id.tuesday);
-//        wednesday = (ToggleButton)findViewById(R.id.wednesday);
-//        thursday = (ToggleButton)findViewById(R.id.thursday);
-//        friday = (ToggleButton)findViewById(R.id.friday);
-//        saturday = (ToggleButton)findViewById(R.id.saturday);
-//        sunday = (ToggleButton)findViewById(R.id.sunday);
+        tuesday = (ToggleButton)findViewById(R.id.tuesday);
+        wednesday = (ToggleButton)findViewById(R.id.wednesday);
+        thursday = (ToggleButton)findViewById(R.id.thursday);
+        friday = (ToggleButton)findViewById(R.id.friday);
+        saturday = (ToggleButton)findViewById(R.id.saturday);
+        sunday = (ToggleButton)findViewById(R.id.sunday);
+        daysofweek.add(monday);
+        daysofweek.add(tuesday);
+        daysofweek.add(wednesday);
+        daysofweek.add(thursday);
+        daysofweek.add(friday);
+        daysofweek.add(saturday);
+        daysofweek.add(sunday);
 
-        busy_time_starttime = (Button)findViewById(R.id.cbt_starttime);
-        busy_time_stoptime = (Button)findViewById(R.id.cbt_stoptime);
-        busy_time_startdate = (Button)findViewById(R.id.cbt_setstart);
-        busy_time_stopdate = (Button)findViewById(R.id.cbt_setend);
+        busy_time_starttime = (Button)findViewById(R.id.ce_lengthtime);
+        busy_time_stoptime = (Button)findViewById(R.id.ce_stoptime);
+        busy_time_startdate = (Button)findViewById(R.id.ce_setdate);
 
 
 
@@ -96,8 +100,17 @@ public class CreateBusyTime extends AppCompatActivity {
         create_busy_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                new MakeInsertTask(mCredential).execute();
-                finish();
+                int start = parseTime(busy_time_starttime.getText().toString());
+                int stop = parseTime(busy_time_stoptime.getText().toString());
+                String repeat = "";
+                for(ToggleButton tb : daysofweek) {
+                    if (tb.isChecked()) {
+                        repeat += tb.getText().toString();
+                    }
+                }
+                BusyTime tempbt = new BusyTime(start, stop, repeat, busy_time_name.getText().toString());
+                //new MakeInsertTask(mCredential).execute();
+               // finish();
             }
         });
 
@@ -121,40 +134,6 @@ public class CreateBusyTime extends AppCompatActivity {
             }
         });
 
-//        busy_time_days.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                timepressed.setText("3");
-//                //TODO: figure out recurring event picture;
-////                DialogFragment newFragment = new DatePickerFragment();
-////                newFragment.show(getFragmentManager(), "DatePicker");
-//                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-//            }
-//        });
-
-        busy_time_startdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timepressed.setText("4");
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
-                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-            }
-        });
-
-        busy_time_stopdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timepressed.setText("5");
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
-                //endtime = ((TimePickerFragment)newFragment).getTimeString();
-            }
-        });
-
-
-
-
 
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
@@ -169,6 +148,12 @@ public class CreateBusyTime extends AppCompatActivity {
 
     }
 
+    public int parseTime(String time){
+        String hourString = time.substring(0,time.indexOf(":"));
+        String minuteString = time.substring(time.indexOf(":") +1 ,time.indexOf(":") +3);
+        return Integer.parseInt(hourString) * 100 + Integer.parseInt(minuteString);
+
+    }
     private void pushToFirebase(){
 
     }

@@ -25,6 +25,7 @@ public class Schedule implements ScheduleObserver{
 
     public void addEvent(Event e){
         events.add(e);
+        new MakeInsertTask(GoogleCalendarTest.getmCredential(),e,MakeInsertTask.addEvent).execute();
         update();
     }
 
@@ -56,13 +57,6 @@ public class Schedule implements ScheduleObserver{
     }
 
     public void drawSchedule(){
-        //draws the schedule on our UI
-//        HttpTransport transport = AndroidHttp.newCompatibleTransport();
-//        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-//        mService = new com.google.api.services.calendar.Calendar.Builder(
-//                transport, jsonFactory, credential)
-//                .setApplicationName("Google Calendar API Android Quickstart")
-//                .build();
-       // Events events = mService.events();
+
     }
 }

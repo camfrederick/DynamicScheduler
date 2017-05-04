@@ -22,6 +22,7 @@ public class Event implements ScheduleObservable {
     int startTime = 0;
     int stopTime = 0;
     String location = "";
+    String desc = "";
 
     int duration;
     boolean algorithmicAdd;
@@ -37,9 +38,10 @@ public class Event implements ScheduleObservable {
     private static final int MAX_YEAR = 9999;
 
     public Event(String title, int startTime, int stopTime,
-                 String location, String date) {
+                 String location, String date,String desc) {
 
         algorithmicAdd = false;
+        this.desc = desc;
         this.date = date;
         int[] dateArray = parseDate(date);
         this.year = dateArray[0];
@@ -53,9 +55,9 @@ public class Event implements ScheduleObservable {
 
     }
 
-    public Event(boolean alg, String days, String title,int duration,String location,String deadline,BusyTime bt) {
+    public Event(boolean alg, String days, String title,int duration,String location,String deadline,BusyTime bt, String desc) {
 
-
+        this.desc = desc;
         algorithmicAdd = alg;
         this.deadline = deadline;
         this.duration = duration;
@@ -73,7 +75,9 @@ public class Event implements ScheduleObservable {
         return title;
     }
 
-
+    public String getDesc() {
+        return desc;
+    }
     public String getLocation() {
         return location;
     }

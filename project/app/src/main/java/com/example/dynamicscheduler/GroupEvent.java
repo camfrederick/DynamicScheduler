@@ -12,8 +12,8 @@ public class GroupEvent extends Event implements UserObservable{
     private Group group;
 
     public GroupEvent(Group g, String title, int startTime, int stopTime,
-                      String location,String date) {
-        super(title,startTime,stopTime,location,date);
+                      String location,String date,String desc) {
+        super(title,startTime,stopTime,location,date, desc);
         for(Member member : g.getMemberList()){
             if(member.equals(g.getAdmin())){
                 continue;
