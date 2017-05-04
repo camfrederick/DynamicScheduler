@@ -122,7 +122,9 @@
             android:id="@+id/np_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/ce_busytime_spinner"
+            android:layout_alignParentLeft="@+id/ce_setdate"
+            android:layout_alignParentStart="@+id/ce_setdate"
+            android:layout_marginLeft="115dp"
             android:layout_below="@id/textView9" />
 
         <TextView

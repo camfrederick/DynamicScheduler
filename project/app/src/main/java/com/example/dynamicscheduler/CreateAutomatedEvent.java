@@ -1,6 +1,7 @@
 package com.example.dynamicscheduler;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.RelativeDateTimeFormatter;
 import android.icu.text.SimpleDateFormat;
@@ -130,6 +131,9 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                         event_location.getText().toString(),deadline_string,bt,event_desc.getText().toString());
 
                 finish();
+
+                Intent intent = new Intent(v.getContext(), GoogleCalendarTest.class);
+                startActivity(intent);
 
             }
         });
