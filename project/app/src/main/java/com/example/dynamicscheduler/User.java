@@ -40,7 +40,6 @@ public class User{
         this.schedule = new Schedule();
     }
 
-
     public User(String fullName, String address, String emailAddress, String phoneNum){
         this.name = fullName;
         this.homeaddress = address;
