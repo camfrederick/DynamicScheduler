@@ -91,7 +91,7 @@ public class GoogleCalendarTest extends Activity
 
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR };
 
     /**
      * Create the main activity.
@@ -523,19 +523,23 @@ public class GoogleCalendarTest extends Activity
                 if(!eventStrings.contains(eventDay))
                     eventStrings.add(String.format("%s %s, %s", month, day, year));
 
+                if(s.length() >= 16) {
+                    s = s.substring(11, 16);
+                    int hour = Integer.parseInt(s.substring(0, 2));
+                    if (hour > 12) {
+                        hour = hour % 12;
+                        s = hour + s.substring(2) + " pm";
+                    } else
+                        s = hour + s.substring(2) + " am";
 
-                s = s.substring(11, 16);
-                int hour = Integer.parseInt(s.substring(0,2));
-                if(hour > 12) {
-                    hour = hour % 12;
-                    s = hour + s.substring(2) + " pm";
+
+                    eventStrings.add(
+                            String.format("%s: %s", event.getSummary(), s));
                 }
-                else
-                    s = hour + s.substring(2) + " am";
-
-
-                eventStrings.add(
-                        String.format("%s: %s", event.getSummary(), s));
+                else{
+                    eventStrings.add(
+                            String.format("%s", event.getSummary()));
+                }
             }
             return eventStrings;
         }
