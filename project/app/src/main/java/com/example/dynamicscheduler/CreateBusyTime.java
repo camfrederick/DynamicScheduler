@@ -108,8 +108,8 @@ public class CreateBusyTime extends AppCompatActivity {
                         repeat += tb.getText().toString();
                     }
                 }
-                BusyTime tempbt = new BusyTime(start, stop, repeat, busy_time_name.getText().toString());
-                GoogleCalendarTest.getUser().addBusyTime(tempbt);
+
+                GoogleCalendarTest.getUser().createBusyTime(start, stop, repeat, busy_time_name.getText().toString());
                 //new MakeInsertTask(mCredential).execute();
                 finish();
             }

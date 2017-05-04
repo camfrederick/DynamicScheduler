@@ -19,7 +19,7 @@ public class Schedule implements ScheduleObserver{
 
     private com.google.api.services.calendar.Calendar mService = null;
     private ArrayList<Event> events;
-    private ArrayList<BusyTime> busyTimes;
+    ArrayList<BusyTime> busyTimes;
 
     public Schedule(){
         events = new ArrayList<Event>();

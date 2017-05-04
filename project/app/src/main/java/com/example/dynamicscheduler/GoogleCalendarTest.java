@@ -155,8 +155,10 @@ public class GoogleCalendarTest extends Activity
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.print(client_user.getAddress());
                 Intent intent = new Intent(v.getContext(), GoogleSignInActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -210,12 +212,12 @@ public class GoogleCalendarTest extends Activity
 
     }
 
-    @Override
-    protected void onResume() {
+    //@Override
+    //protected void onResume() {
 
-        super.onResume();
-        this.onCreate(null);
-    }
+     //   super.onResume();
+        //getResultsFromApi();
+   // }
 
     public static User getUser(){
         return client_user;

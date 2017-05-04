@@ -330,7 +330,7 @@ public class User{
                             String location, String date, String desc, String group){
         final Event event = new Event( title,  startTime,  stopTime,
                 location,  date, desc);
-        final FirebaseDatabase db = FirebaseDatabase.getInstance();
+
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();
@@ -342,16 +342,43 @@ public class User{
     }
 
     public void createBusyTime(int start, int stop, String repeat, String name){
-       BusyTime busytime = new BusyTime( start,  stop,  repeat,  name);
+        BusyTime busytime = new BusyTime( start,  stop,  repeat,  name);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
         schedule.addBusyTime(busytime);
+
+        Map<String, Object> busyTimeObj = new HashMap<String, Object>();
+        busyTimeObj.put("busyTimes", schedule.getBusyTimes());
+        try{
+        db.getReference("users").child(userID).updateChildren(busyTimeObj);}catch(Exception e){
+            int i =5;
+        }
+
 
     }
 
     public void addSchedule(List<com.google.api.services.calendar.model.Event> items){
         this.schedule = new Schedule();
+        final FirebaseDatabase db = FirebaseDatabase.getInstance();
         for (com.google.api.services.calendar.model.Event googleevent : items) {
             schedule.addEvent(googleevent);
         }
+
+        db.getReference("users").child(userID).child("busyTimes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               // schedule.busyTimes = dataSnapshot.getValue(BusyTime.class);
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    try{schedule.addBusyTime(ds.getValue(BusyTime.class));}catch(Exception e){
+                        int i = 5;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
     public void addBusyTime(BusyTime bt){
