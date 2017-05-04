@@ -537,16 +537,7 @@ public class GoogleCalendarTest extends Activity
                             hour = 12;
                         }
                         s = hour + s.substring(2) + " pm";
-<<<<<<< HEAD
-=======
-                    } else {
-                        if (hour == 0) {
-                            hour = 12;
-                        }
-                        s = hour + s.substring(2) + " am";
->>>>>>> a18e5c6fcb0fb2ce5c825d356a85241119091cd6
                     }
-
 
                     eventStrings.add(
                             String.format("%s: %s", event.getSummary(), s));
