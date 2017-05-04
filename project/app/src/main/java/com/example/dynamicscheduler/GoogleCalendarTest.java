@@ -212,12 +212,13 @@ public class GoogleCalendarTest extends Activity
 
     }
 
-    //@Override
-    //protected void onResume() {
 
-     //   super.onResume();
-        //getResultsFromApi();
-   // }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        this.onCreate(null);
+    }
+
 
     public static User getUser(){
         return client_user;
