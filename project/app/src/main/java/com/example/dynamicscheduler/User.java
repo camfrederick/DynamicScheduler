@@ -328,5 +328,8 @@ public class User{
         }
 
     }
+    public void addBusyTime(BusyTime bt){
+        schedule.addBusyTime(bt);
+    }
 
 }

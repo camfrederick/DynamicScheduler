@@ -67,9 +67,9 @@ public class CreateAutomatedEvent extends AppCompatActivity {
     FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final ArrayList<BusyTime> busyTime_list = new ArrayList<BusyTime>(); //TODO get current user busytimes user.schedule.
-        busyTime_list.add(new BusyTime(1400,1700,"everyday","Homework"));
-
+        //final ArrayList<BusyTime> busyTime_list = new ArrayList<BusyTime>(); //TODO get current user busytimes user.schedule.
+       // busyTime_list.add(new BusyTime(1400,1700,"everyday","Homework"));
+        final ArrayList<BusyTime> busyTime_list = GoogleCalendarTest.getUser().getSchedule().getBusyTimes();
         if(busyTime_list.size() == 0){
             //TODO throw error for not having a busytime
         }
