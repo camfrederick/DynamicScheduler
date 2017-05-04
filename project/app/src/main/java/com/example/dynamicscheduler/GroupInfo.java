@@ -42,7 +42,9 @@ public class GroupInfo extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try{
                     selected_group = dataSnapshot.getValue(Group.class);
+
                     selected_group.updateMemberDatabase(dataSnapshot);
+                    selected_group.groupEvent = dataSnapshot.child("Event").getValue(EventAdapter.class);
                     adapter = new ArrayAdapter<String>(GroupInfo.this, android.R.layout.simple_list_item_1, selected_group.member_names);
                     groupList.setAdapter(adapter);
                     System.out.print(" ");

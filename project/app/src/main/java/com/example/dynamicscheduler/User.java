@@ -13,8 +13,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Cam on 3/23/2017.
@@ -312,6 +314,22 @@ public class User{
         schedule.addEvent(event);
         event.registerSchedule(schedule);
         optimizeSchedule();
+
+
+    }
+
+    Group myGroup;
+    public void createEvent(String title, int startTime, int stopTime,
+                            String location, String date, String desc, String group){
+        final Event event = new Event( title,  startTime,  stopTime,
+                location,  date, desc);
+        final FirebaseDatabase db = FirebaseDatabase.getInstance();
+        schedule.addEvent(event);
+        event.registerSchedule(schedule);
+        optimizeSchedule();
+        //myGroup = new Group(group);
+
+
 
 
     }

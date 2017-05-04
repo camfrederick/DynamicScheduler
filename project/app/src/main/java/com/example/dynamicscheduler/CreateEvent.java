@@ -6,9 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.app.DialogFragment;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -24,9 +26,17 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class CreateEvent extends AppCompatActivity {
@@ -36,6 +46,9 @@ public class CreateEvent extends AppCompatActivity {
    //private EditText event_date;
     private EditText event_name;
     private EditText event_desc;
+    Spinner groupspin;
+    ArrayAdapter adapter;
+    ArrayList<String> groups_with_blank;
 
     private Button create_event;
     private Button event_starttime;
@@ -48,6 +61,7 @@ public class CreateEvent extends AppCompatActivity {
     private String endtime;
     GoogleAccountCredential mCredential;
     FirebaseUser user;
+    DatabaseReference dataRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +76,17 @@ public class CreateEvent extends AppCompatActivity {
         event_starttime = (Button)findViewById(R.id.ce_lengthtime);
         event_stoptime = (Button)findViewById(R.id.ce_stoptime);
         automated_event = (Button)findViewById(R.id.automatedevent);
+        groupspin = (Spinner)findViewById(R.id.group_spin);
 
-
+        groups_with_blank = GoogleCalendarTest.client_user.getGroup_IDs();
+        groups_with_blank.add(0, "Select Group (Optional)");
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, groups_with_blank);
+        groupspin.setAdapter(adapter);
         timepressed = (TextView)findViewById(R.id.time_button);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
 
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +118,40 @@ public class CreateEvent extends AppCompatActivity {
 
                 int starttime = parseTime(event_starttime.getText().toString());
                 int stoptime = parseTime(event_stoptime.getText().toString());
+
+                String group_selection = groupspin.getSelectedItem().toString();
+
+                if((groupspin.getSelectedItemPosition() != 0)&&(client_user!=null)){
+                    client_user.createEvent(event_name.getText().toString(), starttime, stoptime, event_location.getText().toString(),
+                            event_date.getText().toString(), event_desc.getText().toString(), group_selection);
+                    final EventAdapter event = new EventAdapter(event_name.getText().toString(), starttime, stoptime, event_location.getText().toString(),
+                            event_date.getText().toString(), event_desc.getText().toString());
+                    dataRef = database.getReference("groups").child(group_selection).child("Event");
+                    try{
+                        database.getReference("groups").child(group_selection).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //Group myGroup = dataSnapshot.getValue(Group.class);
+                                //myGroup.groupEvent = event;
+                                //myGroup.updateMemberDatabase(dataSnapshot);
+
+                                Map<String, Object> notifMap = new HashMap<String, Object>();
+                                notifMap.put("groupEvent", event);
+                                dataRef.setValue(event);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });}catch(Exception e){
+                        int i = 5;
+                    }
+
+                    //database.getReference("groups").child(group_selection).updateChildren(notifMap);
+
+                }
                 client_user = GoogleCalendarTest.getUser();
                 if(client_user != null) {
                     client_user.createEvent(event_name.getText().toString(), starttime, stoptime, event_location.getText().toString(),

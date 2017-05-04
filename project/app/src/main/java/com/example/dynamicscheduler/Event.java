@@ -37,6 +37,9 @@ public class Event implements ScheduleObservable {
     private static final int MIN_YEAR = 0000;
     private static final int MAX_YEAR = 9999;
 
+    public Event(){
+
+    }
     public Event(String title, int startTime, int stopTime,
                  String location, String date,String desc) {
 

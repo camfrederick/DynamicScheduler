@@ -154,5 +154,16 @@
             android:layout_below="@+id/textView7"
             android:text="00:00" />
 
+        <Spinner
+            android:id="@+id/group_spin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/SelectDate"
+            android:layout_alignEnd="@+id/ce_stoptime"
+            android:layout_alignLeft="@+id/SelectDate"
+            android:layout_alignRight="@+id/ce_stoptime"
+            android:layout_alignStart="@+id/SelectDate"
+            android:layout_marginBottom="11dp" />
+
     </RelativeLayout>
 </LinearLayout>
