@@ -152,8 +152,8 @@ public class CreateEvent extends AppCompatActivity {
                     //database.getReference("groups").child(group_selection).updateChildren(notifMap);
 
                 }
-                client_user = GoogleCalendarTest.getUser();
-                if(client_user != null) {
+                //client_user = GoogleCalendarTest.getUser();
+                else if(client_user != null) {
                     client_user.createEvent(event_name.getText().toString(), starttime, stoptime, event_location.getText().toString(),
                             event_date.getText().toString(), event_desc.getText().toString());
                     finish();
