@@ -28,7 +28,7 @@ public class User{
     private String homeaddress;
     private String email;
     private String telephone;
-    private ArrayList<String> group_IDs;
+    ArrayList<String> group_IDs;
     private ArrayList<Group> groups;
     protected Schedule schedule;
 
