@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleCalendarTest"/>
+        <activity android:name=".GoogleCalendarTest" />
         <activity
             android:name=".CreateAutomatedEvent"
             android:label="CreateAutomatedEvent"
@@ -31,12 +31,12 @@
         <activity
             android:name=".ManageGroups"
             android:label="@string/title_activity_manage_groups"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateBusyTime"
             android:label="CreateBusyTime"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GroupInfo"></activity>
     </application>
 
 </manifest>

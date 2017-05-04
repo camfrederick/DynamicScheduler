@@ -7,6 +7,7 @@ import com.google.api.client.util.Data;
 import com.google.api.client.util.DateTime;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -50,10 +51,13 @@ public class User{
         behave = new CreateForSelf();
     }
 
-
+    public ArrayList<String> getGroup_IDs(){
+        return group_IDs;
+    }
 
     public void updateGroupNames(DataSnapshot parent){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dataRef;
 
 
         group_IDs = new ArrayList<String>();
@@ -61,6 +65,7 @@ public class User{
 
         for(DataSnapshot child : parent.child("group_IDs").getChildren()){
             //String potato = db.getReference("groups").child(child.getValue(String.class));
+            dataRef = db.getReference("groups").child(child.getValue(String.class));
             group_IDs.add(child.getValue(String.class));
         }
 

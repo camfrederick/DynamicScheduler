@@ -5,19 +5,26 @@ package com.example.dynamicscheduler;
  */
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class Group {
 
-    String name;
+    String group_name;
     ArrayList<Member> members = new ArrayList<Member>();
+    ArrayList<String> member_names;
     Member admin;
     int startShift;
     int stopShift;
 
-    public Group(ArrayList<Member> m, Member a, int start, int stop, String name) {
-        this.name = name;
+    public Group(){
+
+    }
+
+    public Group(ArrayList<Member> m, Member a, int start, int stop, String group_name) {
+        this.group_name = group_name;
         if(m != null)
             this.members.addAll(m);
         this.members.add(a);
@@ -26,7 +33,21 @@ public class Group {
         this.stopShift = stop;
     }
 
-    public void updateMemberDatabase(DataSnapshot dataSnapshot){
+    public void updateMemberDatabase(DataSnapshot parent){
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dataRef;
+
+
+        member_names = new ArrayList<String>();
+
+
+        for(DataSnapshot child : parent.child("member_names").getChildren()){
+            //String potato = db.getReference("groups").child(child.getValue(String.class));
+            
+            String memname = child.getValue(String.class);
+            member_names.add(child.getValue(String.class));
+        }
+
 
     }
 

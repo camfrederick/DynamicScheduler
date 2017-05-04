@@ -71,7 +71,7 @@ public class GoogleCalendarTest extends Activity
     FirebaseUser user;
     FirebaseDatabase database;
 
-    User client_user;
+    static User client_user;
 
     private TextView mOutputText;
     private Button mCreateEventButton;
@@ -113,6 +113,7 @@ public class GoogleCalendarTest extends Activity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ManageGroups.class);
+                startActivity(intent);
             }
         });
 
@@ -192,22 +193,10 @@ public class GoogleCalendarTest extends Activity
             }
         });
 
-        database.getReference("groups").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
     }
-
-
 
     /**
      * Attempt to call the API, after verifying that all the preconditions are
@@ -459,6 +448,7 @@ public class GoogleCalendarTest extends Activity
 
             for (com.google.api.services.calendar.model.Event event : items) {
                 DateTime start = event.getStart().getDateTime();
+
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
