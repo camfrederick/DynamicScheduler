@@ -470,7 +470,7 @@ public class GoogleCalendarTest extends Activity
             googleEvents = events2.getItems();
 
             if(client_user != null) {
-                client_user.addSchedule(googleEvents);
+                //client_user.addSchedule(googleEvents);
             }
             Events events = mService.events().list("primary")
                     .setMaxResults(8)

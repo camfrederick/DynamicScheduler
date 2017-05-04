@@ -33,7 +33,9 @@ public class User{
     protected Schedule schedule;
 
     FirebaseDatabase database;
+    public User(){
 
+    }
     public User(String userID, String email){
         this.userID = userID;
         this.email = email;
