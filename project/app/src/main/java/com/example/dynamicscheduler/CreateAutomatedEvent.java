@@ -118,7 +118,7 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                     deadline_string = "9999-12-30"; //no deadline input set maximum date
                 }
 
-                User us = new User("jasdfk","lsdkjfa","dslkjf","lkdsjaf"); //TODO make user be pulled
+                User us =  GoogleCalendarTest.getUser();
                 BusyTime bt =  null;
                 for(BusyTime b: busyTime_list){
                     if(busyTimes.getSelectedItem().toString().equals(b.getTitle())){
@@ -128,10 +128,8 @@ public class CreateAutomatedEvent extends AppCompatActivity {
                 }
                 us.createEventAlgorithmically("EveryDay",event_name.getText().toString(),time_length,
                         event_location.getText().toString(),deadline_string,bt,event_desc.getText().toString());
-                for(com.example.dynamicscheduler.Event e : us.getSchedule().getEvents()){
-                    Log.d("d",e.getTitle());
 
-                }
+                finish();
 
             }
         });
