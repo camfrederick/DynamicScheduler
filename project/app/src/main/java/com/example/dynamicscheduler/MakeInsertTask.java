@@ -128,9 +128,9 @@ public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
         String starttime = timeToString(my_event.getStartTime());
         String endtime = timeToString(my_event.getStartTime());
         for (com.google.api.services.calendar.model.Event e : items) {
-            if (e.getStart().equals(my_event.getDate() + "T" + starttime + ":00" + "-05:00")){
-                if (e.getEnd().equals(my_event.getDate() + "T" + endtime + ":00" + "-05:00")){
-                    if(e.getSummary().equals(my_event.getTitle())){
+            if (e.getStart().toString().equals(my_event.getDate() + "T" + starttime + ":00" + "-06:00")){
+                if (e.getEnd().toString().equals(my_event.getDate() + "T" + endtime + ":00" + "-06:00")){
+                    if(e.getSummary().toString().equals(my_event.getTitle())){
                         removeEvent = e;
                         break;
                     }

@@ -32,6 +32,10 @@ public class Schedule implements ScheduleObserver{
         update();
     }
 
+    public void addEvent(Event e, boolean b){
+        events.add(e);
+    }
+
     public void addEvent (com.google.api.services.calendar.model.Event e){
         String title = "";
         int startTime = 1100;
@@ -69,8 +73,7 @@ public class Schedule implements ScheduleObserver{
             stopTime = parseTime(stopString);
         }
         date = start.toString();
-
-
+        date = date.substring(0, date.indexOf('T'));
 
         Event event = new Event(title,startTime,stopTime,location,date,desc);
         events.add(event);

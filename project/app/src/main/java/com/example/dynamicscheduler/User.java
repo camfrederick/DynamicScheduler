@@ -105,6 +105,7 @@ public class User{
                 int starttime = bt.getStarttime();
                 int endtime = starttime + e.duration;
                 String date = currentDate;
+                date = addDays(currentDate,0,bt);
                 boolean foundtimeflag = true;
                 boolean resetsearchflag = false;
                 while(foundtimeflag){
@@ -154,6 +155,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.TUESDAY:
                     if(!validdays.contains("T") || validdays.charAt(validdays.indexOf('T')+1) == 'h'){
                         c.add(Calendar.DATE,1);
@@ -161,6 +163,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.WEDNESDAY:
                     if(!validdays.contains("W")){
                         c.add(Calendar.DATE,1);
@@ -168,6 +171,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.THURSDAY:
                     if(!validdays.contains("Th")){
                         c.add(Calendar.DATE,1);
@@ -175,6 +179,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.FRIDAY:
                     if(!validdays.contains("F")){
                         c.add(Calendar.DATE,1);
@@ -182,6 +187,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.SATURDAY:
                     if(!validdays.contains("Sa")){
                         c.add(Calendar.DATE,1);
@@ -189,6 +195,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
                 case Calendar.SUNDAY:
                     if(!validdays.contains("Su")){
                         c.add(Calendar.DATE,1);
@@ -196,6 +203,7 @@ public class User{
                     else{
                         foundvalidday = true;
                     }
+                    break;
             }
         }
         int year = c.get(Calendar.YEAR);
@@ -215,10 +223,10 @@ public class User{
     }
     public boolean timeConflict(Event event, int starttime, int endtime,String date){
         if(event.getDate().equals(date)){
-            if(event.getStartTime() <= starttime && event.getStopTime()> starttime){
+            if((event.getStartTime() <= starttime) && (event.getStopTime() > starttime)){
                 return true;
             }
-            if(event.getStartTime() < endtime && event.getStopTime()>= endtime){
+            if((event.getStartTime() < endtime) && (event.getStopTime() >= endtime)){
                 return true;
             }
         }
@@ -298,7 +306,7 @@ public class User{
         days = "EveryDay"; // will need to update days later
 
         Event event = new Event(true,days,title,duration,location,deadline,bt,desc);
-        schedule.addEvent(event);
+        schedule.addEvent(event, true);
         event.registerSchedule(schedule);
         optimizeSchedule();
 
