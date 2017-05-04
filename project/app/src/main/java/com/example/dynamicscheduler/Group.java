@@ -23,6 +23,11 @@ public class Group {
 
     }
 
+    public Group(String group_name){
+        this.group_name = group_name;
+        member_names = new ArrayList<String>();
+    }
+
     public Group(ArrayList<Member> m, Member a, int start, int stop, String group_name) {
         this.group_name = group_name;
         if(m != null)
