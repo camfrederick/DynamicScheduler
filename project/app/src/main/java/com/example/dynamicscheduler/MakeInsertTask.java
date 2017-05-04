@@ -91,19 +91,17 @@ public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
     private void pushToGoogleCal() throws IOException{
 
         String starttime = timeToString(my_event.getStartTime());
-        String endtime = timeToString(my_event.getStartTime());
+        String endtime = timeToString(my_event.getStopTime());
         com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
                 .setSummary(my_event.getTitle())
                 .setLocation(my_event.getLocation())
                 .setDescription(my_event.getDesc());
-
-        String testDate = my_event.getDate() + "T" + starttime + ":00" + "-06:00";
-        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-06:00");
+        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-05:00");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         event.setStart(start);
 
-            DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-06:00");
+            DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-05:00");
             EventDateTime end = new EventDateTime()
                     .setDateTime(endDateTime);
             event.setEnd(end);
