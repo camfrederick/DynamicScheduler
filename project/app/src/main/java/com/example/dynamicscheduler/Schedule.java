@@ -39,36 +39,36 @@ public class Schedule implements ScheduleObserver{
         String location = "";
         String date = "2017-04-06";
         String desc = "";
-//        if(e.getSummary() != null) {
-//            title = e.getSummary().toString();
-//        }
-//        if(e.getLocation() != null) {
-//            location = e.getLocation().toString();
-//        }
-//        if(e.getDescription() != null) {
-//            desc = e.getDescription().toString();
-//        }
-//        DateTime start = e.getStart().getDateTime();
-//        DateTime end = e.getEnd().getDateTime();
-////
-//        if (start == null) {
-//            // All-day events don't have start times, so just use
-//            // the start date.
-//            start = e.getStart().getDate();
-//            //Log.d("start is null",start.toString());
-//            startTime = 0;
-//            stopTime = 2400;
-//        }
-//        else{
-//            String startString = start.toString();
-//            //Log.d("start is not",start.toString());
-//            startString = startString.substring(startString.indexOf("T") +1);
-//            String stopString = end.toString();
-//            stopString = stopString.substring(stopString.indexOf("T") +1);
-//            startTime = parseTime(startString);
-//            stopTime = parseTime(stopString);
-//        }
-//        date = start.toString();
+        if(e.getSummary() != null) {
+            title = e.getSummary().toString();
+        }
+        if(e.getLocation() != null) {
+            location = e.getLocation().toString();
+        }
+        if(e.getDescription() != null) {
+            desc = e.getDescription().toString();
+        }
+        DateTime start = e.getStart().getDateTime();
+        DateTime end = e.getEnd().getDateTime();
+//
+        if (start == null) {
+            // All-day events don't have start times, so just use
+            // the start date.
+            start = e.getStart().getDate();
+            //Log.d("start is null",start.toString());
+            startTime = 0;
+            stopTime = 2400;
+        }
+        else{
+            String startString = start.toString();
+            //Log.d("start is not",start.toString());
+            startString = startString.substring(startString.indexOf("T") +1);
+            String stopString = end.toString();
+            stopString = stopString.substring(stopString.indexOf("T") +1);
+            startTime = parseTime(startString);
+            stopTime = parseTime(stopString);
+        }
+        date = start.toString();
 
 
 

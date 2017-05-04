@@ -186,9 +186,9 @@ public class GoogleCalendarTest extends Activity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try{
                     client_user = dataSnapshot.getValue(User.class);
-//                    if(googleEvents != null) {
-//                        client_user.addSchedule(googleEvents);
-//                    }
+                    if(googleEvents != null) {
+                        client_user.addSchedule(googleEvents);
+                    }
                     client_user.updateGroupNames(dataSnapshot);
                     System.out.print("");
                     Log.d("D","userloaded");
@@ -470,7 +470,7 @@ public class GoogleCalendarTest extends Activity
             googleEvents = events2.getItems();
 
             if(client_user != null) {
-                //client_user.addSchedule(googleEvents);
+                client_user.addSchedule(googleEvents);
             }
             Events events = mService.events().list("primary")
                     .setMaxResults(8)
