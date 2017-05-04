@@ -526,19 +526,18 @@ public class GoogleCalendarTest extends Activity
                 if(s.length() >= 16) {
                     s = s.substring(11, 16);
                     int hour = Integer.parseInt(s.substring(0, 2));
-                    if (hour >= 12) {
+                    if (hour < 12) {
+                        if (hour == 0)
+                            hour = 12;
+                        s = hour + s.substring(2) + " am";
+                    }
+                    else{
                         hour = hour % 12;
                         if (hour == 0){
                             hour = 12;
                         }
                         s = hour + s.substring(2) + " pm";
-                    } else {
-                        if (hour == 0) {
-                            hour = 12;
-                        }
-                        s = hour + s.substring(2) + " am";
                     }
-
 
                     eventStrings.add(
                             String.format("%s: %s", event.getSummary(), s));
