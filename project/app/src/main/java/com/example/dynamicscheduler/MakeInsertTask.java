@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
     final static int removeEvent = 0;
@@ -91,19 +92,17 @@ public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
     private void pushToGoogleCal() throws IOException{
 
         String starttime = timeToString(my_event.getStartTime());
-        String endtime = timeToString(my_event.getStartTime());
+        String endtime = timeToString(my_event.getStopTime());
         com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
                 .setSummary(my_event.getTitle())
                 .setLocation(my_event.getLocation())
                 .setDescription(my_event.getDesc());
-
-        String testDate = my_event.getDate() + "T" + starttime + ":00" + "-06:00";
-        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-06:00");
+        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-05:00");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         event.setStart(start);
 
-            DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-06:00");
+            DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-05:00");
             EventDateTime end = new EventDateTime()
                     .setDateTime(endDateTime);
             event.setEnd(end);
@@ -116,27 +115,53 @@ public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
 
     private void removefromGoogleCal() throws IOException{
 
+        com.google.api.services.calendar.model.Event removeEvent = null;
+        DateTime now = new DateTime(System.currentTimeMillis());
+        Events events = mService.events().list("primary")
+                .setMaxResults(200)
+                .setTimeMin(now)
+                .setOrderBy("startTime")
+                .setSingleEvents(true)
+                .execute();
+
+        List<com.google.api.services.calendar.model.Event> items = events.getItems();
         String starttime = timeToString(my_event.getStartTime());
         String endtime = timeToString(my_event.getStartTime());
-        com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
-                .setSummary(my_event.getTitle())
-                .setLocation(my_event.getLocation())
-                .setDescription(my_event.getDesc());
+        for (com.google.api.services.calendar.model.Event e : items) {
+            if (e.getStart().toString().equals(my_event.getDate() + "T" + starttime + ":00" + "-06:00")){
+                if (e.getEnd().toString().equals(my_event.getDate() + "T" + endtime + ":00" + "-06:00")){
+                    if(e.getSummary().toString().equals(my_event.getTitle())){
+                        removeEvent = e;
+                        break;
+                    }
 
-        String testDate = my_event.getDate() + "T" + starttime + ":00" + "-06:00";
-        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-06:00");
-        EventDateTime start = new EventDateTime()
-                .setDateTime(startDateTime);
-        event.setStart(start);
+                }
+            }
 
-        DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-06:00");
-        EventDateTime end = new EventDateTime()
-                .setDateTime(endDateTime);
-        event.setEnd(end);
+        }
 
+//        String starttime = timeToString(my_event.getStartTime());
+//        String endtime = timeToString(my_event.getStartTime());
+//        com.google.api.services.calendar.model.Event event = new com.google.api.services.calendar.model.Event()
+//                .setSummary(my_event.getTitle())
+//                .setLocation(my_event.getLocation())
+//                .setDescription(my_event.getDesc());
+//
+//        String testDate = my_event.getDate() + "T" + starttime + ":00" + "-06:00";
+//        DateTime startDateTime = new DateTime(my_event.getDate() + "T" + starttime + ":00" + "-06:00");
+//        EventDateTime start = new EventDateTime()
+//                .setDateTime(startDateTime);
+//        event.setStart(start);
+//
+//        DateTime endDateTime = new DateTime(my_event.getDate() + "T" + endtime + ":00" + "-06:00");
+//        EventDateTime end = new EventDateTime()
+//                .setDateTime(endDateTime);
+//        event.setEnd(end);
+//
         String calendarId = "primary";
 //
-        event = mService.events().insert(calendarId, event).execute();
+        mService.events().delete(calendarId,removeEvent.getId()).execute();
+ //       event = mService.events().insert(calendarId, event).execute();
 //        System.out.printf("Event created: %s\n", event.getHtmlLink());
     }
 

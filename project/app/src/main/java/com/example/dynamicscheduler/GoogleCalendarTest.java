@@ -91,7 +91,7 @@ public class GoogleCalendarTest extends Activity
 
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR };
 
     /**
      * Create the main activity.
@@ -186,9 +186,9 @@ public class GoogleCalendarTest extends Activity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try{
                     client_user = dataSnapshot.getValue(User.class);
-//                    if(googleEvents != null) {
-//                        client_user.addSchedule(googleEvents);
-//                    }
+                    if(googleEvents != null) {
+                        client_user.addSchedule(googleEvents);
+                    }
                     client_user.updateGroupNames(dataSnapshot);
                     System.out.print("");
                     Log.d("D","userloaded");
@@ -210,6 +210,12 @@ public class GoogleCalendarTest extends Activity
 
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        this.onCreate(null);
+    }
 
     public static User getUser(){
         return client_user;
@@ -523,19 +529,29 @@ public class GoogleCalendarTest extends Activity
                 if(!eventStrings.contains(eventDay))
                     eventStrings.add(String.format("%s %s, %s", month, day, year));
 
+                if(s.length() >= 16) {
+                    s = s.substring(11, 16);
+                    int hour = Integer.parseInt(s.substring(0, 2));
+                    if (hour < 12) {
+                        if (hour == 0)
+                            hour = 12;
+                        s = hour + s.substring(2) + " am";
+                    }
+                    else{
+                        hour = hour % 12;
+                        if (hour == 0){
+                            hour = 12;
+                        }
+                        s = hour + s.substring(2) + " pm";
+                    }
 
-                s = s.substring(11, 16);
-                int hour = Integer.parseInt(s.substring(0,2));
-                if(hour > 12) {
-                    hour = hour % 12;
-                    s = hour + s.substring(2) + " pm";
+                    eventStrings.add(
+                            String.format("%s: %s", event.getSummary(), s));
                 }
-                else
-                    s = hour + s.substring(2) + " am";
-
-
-                eventStrings.add(
-                        String.format("%s: %s", event.getSummary(), s));
+                else{
+                    eventStrings.add(
+                            String.format("%s", event.getSummary()));
+                }
             }
             return eventStrings;
         }
@@ -546,6 +562,7 @@ public class GoogleCalendarTest extends Activity
             mOutputText.setText("");
             mProgress.show();
         }
+
 
         @Override
         protected void onPostExecute(List<String> output) {
