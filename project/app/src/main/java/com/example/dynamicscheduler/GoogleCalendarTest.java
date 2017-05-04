@@ -532,11 +532,12 @@ public class GoogleCalendarTest extends Activity
                             hour = 12;
                         }
                         s = hour + s.substring(2) + " pm";
-                    } else
-                        if(hour == 0){
+                    } else {
+                        if (hour == 0) {
                             hour = 12;
                         }
                         s = hour + s.substring(2) + " am";
+                    }
 
 
                     eventStrings.add(
