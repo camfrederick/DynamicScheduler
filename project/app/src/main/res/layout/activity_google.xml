@@ -41,7 +41,7 @@
         android:id="@+id/g_calendar_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Google Calendar API Test" />
+        android:text="Home Page" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
