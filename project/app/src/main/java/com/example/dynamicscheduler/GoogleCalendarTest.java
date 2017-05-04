@@ -455,7 +455,7 @@ public class GoogleCalendarTest extends Activity
             // List the next 10 events from the primary calendar.
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
-            client_user.addSchedule(mService.events().list("Primary").execute().getItems());
+            //client_user.addSchedule(mService.events().list("Primary").execute().getItems());
             Events events = mService.events().list("primary")
                     .setMaxResults(8)
                     .setTimeMin(now)
