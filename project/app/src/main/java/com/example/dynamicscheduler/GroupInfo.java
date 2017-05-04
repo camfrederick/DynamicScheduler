@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +31,7 @@ public class GroupInfo extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ListView groupList;
     FloatingActionButton addmember;
+    FloatingActionButton addevent;
 
     String m_Text;
     String group_name;
@@ -40,6 +42,7 @@ public class GroupInfo extends AppCompatActivity {
         setContentView(R.layout.group_info);
 
         addmember = (FloatingActionButton)findViewById(R.id.add_member);
+        addevent = (FloatingActionButton)findViewById(R.id.add_groupevent);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseDatabase.getInstance();
@@ -61,6 +64,10 @@ public class GroupInfo extends AppCompatActivity {
 
                     if(!selected_group.member_names.get(0).equals(user.getEmail()))
                         addmember.setVisibility(View.GONE);
+
+                    if(selected_group.groupEvent == null)
+                        addevent.setVisibility(View.GONE);
+
                 }catch(Exception e){
                     System.out.print(" ");
                 }
@@ -73,6 +80,41 @@ public class GroupInfo extends AppCompatActivity {
             }
         });
 
+        addevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupInfo.this);
+                builder.setTitle("Create Group Event: ");
+
+                final TextView groupinfo = new TextView(GroupInfo.this);
+
+                groupinfo.setText("Event: " + selected_group.groupEvent.title + "/n Time: " + selected_group.groupEvent.startTime + " to "
+                    + selected_group.groupEvent.stopTime);
+                builder.setView(groupinfo);
+
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GoogleCalendarTest.client_user.createEvent(selected_group.groupEvent.title,
+                                selected_group.groupEvent.startTime,
+                                selected_group.groupEvent.stopTime,
+                                selected_group.groupEvent.location,
+                                selected_group.groupEvent.date,
+                                selected_group.groupEvent.desc);
+                    }
+
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
         addmember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
