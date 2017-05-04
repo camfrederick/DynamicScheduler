@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,7 +62,7 @@ public class MakeInsertTask extends AsyncTask<Void, Void, Void> {
                 return null;
             } catch (Exception e) {
 
-                System.out.println("");
+                Log.d("D",e.getMessage());
                 mLastError = e;
                 cancel(true);
                 return null;

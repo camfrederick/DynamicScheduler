@@ -31,35 +31,35 @@ public class Schedule implements ScheduleObserver{
     }
 
     public void addEvent (com.google.api.services.calendar.model.Event e){
-        String title;
-        int startTime;
-        int stopTime;
-        String location;
-        String date;
-        String desc;
-        title = e.getSummary().toString();
-        location = e.getLocation().toString();
-        desc = e.getDescription().toString();
+        String title = "";
+        int startTime = 1100;
+        int stopTime = 1300;
+        String location = "";
+        String date = "2017-04-06";
+        String desc = "";
+//        title = e.getSummary().toString();
+//        location = e.getLocation().toString();
+//        desc = e.getDescription().toString();
 
-        DateTime start = e.getStart().getDateTime();
-        DateTime end = e.getEnd().getDateTime();
+//        DateTime start = e.getStart().getDateTime();
+//        DateTime end = e.getEnd().getDateTime();
 
-        if (start == null) {
-            // All-day events don't have start times, so just use
-            // the start date.
-            start = e.getStart().getDate();
-            startTime = 0;
-            stopTime = 2400;
-        }
-        else{
-            String startString = start.toString();
-            startString = startString.substring(startString.indexOf("T"));
-            String stopString = end.toString();
-            stopString = stopString.substring(startString.indexOf("T"));
-            startTime = parseTime(startString);
-            stopTime = parseTime(stopString);
-        }
-        date = start.toString();
+//        if (start == null) {
+//            // All-day events don't have start times, so just use
+//            // the start date.
+//            start = e.getStart().getDate();
+//            startTime = 0;
+//            stopTime = 2400;
+//        }
+//        else{
+//            String startString = start.toString();
+//            startString = startString.substring(startString.indexOf("T"));
+//            String stopString = end.toString();
+//            stopString = stopString.substring(startString.indexOf("T"));
+//            startTime = parseTime(startString);
+//            stopTime = parseTime(stopString);
+//        }
+//        date = start.toString();
 
 
 
