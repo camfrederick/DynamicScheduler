@@ -104,6 +104,7 @@ public class Event implements ScheduleObservable {
     public String getDate(){
         return date;
     }
+
     public void changeEvent(String title, int startTime, int stopTime,
                             String location,String date){
 
@@ -118,6 +119,7 @@ public class Event implements ScheduleObservable {
         this.location = location;
         notifySchedule();
     }
+
 
     public static int[] parseDate(String date){
         int[] dateArray = new int[3];
