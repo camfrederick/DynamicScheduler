@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by Cam on 3/23/2017.
@@ -318,6 +319,14 @@ public class User{
     public void createBusyTime(int start, int stop, String repeat, String name){
        BusyTime busytime = new BusyTime( start,  stop,  repeat,  name);
         schedule.addBusyTime(busytime);
+
+    }
+
+    public void addSchedule(List<com.google.api.services.calendar.model.Event> items){
+        this.schedule = new Schedule();
+        for (com.google.api.services.calendar.model.Event googleevent : items) {
+            schedule.addEvent(googleevent);
+        }
 
     }
 

@@ -51,6 +51,7 @@ import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -184,9 +185,11 @@ public class GoogleCalendarTest extends Activity
                 try{
                     client_user = dataSnapshot.getValue(User.class);
                     client_user.updateGroupNames(dataSnapshot);
-                    System.out.print(" ");
+                    System.out.print("");
+                    Log.d("D","userloaded");
                 }catch(Exception e){
                     System.out.print(" ");
+                    Log.d("D","usernotloaded");
                 }
 
             }
@@ -452,6 +455,7 @@ public class GoogleCalendarTest extends Activity
             // List the next 10 events from the primary calendar.
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
+            client_user.addSchedule(mService.events().list("Primary").execute().getItems());
             Events events = mService.events().list("primary")
                     .setMaxResults(8)
                     .setTimeMin(now)
@@ -502,6 +506,7 @@ public class GoogleCalendarTest extends Activity
                 String eventDay = month + " " + day + ", " + year;
                 if(!eventStrings.contains(eventDay))
                     eventStrings.add(String.format("%s %s, %s", month, day, year));
+
 
                 s = s.substring(11, 16);
                 int hour = Integer.parseInt(s.substring(0,2));
