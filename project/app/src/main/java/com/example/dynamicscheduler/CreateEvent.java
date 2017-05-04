@@ -52,7 +52,6 @@ public class CreateEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-        client_user = GoogleCalendarTest.getUser();
         event_location = (EditText)findViewById(R.id.ce_setlocation);
 //        event_date = (EditText)findViewById(R.id.ce_setdate);
         event_name = (EditText)findViewById(R.id.ce_setname);
@@ -97,11 +96,16 @@ public class CreateEvent extends AppCompatActivity {
 
                 int starttime = parseTime(event_starttime.getText().toString());
                 int stoptime = parseTime(event_stoptime.getText().toString());
-
-                client_user.createEvent(event_name.getText().toString(),starttime,stoptime,event_location.getText().toString()
-                ,event_date.getText().toString(),event_desc.getText().toString());
+                client_user = GoogleCalendarTest.getUser();
+                if(client_user != null) {
+                    client_user.createEvent(event_name.getText().toString(), starttime, stoptime, event_location.getText().toString(),
+                            event_date.getText().toString(), event_desc.getText().toString());
+                    finish();
+                }
                 //new MakeInsertTask(mCredential).execute();
-                finish();
+//                else {
+//                    finish();
+//                }
             }
         });
 

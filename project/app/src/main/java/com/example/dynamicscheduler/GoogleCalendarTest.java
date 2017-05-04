@@ -72,6 +72,8 @@ public class GoogleCalendarTest extends Activity
     FirebaseUser user;
     FirebaseDatabase database;
 
+    List<com.google.api.services.calendar.model.Event> googleEvents = null;
+
     static User client_user;
 
     private TextView mOutputText;
@@ -184,6 +186,9 @@ public class GoogleCalendarTest extends Activity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try{
                     client_user = dataSnapshot.getValue(User.class);
+                    if(googleEvents != null) {
+                        client_user.addSchedule(googleEvents);
+                    }
                     client_user.updateGroupNames(dataSnapshot);
                     System.out.print("");
                     Log.d("D","userloaded");
@@ -455,7 +460,14 @@ public class GoogleCalendarTest extends Activity
             // List the next 10 events from the primary calendar.
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<String>();
-            //client_user.addSchedule(mService.events().list("Primary").execute().getItems());
+            Events events2 = mService.events().list("primary")
+                    .setMaxResults(20)
+                    .setTimeMin(now)
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+
+            googleEvents = events2.getItems();
             Events events = mService.events().list("primary")
                     .setMaxResults(8)
                     .setTimeMin(now)
