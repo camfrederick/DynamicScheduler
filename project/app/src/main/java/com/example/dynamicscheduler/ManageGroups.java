@@ -63,11 +63,11 @@ public class ManageGroups extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ManageGroups.this);
-                builder.setTitle("Title");
+                builder.setTitle("Add New Group, Enter Name:");
 
                 final EditText input = new EditText(ManageGroups.this);
 
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
 
