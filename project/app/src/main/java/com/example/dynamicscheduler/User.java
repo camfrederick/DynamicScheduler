@@ -34,14 +34,12 @@ public class User{
 
     FirebaseDatabase database;
 
-    public User(){
-
-    }
-
     public User(String userID, String email){
         this.userID = userID;
         this.email = email;
+        this.schedule = new Schedule();
     }
+
 
     public User(String fullName, String address, String emailAddress, String phoneNum){
         this.name = fullName;
