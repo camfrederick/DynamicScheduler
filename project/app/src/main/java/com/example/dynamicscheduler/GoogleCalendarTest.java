@@ -210,6 +210,12 @@ public class GoogleCalendarTest extends Activity
 
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        this.onCreate(null);
+    }
 
     public static User getUser(){
         return client_user;
@@ -556,6 +562,7 @@ public class GoogleCalendarTest extends Activity
             mOutputText.setText("");
             mProgress.show();
         }
+
 
         @Override
         protected void onPostExecute(List<String> output) {
