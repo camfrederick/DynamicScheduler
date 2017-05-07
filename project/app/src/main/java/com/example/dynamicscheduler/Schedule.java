@@ -73,7 +73,8 @@ public class Schedule implements ScheduleObserver{
             stopTime = parseTime(stopString);
         }
         date = start.toString();
-        date = date.substring(0, date.indexOf('T'));
+        if(date.contains("T"))
+            date = date.substring(0, date.indexOf('T'));
 
         Event event = new Event(title,startTime,stopTime,location,date,desc);
         events.add(event);
