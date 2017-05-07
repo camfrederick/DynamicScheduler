@@ -88,7 +88,7 @@ public class GroupInfo extends AppCompatActivity {
 
                 final TextView groupinfo = new TextView(GroupInfo.this);
 
-                groupinfo.setText("Event: " + selected_group.groupEvent.title + "/n Time: " + selected_group.groupEvent.startTime + " to "
+                groupinfo.setText("Event: " + selected_group.groupEvent.title + "\n Time: " + selected_group.groupEvent.startTime + " to "
                     + selected_group.groupEvent.stopTime);
                 builder.setView(groupinfo);
 
