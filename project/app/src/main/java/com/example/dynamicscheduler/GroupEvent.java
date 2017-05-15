@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Created by Casey on 4/24/2017.
  */
 
-public class GroupEvent extends Event implements UserObservable{
-    private ArrayList<UserObserver> observers = new ArrayList<UserObserver>();
+public class GroupEvent extends Event{
+    private ArrayList<User> observers = new ArrayList<User>();
     private ArrayList<Schedule> schedules = new ArrayList<Schedule>();
     private Group group;
 
@@ -22,13 +22,11 @@ public class GroupEvent extends Event implements UserObservable{
             registerSchedule(member.getSchedule());
         }
         group = g;
-        notifyObservers();
     }
 
     public void changeEvent(String title, int startTime, int stopTime,
                             String location,String date){
         super.changeEvent(title,startTime,stopTime,location,date);
-        notifyObservers();
     }
 
 
@@ -44,25 +42,19 @@ public class GroupEvent extends Event implements UserObservable{
     }
 
 
-    @Override
-    public void registerObserver(UserObserver o) {
+
+    public void registerObserver(User o) {
         observers.add(o);
     }
 
-    @Override
-    public void removeObserver(UserObserver o) {
+
+    public void removeObserver(User o) {
         int i = observers.indexOf(o);
         if (i >= 0) {
             observers.remove(i);
         }
     }
 
-    @Override
-    public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++) {
-            UserObserver observer = (UserObserver)observers.get(i);
-            observer.update(this);
 
-        }
-    }
+//
 }

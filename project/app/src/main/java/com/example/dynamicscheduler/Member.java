@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Cam on 3/23/2017.
  */
 
-public class Member extends User implements UserObserver {
+public class Member extends User{
 
     private ArrayList<Group> groups;
 
@@ -50,13 +50,5 @@ public class Member extends User implements UserObserver {
         schedule.addBusyTime(busy);
     }
 
-    @Override
-    public void update(Event e) {
-        //ping user using android notification
-        if (schedule.getEvents().contains(e)){
-            schedule.removeEvent(e);
-        }
-        schedule.addEvent(e);
-        //notifies user that a new event has been created for them and adds the new event to their schedule
-    }
+
 }
