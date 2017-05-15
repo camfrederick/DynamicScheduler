@@ -46,7 +46,7 @@ public class Member extends User implements UserObserver {
     }
 
     public void createBusyTime(int start, int stop, String repeat, String name){
-        BusyTime busy = behave.createBusyTime(start, stop, repeat, name);
+        BusyTime busy = new BusyTime(start,stop,repeat,name);
         schedule.addBusyTime(busy);
     }
 
