@@ -23,9 +23,9 @@ public class ExampleUnitTest {
         String currentDate = complexdate.substring(0,complexdate.indexOf("T"));
 
         User user = new User("tester","123madeup","jryanofarrell@gmail.com","5128978944");
-        user.createEvent("shopping",1600,1700,"HEB",currentDate);
-        user.createEvent("eating",1900,2000,"Home",currentDate);
-        user.createEvent("studying",2000,2200,"Home",currentDate);
+        user.createEvent("shopping",1600,1700,"HEB",currentDate,"desc");
+        user.createEvent("eating",1900,2000,"Home",currentDate,"desc");
+        user.createEvent("studying",2000,2200,"Home",currentDate,"desc");
 
         ArrayList<Event> eventlist = user.getSchedule().getEvents();
         assertEquals(eventlist.get(0).getStartTime(),1600);
@@ -62,7 +62,7 @@ public class ExampleUnitTest {
         members.add(user1);
         g.addMembers(members);
 
-        user3.createGroupEvent(g, "Work on Project", 1200, 1400, "PCL", currentDate);
+        user3.createGroupEvent(g, "Work on Project", 1200, 1400, "PCL", currentDate,"desc");
 
         assertEquals(user2.getSchedule().getEvents().get(0).getStartTime(), 1200);
         assertEquals(user1.getSchedule().getEvents().get(0).getTitle(), "Work on Project");
@@ -109,13 +109,13 @@ public class ExampleUnitTest {
         String complexdate = now.toString();
         String currentDate = complexdate.substring(0,complexdate.indexOf("T"));
 
-        user.createEventAlgorithmically("EveryDay","HW1", 300, "home", addDays(currentDate,5), hwBusyTime);
-        user.createEvent("meeting",1400,1500,"home",currentDate);
-        user.createEventAlgorithmically("EveryDay","HW2", 200, "home", addDays(currentDate,5), hwBusyTime);
-        user.createEvent("meeting",1400,1600,"home",addDays(currentDate,1));
+        user.createEventAlgorithmically("EveryDay","HW1", 300, "home", addDays(currentDate,5), hwBusyTime,"desc");
+        user.createEvent("meeting",1400,1500,"home",currentDate,"desc");
+        user.createEventAlgorithmically("EveryDay","HW2", 200, "home", addDays(currentDate,5), hwBusyTime,"desc");
+        user.createEvent("meeting",1400,1600,"home",addDays(currentDate,1),"desc");
 
-        user.createEventAlgorithmically("EveryDay","Movie", 200, "home", addDays(currentDate,5), freetimeBusyTime);
-        user.createEvent("meeting",1900,2000,"home",currentDate);
+        user.createEventAlgorithmically("EveryDay","Movie", 200, "home", addDays(currentDate,5), freetimeBusyTime,"desc");
+        user.createEvent("meeting",1900,2000,"home",currentDate,"desc");
 
 
         assertEquals(user.getSchedule().getEvents().get(0).getTitle(), "HW1");

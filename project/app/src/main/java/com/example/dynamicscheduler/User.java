@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class User{
 
-    public CreatorBehavior behave;
     private String userID;
     private String name;
     private String homeaddress;
