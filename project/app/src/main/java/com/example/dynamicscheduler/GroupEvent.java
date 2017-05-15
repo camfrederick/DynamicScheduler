@@ -30,13 +30,11 @@ public class GroupEvent extends Event{
     }
 
 
-    @Override
     public void registerSchedule(Schedule o) {
         schedules.add(o);
     }
 
 
-    @Override
     public void removeSchedule(Schedule o) {
         schedules.remove(o);
     }
