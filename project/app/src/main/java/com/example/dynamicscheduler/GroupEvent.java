@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class GroupEvent extends Event implements UserObservable{
     private ArrayList<UserObserver> observers = new ArrayList<UserObserver>();
-    private ArrayList<ScheduleObserver> schedules = new ArrayList<ScheduleObserver>();
+    private ArrayList<Schedule> schedules = new ArrayList<Schedule>();
     private Group group;
 
     public GroupEvent(Group g, String title, int startTime, int stopTime,
@@ -29,29 +29,20 @@ public class GroupEvent extends Event implements UserObservable{
                             String location,String date){
         super.changeEvent(title,startTime,stopTime,location,date);
         notifyObservers();
-        notifySchedule();
     }
 
 
     @Override
-    public void registerSchedule(ScheduleObserver o) {
+    public void registerSchedule(Schedule o) {
         schedules.add(o);
     }
 
 
     @Override
-    public void removeSchedule(ScheduleObserver o) {
+    public void removeSchedule(Schedule o) {
         schedules.remove(o);
     }
 
-
-    @Override
-    public void notifySchedule() {
-        for(ScheduleObserver s : schedules){
-            s.update();
-        }
-
-    }
 
     @Override
     public void registerObserver(UserObserver o) {

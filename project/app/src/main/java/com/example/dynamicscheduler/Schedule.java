@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by Casey on 3/23/2017.
  */
 
-public class Schedule implements ScheduleObserver{
+public class Schedule{
 
     private com.google.api.services.calendar.Calendar mService = null;
     private ArrayList<Event> events;
@@ -29,7 +29,6 @@ public class Schedule implements ScheduleObserver{
     public void addEvent(Event e){
         events.add(e);
         new MakeInsertTask(GoogleCalendarTest.getmCredential(),e,MakeInsertTask.addEvent).execute();
-        update();
     }
 
     public void addEvent(Event e, boolean b){
@@ -108,13 +107,5 @@ public class Schedule implements ScheduleObserver{
         return busyTimes;
     }
 
-    @Override
-    public void update() {
 
-        drawSchedule();
-    }
-
-    public void drawSchedule(){
-
-    }
 }

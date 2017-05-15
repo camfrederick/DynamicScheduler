@@ -7,7 +7,7 @@ import android.util.Log;
  */
 
 
-public class Event implements ScheduleObservable {
+public class Event  {
     // YYYY-MM-DD
     int deadlineMonth;
     int deadlineDay;
@@ -15,7 +15,7 @@ public class Event implements ScheduleObservable {
     int month;
     int day;
     int year;
-    ScheduleObserver schedule = null;
+    Schedule schedule = null;
 
     String date;
     String title = "";
@@ -158,20 +158,14 @@ public class Event implements ScheduleObservable {
         return dateArray;
     }
 
-    @Override
-    public void registerSchedule(ScheduleObserver o) {
+    public void registerSchedule(Schedule o) {
         schedule = o;
     }
 
-    @Override
-    public void removeSchedule(ScheduleObserver o) {
+    public void removeSchedule(Schedule o) {
         schedule = null;
     }
 
-    @Override
-    public void notifySchedule() {
-        schedule.update();
-    }
 
     public void setStartTime(int startTime){
         this.startTime = startTime;
