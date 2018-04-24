@@ -1,1 +1,2 @@
 # DynamicScheduler
+This Android application utilizes the Google Calendar API, Google Sign In API, and Google Firebase API in order to provide user's with an ability to automatically schedule events into their calendar based on priority and time slots alotted for specific types of events that you create for your DynamicScheduler. Furthermore, the app allows users to create groups to schedule events and meetings for various types of teams and groups. By functioning specifically within your Google Calendar, this app fits right into your daily schedule.
